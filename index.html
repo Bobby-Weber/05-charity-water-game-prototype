@@ -16,7 +16,7 @@
       <p>
         Bring water to all towns by placing wells within reach and connecting
         them to water deposits underground. You have a limited number of wells,
-        so place them wisely.
+        so place them wisely. 
       </p>
 
       <p>
@@ -41,7 +41,11 @@
     </aside>
 
     <div class="game-shell">
-      <h1>Charity Water Game Prototype</h1>
+      <div id="title">
+        <img src="img/water-can-transparent.png">
+        <h1>Charity Water Game Prototype</h1>
+        <img src="img/water-can-transparent.png">
+      </div>
       <p class="instructions">Drag the world or use the arrow keys to rotate it. Click the yellow square to place a well
         at the current top of the world.</p>
 
@@ -66,6 +70,19 @@
                 </div>
                 <div class="deposit deposit-two" style="--angle: 225deg; --distance: calc(var(--world-size) * 0.272);">
                 </div>
+
+                <div class="obstacle" style="--angle: 0deg; --distance: calc(var(--world-size) * 0.16);"></div>
+                <div class="obstacle" style="--angle: 90deg; --distance: calc(var(--world-size) * 0.22);"></div>
+                <div class="obstacle" style="--angle: 180deg; --distance: calc(var(--world-size) * 0.18);"></div>
+                <div class="obstacle" style="--angle: 190deg; --distance: calc(var(--world-size) * 0.38);"></div>
+                <div class="obstacle" style="--angle: 270deg; --distance: calc(var(--world-size) * 0.20);"></div>
+
+                <div class="obstacle" style="--angle: 55deg; --distance: calc(var(--world-size) * 0.38);"></div>
+                <div class="obstacle" style="--angle: 15deg; --distance: calc(var(--world-size) * 0.38);"></div>
+                <div class="obstacle" style="--angle: 345deg; --distance: calc(var(--world-size) * 0.28);"></div>
+                <div class="obstacle" style="--angle: 140deg; --distance: calc(var(--world-size) * 0.35);"></div>
+                <div class="obstacle" style="--angle: 235deg; --distance: calc(var(--world-size) * 0.39);"></div>
+                <div class="obstacle" style="--angle: 310deg; --distance: calc(var(--world-size) * 0.34);"></div>
               </div>
 
               <svg class="carving-layer" id="carvingLayer" viewBox="0 0 460 460" preserveAspectRatio="xMidYMid meet">
@@ -89,6 +106,7 @@
     </div>
   </div>
   <script src="script.js"></script>
+  <footer>.</footer>
 </body>
 
 </html>

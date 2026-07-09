@@ -184,7 +184,30 @@ function beginCarving(event) {
   event.stopPropagation();
 }
 
-// Keep updating the preview path while the pointer moves.
+// Helper to translate rock style custom properties into precise 460x460 local SVG canvas coordinates
+function getObstacleLocalPos(element) {
+  const angleStr = element.style.getPropertyValue('--angle') || '0deg';
+  const angleDegrees = parseFloat(angleStr);
+  const angleRadians = angleDegrees * Math.PI / 180;
+
+  const centerX = 230;
+  const centerY = 230;
+
+  const distanceStr = element.style.getPropertyValue('--distance') || '';
+  let distance = 460 * 0.22; // default fallback
+  
+  const match = distanceStr.match(/0\.\d+/);
+  if (match) {
+    distance = 460 * parseFloat(match[0]);
+  }
+
+  return {
+    x: centerX + distance * Math.cos(angleRadians),
+    y: centerY + distance * Math.sin(angleRadians)
+  };
+}
+
+// Keep updating the preview path while the pointer moves, canceling if hitting an obstacle rock.
 function updateCarving(event) {
   if (!isCarving || event.pointerId !== activeCarvingPointerId) {
     return;
@@ -192,6 +215,34 @@ function updateCarving(event) {
 
   const point = getPointFromEvent(event);
   const lastPoint = carvingPoints[carvingPoints.length - 1];
+
+  // Convert current screen point to local world space coordinates
+  const localPoint = toWorldLocalPoint(point);
+
+  // Check collision against all rock obstacles
+  const obstacles = document.querySelectorAll('.obstacle');
+  const localCollisionRadius = 22; 
+
+  let hitObstacle = false;
+  for (const obs of obstacles) {
+    const obsPos = getObstacleLocalPos(obs);
+    const distance = Math.hypot(localPoint.x - obsPos.x, localPoint.y - obsPos.y);
+    
+    if (distance < localCollisionRadius) {
+      hitObstacle = true;
+      break;
+    }
+  }
+
+  // Instantly cancel and clean up drawing state if a rock obstacle is struck
+  if (hitObstacle) {
+    isCarving = false;
+    activeCarvingPointerId = null;
+    carvingPoints = [];
+    carvingPreview.setAttribute('d', '');
+    event.preventDefault();
+    return;
+  }
 
   if (Math.hypot(point.x - lastPoint.x, point.y - lastPoint.y) > 2) {
     carvingPoints.push(point);
@@ -266,7 +317,6 @@ function checkForWin() {
   }
 
   // 3. Polar coordinate distance matching for clean coverage checks.
-  // Increased radius check range to 0.36 to give a highly generous, visual-first overlay margin.
   const RANGE_RADIUS = world.clientWidth * 0.36;
 
   for (const village of villages) {
@@ -290,6 +340,7 @@ function checkForWin() {
 
   console.log("Congratulations!");
   winModal.classList.add("show");
+  triggerConfetti(); 
 }
 
 // Finish the carving path and save it if it reaches a well.
@@ -384,7 +435,6 @@ function placeWell() {
   updateScoreDisplay();
   wellTool.disabled = wellCount <= 0;
   
-  // Trigger a check just in case pathways were carved prior to placing the final well
   checkForWin();
 }
 
@@ -424,3 +474,61 @@ document.addEventListener('keydown', (event) => {
 restartButton.addEventListener('click', () => {
   location.reload();
 });
+
+function triggerConfetti() {
+  const canvas = document.createElement('canvas');
+  canvas.style.position = 'fixed';
+  canvas.style.inset = '0';
+  canvas.style.width = '100%';
+  canvas.style.height = '100%';
+  canvas.style.pointerEvents = 'none';
+  canvas.style.zIndex = '99999'; 
+  document.body.appendChild(canvas);
+
+  const ctx = canvas.getContext('2d');
+  let width = canvas.width = window.innerWidth;
+  let height = canvas.height = window.innerHeight;
+
+  window.addEventListener('resize', () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  });
+
+  const colors = ['#FFC907', '#2E9DF7']; 
+  const particles = Array.from({ length: 120 }).map(() => ({
+    x: Math.random() * width,
+    y: Math.random() * height - height, 
+    r: Math.random() * 6 + 4,
+    d: Math.random() * height,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    tilt: Math.random() * 10 - 5,
+    tiltAngleIncremental: Math.random() * 0.07 + 0.02,
+    tiltAngle: 0
+  }));
+
+  function draw() {
+    ctx.clearRect(0, 0, width, height);
+
+    particles.forEach((p, idx) => {
+      p.tiltAngle += p.tiltAngleIncremental;
+      p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+      p.x += Math.sin(p.tiltAngle);
+      p.tilt = Math.sin(p.tiltAngle - idx / 3) * 15;
+
+      ctx.beginPath();
+      ctx.lineWidth = p.r;
+      ctx.strokeStyle = p.color;
+      ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+      ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+      ctx.stroke();
+    });
+
+    if (particles.some(p => p.y < height)) {
+      requestAnimationFrame(draw);
+    } else {
+      canvas.remove(); 
+    }
+  }
+
+  draw();
+}
