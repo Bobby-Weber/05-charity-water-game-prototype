@@ -1,43 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Charity Water Game</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Charity Water Game</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+  <div class="page-layout">
+
+    <aside class="sidebar">
+      <h2>Goal</h2>
+      <p>
+        Bring water to all towns by placing wells within reach and connecting
+        them to water deposits underground. You have a limited number of wells,
+        so place them wisely.
+      </p>
+
+      <p>
+        The longer your underground reservoirs are, the more points you gain.
+        <strong>Try to have the LEAST amount of points as you can!</strong>
+      </p>
+
+      <h2>Controls</h2>
+      <ul>
+        <li>Rotate the world with left click</li>
+        <li>Place wells with the yellow button</li>
+        <li>Carve reservoirs from water deposits to wells with right click</li>
+      </ul>
+
+      <h2>Legend</h2>
+      <ul class="legend">
+        <li><span class="legend-icon legend-well"></span> Yellow squares are wells</li>
+        <li><span class="legend-icon legend-town"></span> Orange rectangles are towns</li>
+        <li><span class="legend-icon legend-water"></span> Blue circles are water deposits</li>
+        <li><span class="legend-icon legend-range"></span> The area around wells is the range of their effect</li>
+      </ul>
+    </aside>
+
     <div class="game-shell">
-        <h1>Charity Water Game Prototype</h1>
-        <p class="instructions">Drag the world or use the arrow keys to rotate it. Click the yellow square to place a well at the current top of the world.</p>
+      <h1>Charity Water Game Prototype</h1>
+      <p class="instructions">Drag the world or use the arrow keys to rotate it. Click the yellow square to place a well
+        at the current top of the world.</p>
 
-        <div class="game-area" id="gameArea">
-            <button class="well-tool" id="wellTool" type="button" aria-label="Place well"></button>
+      <div class="game-area" id="gameArea">
+        <div class="well-count" id="wellCount">Wells: 2</div>
+        <div class="score-count" id="scoreCount">Score: 0</div>
+        <button id="restartButton" class="restart-button">Restart</button>
+        <button class="well-tool" id="wellTool" type="button" aria-label="Place well"></button>
 
-            <div class="world-stage">
-                <div class="world-shell" id="worldShell">
-                    <div class="world" id="world">
-                        <div class="world-contents" id="worldContents">
-                            <div class="village village-outside village-outside-left" style="--angle: 135deg; --distance: calc(var(--world-size) * 0.554); --rotation: 45deg;"></div>
-                            <div class="village village-outside village-outside-center" style="--angle: 200deg; --distance: calc(var(--world-size) * 0.554); --rotation: 110deg;"></div>
-                            <div class="village village-outside village-outside-right" style="--angle: 315deg; --distance: calc(var(--world-size) * 0.554); --rotation: 45deg;"></div>
+        <div class="world-stage">
+          <div class="world-shell" id="worldShell">
+            <div class="world" id="world">
+              <div class="world-contents" id="worldContents">
+                <div class="village village-outside village-outside-left"
+                  style="--angle: 135deg; --distance: calc(var(--world-size) * 0.554); --rotation: 45deg;"></div>
+                <div class="village village-outside village-outside-center"
+                  style="--angle: 200deg; --distance: calc(var(--world-size) * 0.554); --rotation: 110deg;"></div>
+                <div class="village village-outside village-outside-right"
+                  style="--angle: 315deg; --distance: calc(var(--world-size) * 0.554); --rotation: 45deg;"></div>
 
-                            <div class="deposit deposit-one" style="--angle: 45deg; --distance: calc(var(--world-size) * 0.272);"></div>
-                            <div class="deposit deposit-two" style="--angle: 225deg; --distance: calc(var(--world-size) * 0.272);"></div>
-                        </div>
-
-                        <svg class="carving-layer" id="carvingLayer" viewBox="0 0 460 460" preserveAspectRatio="xMidYMid meet">
-                            <g id="carvingPreviewGroup">
-                                <path id="carvingPreview" class="carving-path" d=""></path>
-                            </g>
-                            <g id="carvingWorldGroup"></g>
-                        </svg>
-                    </div>
+                <div class="deposit deposit-one" style="--angle: 45deg; --distance: calc(var(--world-size) * 0.272);">
                 </div>
+                <div class="deposit deposit-two" style="--angle: 225deg; --distance: calc(var(--world-size) * 0.272);">
+                </div>
+              </div>
+
+              <svg class="carving-layer" id="carvingLayer" viewBox="0 0 460 460" preserveAspectRatio="xMidYMid meet">
+                <g id="carvingPreviewGroup">
+                  <path id="carvingPreview" class="carving-path" d=""></path>
+                </g>
+                <g id="carvingWorldGroup"></g>
+              </svg>
             </div>
+          </div>
         </div>
+      </div>
     </div>
 
-    <script src="script.js"></script>
+  </div>
+  <div id="winModal" class="modal">
+    <div class="modal-content">
+      <h2>🎉 Congratulations!</h2>
+      <p>You successfully brought water to every village.</p>
+      <button onclick="location.reload()">Play Again</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
 </body>
+
 </html>
