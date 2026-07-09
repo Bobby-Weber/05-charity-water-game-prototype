@@ -7,7 +7,35 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Welcome to the Charity Water Game Prototype</h1>
+    <div class="game-shell">
+        <h1>Charity Water Game Prototype</h1>
+        <p class="instructions">Drag the world or use the arrow keys to rotate it. Click the yellow square to place a well at the current top of the world.</p>
+
+        <div class="game-area" id="gameArea">
+            <button class="well-tool" id="wellTool" type="button" aria-label="Place well"></button>
+
+            <div class="world-stage">
+                <div class="world" id="world">
+                    <div class="world-contents" id="worldContents">
+                        <div class="village village-outside village-outside-left" style="--angle: 135deg; --distance: 255px; --rotation: 45deg;"></div>
+                        <div class="village village-outside village-outside-center" style="--angle: 200deg; --distance: 255px; --rotation: 110deg;"></div>
+                        <div class="village village-outside village-outside-right" style="--angle: 315deg; --distance: 255px; --rotation: 45deg;"></div>
+
+                        <div class="deposit deposit-one" style="--angle: 45deg; --distance: 125px;"></div>
+                        <div class="deposit deposit-two" style="--angle: 225deg; --distance: 125px;"></div>
+                    </div>
+
+                    <svg class="carving-layer" id="carvingLayer" viewBox="20 20 460 460" preserveAspectRatio="xMidYMid meet">
+                        <g id="carvingPreviewGroup">
+                            <path id="carvingPreview" class="carving-path" d=""></path>
+                        </g>
+                        <g id="carvingWorldGroup"></g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
