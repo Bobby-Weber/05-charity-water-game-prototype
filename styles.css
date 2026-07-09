@@ -21,6 +21,11 @@ body {
     color: #12324a;
 }
 
+:root {
+    --world-size: 460px;
+    --world-scale: 1;
+}
+
 .game-shell {
     max-width: 900px;
     margin: 0 auto;
@@ -67,10 +72,10 @@ h1 {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 26px;
-    height: 26px;
+    width: calc(var(--world-size) * 0.0565);
+    height: calc(var(--world-size) * 0.0565);
     background: #FFC907;
-    border: 3px solid #b78900;
+    border: calc(var(--world-size) * 0.0065) solid #b78900;
     box-shadow: 0 4px 8px rgba(18, 50, 74, 0.16);
     z-index: 8;
     transform: translate(-50%, -50%) rotate(var(--angle)) translate(var(--distance)) rotate(calc(-1 * var(--angle))) rotate(var(--rotation));
@@ -80,9 +85,9 @@ h1 {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 250px;
-    height: 80px;
-    border: 2px dotted rgba(255, 255, 255, 0.85);
+    width: calc(var(--world-size) * 0.5435);
+    height: calc(var(--world-size) * 0.25);
+    border: calc(var(--world-size) * 0.0043) dotted rgba(255, 255, 255, 0.85);
     border-radius: 50%;
     background: rgba(0, 140, 255, 0.103);
     transform: translate(-50%, -50%) rotate(var(--angle)) translate(calc(var(--distance) - 20px)) rotate(calc(-1 * var(--angle))) rotate(var(--rotation));
@@ -92,22 +97,31 @@ h1 {
 }
 
 .world-stage {
-    width: 520px;
-    height: 520px;
+    width: min(520px, 100%);
+    aspect-ratio: 1 / 1;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.world-shell {
+    position: relative;
+    width: var(--world-size);
+    height: var(--world-size);
+    transform: scale(var(--world-scale));
+    transform-origin: center center;
+}
+
 .world {
     position: relative;
-    width: 460px;
-    height: 460px;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
-    border: 20px solid #d1db42;
+    border: calc(var(--world-size) * 0.0435) solid #d1db42;
     background: #775a25;
     box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.3);
     overflow: visible;
+    aspect-ratio: 1 / 1;
 }
 
 .world-contents {
@@ -125,8 +139,8 @@ h1 {
 }
 
 .village {
-    width: 42px;
-    height: 42px;
+    width: calc(var(--world-size) * 0.0913);
+    height: calc(var(--world-size) * 0.0913);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -134,12 +148,12 @@ h1 {
     background: #F16061;
     color: white;
     font-weight: bold;
-    border: 3px solid white;
+    border: calc(var(--world-size) * 0.0065) solid white;
 }
 
 .village-outside {
-    width: 58px;
-    height: 34px;
+    width: calc(var(--world-size) * 0.1261);
+    height: calc(var(--world-size) * 0.0739);
     border-radius: 10px;
     font-size: 0.9rem;
     background: #FF902A;
@@ -149,50 +163,48 @@ h1 {
 }
 
 .deposit {
-    width: 24px;
-    height: 24px;
+    width: calc(var(--world-size) * 0.0522);
+    height: calc(var(--world-size) * 0.0522);
     border-radius: 50%;
-    background: #159A48;
-    border: 3px solid #0f6b34;
-    box-shadow: 0 0 10px rgba(21, 154, 72, 0.4);
+    background: #8BD1CB;
+    border: calc(var(--world-size) * 0.0065) solid #2E9DF7;
+    box-shadow: 0 0 10px rgba(0, 4, 255, 0.842);
+    z-index: 6;
 }
 
 .carving-layer {
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
+    inset: calc(var(--world-size) * 0.0217);
+    width: auto;
+    height: auto;
     pointer-events: none;
-    z-index: 10;
+    z-index: 1;
     clip-path: circle(50% at 50% 50%);
 }
 
 .carving-path {
     fill: none;
-    stroke: #4FCB53;
-    stroke-width: 6;
+    stroke: #2E9DF7;
+    stroke-width: calc(var(--world-size) * 0.013);
     stroke-linecap: round;
     stroke-linejoin: round;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
+    :root {
+        --world-scale: min(1, calc((100vw - 80px) / 460px));
+    }
+
+    .game-shell {
+        padding: 16px;
+    }
+
+    .game-area {
+        padding: 16px;
+    }
+
     .world-stage {
         width: 100%;
-        height: auto;
-    }
-
-    .world {
-        width: 320px;
-        height: 320px;
-    }
-
-    .village {
-        width: 34px;
-        height: 34px;
-    }
-
-    .deposit {
-        width: 18px;
-        height: 18px;
+        max-width: 460px;
     }
 }

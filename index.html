@@ -15,22 +15,24 @@
             <button class="well-tool" id="wellTool" type="button" aria-label="Place well"></button>
 
             <div class="world-stage">
-                <div class="world" id="world">
-                    <div class="world-contents" id="worldContents">
-                        <div class="village village-outside village-outside-left" style="--angle: 135deg; --distance: 255px; --rotation: 45deg;"></div>
-                        <div class="village village-outside village-outside-center" style="--angle: 200deg; --distance: 255px; --rotation: 110deg;"></div>
-                        <div class="village village-outside village-outside-right" style="--angle: 315deg; --distance: 255px; --rotation: 45deg;"></div>
+                <div class="world-shell" id="worldShell">
+                    <div class="world" id="world">
+                        <div class="world-contents" id="worldContents">
+                            <div class="village village-outside village-outside-left" style="--angle: 135deg; --distance: calc(var(--world-size) * 0.554); --rotation: 45deg;"></div>
+                            <div class="village village-outside village-outside-center" style="--angle: 200deg; --distance: calc(var(--world-size) * 0.554); --rotation: 110deg;"></div>
+                            <div class="village village-outside village-outside-right" style="--angle: 315deg; --distance: calc(var(--world-size) * 0.554); --rotation: 45deg;"></div>
 
-                        <div class="deposit deposit-one" style="--angle: 45deg; --distance: 125px;"></div>
-                        <div class="deposit deposit-two" style="--angle: 225deg; --distance: 125px;"></div>
+                            <div class="deposit deposit-one" style="--angle: 45deg; --distance: calc(var(--world-size) * 0.272);"></div>
+                            <div class="deposit deposit-two" style="--angle: 225deg; --distance: calc(var(--world-size) * 0.272);"></div>
+                        </div>
+
+                        <svg class="carving-layer" id="carvingLayer" viewBox="0 0 460 460" preserveAspectRatio="xMidYMid meet">
+                            <g id="carvingPreviewGroup">
+                                <path id="carvingPreview" class="carving-path" d=""></path>
+                            </g>
+                            <g id="carvingWorldGroup"></g>
+                        </svg>
                     </div>
-
-                    <svg class="carving-layer" id="carvingLayer" viewBox="20 20 460 460" preserveAspectRatio="xMidYMid meet">
-                        <g id="carvingPreviewGroup">
-                            <path id="carvingPreview" class="carving-path" d=""></path>
-                        </g>
-                        <g id="carvingWorldGroup"></g>
-                    </svg>
                 </div>
             </div>
         </div>

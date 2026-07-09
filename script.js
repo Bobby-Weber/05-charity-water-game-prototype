@@ -85,13 +85,12 @@ function stopDragging(event) {
 
 // Keep the carving line inside the world circle.
 function clampPoint(point) {
-    const rect = world.getBoundingClientRect();
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
+    const centerX = 230;
+    const centerY = 230;
     const dx = point.x - centerX;
     const dy = point.y - centerY;
     const distance = Math.hypot(dx, dy);
-    const limit = Math.min(rect.width, rect.height) / 2 - 10;
+    const limit = 220;
 
     if (distance > limit) {
         const scale = limit / distance;
@@ -104,25 +103,29 @@ function clampPoint(point) {
     return point;
 }
 
-// Convert a mouse event into a point inside the world.
-function getPointFromEvent(event) {
-    const rect = world.getBoundingClientRect();
-    const point = {
-        x: event.clientX - rect.left,
-        y: event.clientY - rect.top
-    };
+function getSvgPointFromClient(clientX, clientY) {
+    const svgPoint = carvingLayer.createSVGPoint();
+    svgPoint.x = clientX;
+    svgPoint.y = clientY;
 
-    return clampPoint(point);
+    const screenToSvg = carvingLayer.getScreenCTM();
+    if (!screenToSvg) {
+        return { x: clientX, y: clientY };
+    }
+
+    const mappedPoint = svgPoint.matrixTransform(screenToSvg.inverse());
+    return clampPoint({ x: mappedPoint.x, y: mappedPoint.y });
 }
 
-// Find the center of an element relative to the world.
+// Convert a mouse event into a point inside the SVG overlay.
+function getPointFromEvent(event) {
+    return getSvgPointFromClient(event.clientX, event.clientY);
+}
+
+// Find the center of an element relative to the SVG overlay.
 function getElementCenterPoint(element) {
     const rect = element.getBoundingClientRect();
-    const worldRect = world.getBoundingClientRect();
-    return {
-        x: rect.left - worldRect.left + rect.width / 2,
-        y: rect.top - worldRect.top + rect.height / 2
-    };
+    return getSvgPointFromClient(rect.left + rect.width / 2, rect.top + rect.height / 2);
 }
 
 // Rotate a point around the center of the world.
@@ -231,16 +234,22 @@ function finishCarving(event) {
 // Place a well at the current top of the rotated world.
 function placeWell() {
     const pointAngle = normalizeAngle(-90 - rotation);
+    const worldSize = parseFloat(getComputedStyle(world).width) || 460;
+    const radius = worldSize / 2 - Math.max(8, worldSize * 0.03);
+    const wellDistance = radius - Math.max(6, worldSize * 0.015);
+    console.log(worldSize);
+    const rangeDistance = radius - 4;
+
     const well = document.createElement('div');
     well.className = 'well';
     well.style.setProperty('--angle', `${pointAngle}deg`);
-    well.style.setProperty('--distance', '226px');
+    well.style.setProperty('--distance', `${wellDistance}px`);
     well.style.setProperty('--rotation', `${normalizeAngle(pointAngle + 90)}deg`);
 
     const range = document.createElement('div');
     range.className = 'well-range';
     range.style.setProperty('--angle', `${pointAngle}deg`);
-    range.style.setProperty('--distance', '230px');
+    range.style.setProperty('--distance', `${rangeDistance}px`);
     range.style.setProperty('--rotation', `${normalizeAngle(pointAngle + 90)}deg`);
 
     worldContents.appendChild(range);
