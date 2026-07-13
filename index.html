@@ -43,7 +43,7 @@
     <div class="game-shell">
       <div id="title">
         <img src="img/water-can-transparent.png">
-        <h1>Charity Water Game Prototype</h1>
+        <h1 id="levelTitle">Charity Water Game Prototype</h1>
         <img src="img/water-can-transparent.png">
       </div>
       <p class="instructions">Drag the world or use the arrow keys to rotate it. Click the yellow square to place a well
@@ -52,38 +52,16 @@
       <div class="game-area" id="gameArea">
         <div class="well-count" id="wellCount">Wells: 2</div>
         <div class="score-count" id="scoreCount">Score: 0</div>
-        <button id="restartButton" class="restart-button">Restart</button>
+        
+        <button id="levelSelectButton" class="level-select-button">Level Select</button>
+        <button id="restartButton" class="restart-button">Restart Level</button>
+        
         <button class="well-tool" id="wellTool" type="button" aria-label="Place well"></button>
 
         <div class="world-stage">
           <div class="world-shell" id="worldShell">
             <div class="world" id="world">
-              <div class="world-contents" id="worldContents">
-                <img src="img/Town1.png" class="village village-outside village-outside-left"
-                  style="--angle: 135deg; --distance: calc(var(--world-size) * 0.554); --rotation: 225deg;">
-                <img src="img/Town1.png" class="village village-outside village-outside-center"
-                  style="--angle: 200deg; --distance: calc(var(--world-size) * 0.554); --rotation: 290deg;">
-                <img src="img/Town1.png" class="village village-outside village-outside-right"
-                  style="--angle: 315deg; --distance: calc(var(--world-size) * 0.554); --rotation: 45deg;">
-
-                <div class="deposit deposit-one" style="--angle: 45deg; --distance: calc(var(--world-size) * 0.272);">
-                </div>
-                <div class="deposit deposit-two" style="--angle: 225deg; --distance: calc(var(--world-size) * 0.272);">
-                </div>
-
-                <div class="obstacle" style="--angle: 0deg; --distance: calc(var(--world-size) * 0.16);"></div>
-                <div class="obstacle" style="--angle: 90deg; --distance: calc(var(--world-size) * 0.22);"></div>
-                <div class="obstacle" style="--angle: 180deg; --distance: calc(var(--world-size) * 0.18);"></div>
-                <div class="obstacle" style="--angle: 190deg; --distance: calc(var(--world-size) * 0.38);"></div>
-                <div class="obstacle" style="--angle: 270deg; --distance: calc(var(--world-size) * 0.20);"></div>
-
-                <div class="obstacle" style="--angle: 55deg; --distance: calc(var(--world-size) * 0.38);"></div>
-                <div class="obstacle" style="--angle: 15deg; --distance: calc(var(--world-size) * 0.38);"></div>
-                <div class="obstacle" style="--angle: 345deg; --distance: calc(var(--world-size) * 0.28);"></div>
-                <div class="obstacle" style="--angle: 140deg; --distance: calc(var(--world-size) * 0.35);"></div>
-                <div class="obstacle" style="--angle: 235deg; --distance: calc(var(--world-size) * 0.39);"></div>
-                <div class="obstacle" style="--angle: 310deg; --distance: calc(var(--world-size) * 0.34);"></div>
-              </div>
+              <div class="world-contents" id="worldContents"></div>
 
               <svg class="carving-layer" id="carvingLayer" viewBox="0 0 460 460" preserveAspectRatio="xMidYMid meet">
                 <g id="carvingPreviewGroup">
@@ -98,13 +76,24 @@
     </div>
 
   </div>
+
   <div id="winModal" class="modal">
     <div class="modal-content">
-      <h2>🎉 Congratulations!</h2>
-      <p>You successfully brought water to every village.</p>
-      <button onclick="location.reload()">Play Again</button>
+      <h2 id="modalTitle">🎉 Congratulations!</h2>
+      <p id="modalDescription">You successfully brought water to every village.</p>
+      <button id="modalActionButton">Next Level</button>
     </div>
   </div>
+
+  <div id="levelSelectModal" class="modal">
+    <div class="modal-content">
+      <h2>Select a Level</h2>
+      <div id="levelGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 12px; margin: 20px 0;">
+        </div>
+      <button id="closeLevelSelect" style="background: #7a8a99; color: white;">Close</button>
+    </div>
+  </div>
+
   <script src="script.js"></script>
   <footer>.</footer>
 </body>

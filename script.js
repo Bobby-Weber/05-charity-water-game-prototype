@@ -1,3 +1,138 @@
+// --- LEVEL CONFIGURATION DATA ---
+const LEVELS = [
+  {
+    name: "Level 1: Fresh Springs",
+    wellCount: 1,
+    villages: [
+      { angle: '270deg', distance: '0.554', rotation: '0deg', className: 'village-outside-center' }
+    ],
+    deposits: [
+      { angle: '0deg', distance: '0', className: 'deposit-one' } // Center of the world
+    ],
+    obstacles: [] // 0 rocks
+  },
+  {
+    name: "Level 2: The Oasis Split",
+    wellCount: 3,
+    villages: [
+      { angle: '45deg', distance: '0.554', rotation: '135deg', className: 'village-outside-left' },
+      { angle: '180deg', distance: '0.554', rotation: '270deg', className: 'village-outside-center' },
+      { angle: '270deg', distance: '0.554', rotation: '0deg', className: 'village-outside-right' }
+    ],
+    deposits: [
+      { angle: '90deg', distance: '0.25', className: 'deposit-one' },
+      { angle: '0deg', distance: '0.30', className: 'deposit-two' }
+    ],
+    obstacles: [
+      { angle: '30deg', distance: '0.20' },
+      { angle: '60deg', distance: '0.35' },
+      { angle: '120deg', distance: '0.22' },
+      { angle: '150deg', distance: '0.40' },
+      { angle: '210deg', distance: '0.15' },
+      { angle: '240deg', distance: '0.30' },
+      { angle: '300deg', distance: '0.25' }
+    ]
+  },
+  {
+    name: "Level 3: The Outskirts",
+    wellCount: 2,
+    villages: [
+      { angle: '135deg', distance: '0.554', rotation: '225deg', className: 'village-outside-left' },
+      { angle: '200deg', distance: '0.554', rotation: '290deg', className: 'village-outside-center' },
+      { angle: '315deg', distance: '0.554', rotation: '45deg', className: 'village-outside-right' }
+    ],
+    deposits: [
+      { angle: '45deg', distance: '0.272', className: 'deposit-one' },
+      { angle: '225deg', distance: '0.272', className: 'deposit-two' }
+    ],
+    obstacles: [
+      { angle: '0deg', distance: '0.16' },
+      { angle: '90deg', distance: '0.22' },
+      { angle: '180deg', distance: '0.18' },
+      { angle: '190deg', distance: '0.38' },
+      { angle: '270deg', distance: '0.20' },
+      { angle: '55deg', distance: '0.38' },
+      { angle: '15deg', distance: '0.38' },
+      { angle: '345deg', distance: '0.28' },
+      { angle: '140deg', distance: '0.35' },
+      { angle: '235deg', distance: '0.39' },
+      { angle: '310deg', distance: '0.34' }
+    ]
+  },
+  {
+    name: "Level 4: Opposite Shores",
+    wellCount: 2,
+    villages: [
+      // Group 1 (Left Side)
+      { angle: '170deg', distance: '0.554', rotation: '260deg', className: 'village-outside-left' },
+      { angle: '190deg', distance: '0.554', rotation: '280deg', className: 'village-outside-center' },
+      // Group 2 (Right Side)
+      { angle: '350deg', distance: '0.554', rotation: '80deg', className: 'village-outside-right' },
+      { angle: '10deg',  distance: '0.554', rotation: '100deg', className: 'village-outside-center' }
+    ],
+    deposits: [
+      { angle: '90deg', distance: '0.25', className: 'deposit-one' },
+      { angle: '270deg', distance: '0.25', className: 'deposit-two' }
+    ],
+    obstacles: [
+      // Massive dense rock line running vertically down the center to block straight lines
+      { angle: '90deg', distance: '0.12' },
+      { angle: '90deg', distance: '0.35' },
+      { angle: '270deg', distance: '0.12' },
+      { angle: '270deg', distance: '0.35' },
+      // Scatterings blocking easy direct paths to the left and right shores
+      { angle: '145deg', distance: '0.22' },
+      { angle: '155deg', distance: '0.38' },
+      { angle: '215deg', distance: '0.25' },
+      { angle: '225deg', distance: '0.40' },
+      { angle: '325deg', distance: '0.20' },
+      { angle: '335deg', distance: '0.38' },
+      { angle: '35deg',  distance: '0.22' },
+      { angle: '45deg',  distance: '0.40' }
+    ]
+  },
+  {
+    name: "Level 5: The Labyrinth Spiral",
+    wellCount: 2, // Low well count enforces precise placement!
+    villages: [
+      // Dispersed evenly across the cardinal points of the outer edge
+      { angle: '0deg', distance: '0.554', rotation: '90deg', className: 'village-outside-right' },
+      { angle: '90deg', distance: '0.554', rotation: '180deg', className: 'village-outside-left' },
+      { angle: '180deg', distance: '0.554', rotation: '270deg', className: 'village-outside-center' },
+      { angle: '270deg', distance: '0.554', rotation: '0deg', className: 'village-outside-center' }
+    ],
+    deposits: [
+      // Deeply buried water deposits inside tight corridors
+      { angle: '135deg', distance: '0.18', className: 'deposit-one' },
+      { angle: '315deg', distance: '0.18', className: 'deposit-two' }
+    ],
+    obstacles: [
+      // A structural spiral corridor puzzle that forces the player to trace long, winded loops
+      // inner ring barriers
+      { angle: '45deg', distance: '0.15' },
+      { angle: '135deg', distance: '0.32' },
+      { angle: '225deg', distance: '0.15' },
+      { angle: '315deg', distance: '0.32' },
+      // intermediate ring blockers
+      { angle: '0deg', distance: '0.28' },
+      { angle: '90deg', distance: '0.28' },
+      { angle: '180deg', distance: '0.28' },
+      { angle: '270deg', distance: '0.28' },
+      // outer defensive clusters blocking easy straight paths from the deposits to the top
+      { angle: '20deg', distance: '0.38' },
+      { angle: '110deg', distance: '0.38' },
+      { angle: '200deg', distance: '0.38' },
+      { angle: '290deg', distance: '0.38' },
+      { angle: '70deg', distance: '0.42' },
+      { angle: '160deg', distance: '0.42' },
+      { angle: '250deg', distance: '0.42' },
+      { angle: '340deg', distance: '0.42' }
+    ]
+  }
+];
+
+let currentLevelIndex = 0;
+
 // Get the main game pieces from the page.
 const world = document.getElementById('world');
 const worldContents = document.getElementById('worldContents');
@@ -8,9 +143,21 @@ const carvingPreview = document.getElementById('carvingPreview');
 const carvingWorldGroup = document.getElementById('carvingWorldGroup');
 const carvingPreviewGroup = document.getElementById('carvingPreviewGroup');
 const wellCountDisplay = document.getElementById('wellCount');
-const restartButton = document.getElementById('restartButton');
 const scoreDisplay = document.getElementById('scoreCount');
+
+// Interactive System Controls
+const restartButton = document.getElementById('restartButton');
+const levelSelectButton = document.getElementById('levelSelectButton');
+const levelSelectModal = document.getElementById('levelSelectModal');
+const closeLevelSelect = document.getElementById('closeLevelSelect');
+const levelGrid = document.getElementById('levelGrid');
+
+// Victory Modal Handles
 const winModal = document.getElementById("winModal");
+const levelTitle = document.getElementById("levelTitle");
+const modalTitle = document.getElementById("modalTitle");
+const modalDescription = document.getElementById("modalDescription");
+const modalActionButton = document.getElementById("modalActionButton");
 
 // Track the current rotation and drag state.
 let rotation = 0;
@@ -25,6 +172,85 @@ let score = 0;
 
 // Unique ID tracker to pair wells with completed paths
 let wellIdCounter = 0;
+
+// --- LEVEL LOADER ENGINE ---
+function loadLevel(levelIndex) {
+  currentLevelIndex = levelIndex;
+  const level = LEVELS[levelIndex];
+  
+  // Reset essential game states
+  wellCount = level.wellCount;
+  score = 0;
+  rotation = 0;
+  isDragging = false;
+  isCarving = false;
+  carvingPoints = [];
+  
+  // Wipe visual elements clean
+  worldContents.innerHTML = '';
+  carvingWorldGroup.innerHTML = '';
+  carvingPreview.setAttribute('d', '');
+  
+  // Reset visual orientations
+  worldContents.style.transform = `rotate(0deg)`;
+  carvingWorldGroup.removeAttribute('transform');
+  
+  // Update Header text
+  levelTitle.textContent = level.name;
+  
+  // Inject Villages
+  level.villages.forEach(v => {
+    const img = document.createElement('img');
+    img.src = "img/Town1.png";
+    img.className = `village village-outside ${v.className || ''}`;
+    img.style.cssText = `--angle: ${v.angle}; --distance: calc(var(--world-size) * ${v.distance}); --rotation: ${v.rotation};`;
+    worldContents.appendChild(img);
+  });
+
+  // Inject Water Deposits
+  level.deposits.forEach(d => {
+    const div = document.createElement('div');
+    div.className = `deposit ${d.className || ''}`;
+    div.style.cssText = `--angle: ${d.angle}; --distance: calc(var(--world-size) * ${d.distance});`;
+    worldContents.appendChild(div);
+  });
+
+  // Inject Obstacles
+  level.obstacles.forEach(o => {
+    const div = document.createElement('div');
+    div.className = 'obstacle';
+    div.style.cssText = `--angle: ${o.angle}; --distance: calc(var(--world-size) * ${o.distance});`;
+    worldContents.appendChild(div);
+  });
+
+  // Update Visual HUD States
+  updateWellCountDisplay();
+  updateScoreDisplay();
+  wellTool.disabled = false;
+}
+
+// --- SETUP LEVEL SELECT GRID GENERATOR ---
+function buildLevelSelectMenu() {
+  levelGrid.innerHTML = ''; // Fresh render
+  LEVELS.forEach((level, index) => {
+    const btn = document.createElement('button');
+    btn.textContent = `Level ${index + 1}`;
+    btn.style.cssText = `
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #2E9DF7;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    `;
+    btn.addEventListener('click', () => {
+      levelSelectModal.classList.remove('show');
+      loadLevel(index);
+    });
+    levelGrid.appendChild(btn);
+  });
+}
 
 // Keep angles in a useful range so rotation never gets messy.
 function normalizeAngle(angle) {
@@ -59,7 +285,7 @@ function getAngle(event) {
 
 // Start rotating the world when the player drags with the left mouse button.
 function startDragging(event) {
-  if (event.button !== 0 || event.target.closest('.well-tool')) {
+  if (event.button !== 0 || event.target.closest('.well-tool') || event.target.closest('.deposit')) {
     return;
   }
 
@@ -167,7 +393,7 @@ function buildPathData(points) {
 
 // Start a new carving path from a water deposit using the right mouse button.
 function beginCarving(event) {
-  if (event.button !== 2) {
+  if (event.button !== 0) {
     return;
   }
 
@@ -338,9 +564,28 @@ function checkForWin() {
     }
   }
 
-  console.log("Congratulations!");
-  winModal.classList.add("show");
+  // --- TRIGGER WIN PROCESS ---
   triggerConfetti();
+  
+  if (currentLevelIndex < LEVELS.length - 1) {
+    modalTitle.textContent = "🎉 Level Complete!";
+    modalDescription.textContent = `You finished with a score of ${Math.round(score)}. Ready for the next challenge?`;
+    modalActionButton.textContent = "Next Level";
+    modalActionButton.onclick = () => {
+      winModal.classList.remove("show");
+      loadLevel(currentLevelIndex + 1);
+    };
+  } else {
+    modalTitle.textContent = "🏆 Victory!";
+    modalDescription.textContent = `You beat all levels! Final Level Score: ${Math.round(score)}.`;
+    modalActionButton.textContent = "Play Again From Start";
+    modalActionButton.onclick = () => {
+      winModal.classList.remove("show");
+      loadLevel(0);
+    };
+  }
+  
+  winModal.classList.add("show");
 }
 
 // Finish the carving path and save it if it reaches a well.
@@ -407,9 +652,6 @@ function placeWell() {
 
   const pointAngle = normalizeAngle(-90 - rotation);
   const worldSize = parseFloat(getComputedStyle(world).width) || 460;
-  const radius = worldSize / 2 - Math.max(8, worldSize * 0.03);
-  // const wellDistance = radius - Math.max(6, worldSize * 0.015);
-  // const rangeDistance = radius - 4;
   const wellDistance = worldSize * 0.55;
   const rangeDistance = worldSize * 0.48;
 
@@ -454,8 +696,6 @@ document.addEventListener('contextmenu', (event) => {
   event.preventDefault();
 });
 
-updateWellCountDisplay();
-
 wellTool.addEventListener('click', (event) => {
   event.preventDefault();
   placeWell();
@@ -474,8 +714,19 @@ document.addEventListener('keydown', (event) => {
   }
 });
 
+// Restart button resets the current level layout
 restartButton.addEventListener('click', () => {
-  location.reload();
+  loadLevel(currentLevelIndex);
+});
+
+// --- LEVEL SELECTION INTERFACE HANDLERS ---
+levelSelectButton.addEventListener('click', () => {
+  buildLevelSelectMenu();
+  levelSelectModal.classList.add('show');
+});
+
+closeLevelSelect.addEventListener('click', () => {
+  levelSelectModal.classList.remove('show');
 });
 
 function triggerConfetti() {
@@ -535,3 +786,6 @@ function triggerConfetti() {
 
   draw();
 }
+
+// --- INITIAL ENGINE START ---
+loadLevel(0);

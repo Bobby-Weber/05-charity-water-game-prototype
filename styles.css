@@ -495,3 +495,40 @@ h1 {
     /* Align horizontally with well-count to preserve vertical space */
   }
 }
+
+.level-select-button {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 999px;
+  background: #2E9DF7;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(18, 50, 74, 0.16);
+  transition: background 0.2s;
+  z-index: 5;
+}
+
+.level-select-button:hover {
+  background: #1d86dc;
+}
+
+/* Push the existing restart button down so it stacks cleanly beneath Level Select */
+.restart-button {
+  top: 60px; 
+}
+
+/* Adjust the green Score tracker over slightly on mobile environments if space gets crowded */
+@media (max-width: 480px) {
+  .level-select-button,
+  .restart-button {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+  .restart-button {
+    top: 54px;
+  }
+}
