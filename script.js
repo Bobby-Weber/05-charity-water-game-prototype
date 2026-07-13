@@ -195,7 +195,7 @@ function getObstacleLocalPos(element) {
 
   const distanceStr = element.style.getPropertyValue('--distance') || '';
   let distance = 460 * 0.22; // default fallback
-  
+
   const match = distanceStr.match(/0\.\d+/);
   if (match) {
     distance = 460 * parseFloat(match[0]);
@@ -221,13 +221,13 @@ function updateCarving(event) {
 
   // Check collision against all rock obstacles
   const obstacles = document.querySelectorAll('.obstacle');
-  const localCollisionRadius = 22; 
+  const localCollisionRadius = 22;
 
   let hitObstacle = false;
   for (const obs of obstacles) {
     const obsPos = getObstacleLocalPos(obs);
     const distance = Math.hypot(localPoint.x - obsPos.x, localPoint.y - obsPos.y);
-    
+
     if (distance < localCollisionRadius) {
       hitObstacle = true;
       break;
@@ -276,7 +276,7 @@ function getLocalCoordinates(element) {
   const centerY = worldSize / 2;
 
   // Handle calc() structures if present in CSS variables
-  let distance = worldSize * 0.554; 
+  let distance = worldSize * 0.554;
   const distanceStr = element.style.getPropertyValue('--distance');
   if (distanceStr && !distanceStr.includes('calc')) {
     distance = parseFloat(distanceStr);
@@ -340,7 +340,7 @@ function checkForWin() {
 
   console.log("Congratulations!");
   winModal.classList.add("show");
-  triggerConfetti(); 
+  triggerConfetti();
 }
 
 // Finish the carving path and save it if it reaches a well.
@@ -370,13 +370,13 @@ function finishCarving(event) {
     const finishedPoints = [...carvingPoints, endPoint];
     score += calculatePathLength(finishedPoints);
     updateScoreDisplay();
-    
+
     const finishedPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     finishedPath.setAttribute('class', 'carving-path');
-    
+
     // Tag the path with the matching well ID so checkForWin knows it's connected
     finishedPath.dataset.connectedWellId = endWell.dataset.id;
-    
+
     const localPoints = finishedPoints.map(toWorldLocalPoint);
     finishedPath.setAttribute('d', buildPathData(localPoints));
     carvingWorldGroup.appendChild(finishedPath);
@@ -408,15 +408,18 @@ function placeWell() {
   const pointAngle = normalizeAngle(-90 - rotation);
   const worldSize = parseFloat(getComputedStyle(world).width) || 460;
   const radius = worldSize / 2 - Math.max(8, worldSize * 0.03);
-  const wellDistance = radius - Math.max(6, worldSize * 0.015);
-  const rangeDistance = radius - 4;
+  // const wellDistance = radius - Math.max(6, worldSize * 0.015);
+  // const rangeDistance = radius - 4;
+  const wellDistance = worldSize * 0.55;
+  const rangeDistance = worldSize * 0.48;
 
-  const well = document.createElement('div');
+  const well = document.createElement('img');
+  well.src = "img/Well.png";
   well.className = 'well';
-  
+
   // Assign a tracking ID to the unique well
   well.dataset.id = `well-${wellIdCounter++}`;
-  
+
   well.style.setProperty('--angle', `${pointAngle}deg`);
   well.style.setProperty('--distance', `${wellDistance}px`);
   well.style.setProperty('--rotation', `${normalizeAngle(pointAngle + 90)}deg`);
@@ -434,7 +437,7 @@ function placeWell() {
   updateWellCountDisplay();
   updateScoreDisplay();
   wellTool.disabled = wellCount <= 0;
-  
+
   checkForWin();
 }
 
@@ -482,7 +485,7 @@ function triggerConfetti() {
   canvas.style.width = '100%';
   canvas.style.height = '100%';
   canvas.style.pointerEvents = 'none';
-  canvas.style.zIndex = '99999'; 
+  canvas.style.zIndex = '99999';
   document.body.appendChild(canvas);
 
   const ctx = canvas.getContext('2d');
@@ -494,10 +497,10 @@ function triggerConfetti() {
     height = canvas.height = window.innerHeight;
   });
 
-  const colors = ['#FFC907', '#2E9DF7']; 
+  const colors = ['#FFC907', '#2E9DF7'];
   const particles = Array.from({ length: 120 }).map(() => ({
     x: Math.random() * width,
-    y: Math.random() * height - height, 
+    y: Math.random() * height - height,
     r: Math.random() * 6 + 4,
     d: Math.random() * height,
     color: colors[Math.floor(Math.random() * colors.length)],
@@ -526,7 +529,7 @@ function triggerConfetti() {
     if (particles.some(p => p.y < height)) {
       requestAnimationFrame(draw);
     } else {
-      canvas.remove(); 
+      canvas.remove();
     }
   }
 
