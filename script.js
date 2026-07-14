@@ -296,9 +296,9 @@ function loadLevel(levelIndex) {
 // --- NETWORK LEADERBOARD EXECUTION ENGINE ---
 async function processAndSyncLeaderboard(finalScore) {
   const localName = localStorage.getItem('charity_water_username') || "Anonymous";
+  const localId = localStorage.getItem('charity_water_user_id') || "legacy-user";
   const standardScore = Math.round(finalScore);
   
-  // Explicitly push dynamic targeting context meta subtitle below header
   leaderboardSubtitle.textContent = `LEVEL ${currentLevelIndex + 1} • ${currentDifficulty.toUpperCase()}`;
   
   leaderboardTable.style.display = 'none';
@@ -307,22 +307,20 @@ async function processAndSyncLeaderboard(finalScore) {
   leaderboardRows.innerHTML = '';
 
   try {
-    await supabaseClient
-      .from('leaderboard')
-      .insert([
-        { 
-          player_name: localName, 
-          level_index: currentLevelIndex, 
-          difficulty: currentDifficulty, 
-          score: standardScore 
-        }
-      ]);
+    // Invoke custom conditional database RPC function via Supabase Client API
+    await supabaseClient.rpc('submit_score', {
+      p_user_id: localId,
+      p_player_name: localName,
+      p_level_index: currentLevelIndex,
+      p_difficulty: currentDifficulty,
+      p_score: standardScore
+    });
 
     leaderboardSpinner.textContent = 'Fetching current top 10 rankings...';
 
     const { data, error } = await supabaseClient
       .from('leaderboard')
-      .select('player_name, score')
+      .select('player_name, score, user_id')
       .eq('level_index', currentLevelIndex)
       .eq('difficulty', currentDifficulty)
       .order('score', { ascending: true })
@@ -333,7 +331,8 @@ async function processAndSyncLeaderboard(finalScore) {
     if (data && data.length > 0) {
       data.forEach((row, idx) => {
         const tr = document.createElement('tr');
-        if (row.player_name === localName && row.score === standardScore) {
+        // Highlight active profile device rows seamlessly using unique tracking ID values
+        if (row.user_id === localId) {
           tr.className = 'leaderboard-row-active';
         }
         
@@ -385,7 +384,6 @@ function updateRotation(newRotation) {
   carvingWorldGroup.setAttribute('transform', `rotate(${rotation} ${centerX} ${centerY})`);
 }
 
-// Map key turns to canvas updates
 function rotateBy(amount) { updateRotation(rotation + amount); }
 
 function getAngle(event) {
@@ -454,6 +452,7 @@ function rotatePoint(point, angleDegrees) {
   };
 }
 
+// Map screen coordinate space elements into raw local canvas positions
 function toWorldLocalPoint(point) { return rotatePoint(point, -rotation); }
 function buildPathData(points) {
   if (points.length === 0) return '';
@@ -550,7 +549,6 @@ function checkForWin() {
     modalActionButton.textContent = "Next Level";
     modalActionButton.onclick = () => { winModal.classList.remove("show"); loadLevel(currentLevelIndex + 1); };
   } else {
-    // Corrected: Altered final campaign level action buttons from a hard reload to trigger the Main Menu
     modalTitle.textContent = "🏆 Campaign Victory!";
     modalActionButton.textContent = "Open Main Menu";
     modalActionButton.onclick = () => { 
@@ -584,6 +582,12 @@ function finishCarving(event) {
     finishedPath.dataset.connectedWellId = endWell.dataset.id;
     finishedPath.setAttribute('d', buildPathData(finishedPoints.map(toWorldLocalPoint)));
     carvingWorldGroup.appendChild(finishedPath);
+    
+    const matchingRange = document.querySelector(`.well-range[data-well-id="${endWell.dataset.id}"]`);
+    if (matchingRange) {
+      matchingRange.classList.add('range-connected');
+    }
+
     checkForWin();
   }
 
@@ -598,16 +602,18 @@ function placeWell() {
   if (wellCount <= 0) return;
   const pointAngle = normalizeAngle(-90 - rotation);
   const worldSize = parseFloat(getComputedStyle(world).width) || 460;
+  const wellId = `well-${wellIdCounter++}`;
   
   const well = document.createElement('img');
   well.src = "img/Well.png"; well.className = 'well';
-  well.dataset.id = `well-${wellIdCounter++}`;
+  well.dataset.id = wellId;
   well.style.setProperty('--angle', `${pointAngle}deg`);
   well.style.setProperty('--distance', `${worldSize * 0.55}px`);
   well.style.setProperty('--rotation', `${normalizeAngle(pointAngle + 90)}deg`);
 
   const range = document.createElement('div');
   range.className = 'well-range';
+  range.dataset.wellId = wellId; 
   range.style.setProperty('--angle', `${pointAngle}deg`);
   range.style.setProperty('--distance', `${worldSize * 0.48}px`);
   range.style.setProperty('--rotation', `${normalizeAngle(pointAngle + 90)}deg`);
@@ -654,7 +660,6 @@ menuDiffSelectBtn.addEventListener('click', () => {
   diffSelectModal.classList.add('show');
 });
 
-// Added: Interactive Tutorial trigger linkage inside Main Menu
 menuTutorialBtn.addEventListener('click', () => {
   mainMenuModal.classList.remove('show');
   tutorialModal.classList.add('show');
@@ -672,7 +677,6 @@ backToMenuFromDiff.addEventListener('click', () => {
 });
 closeDiffSelect.addEventListener('click', () => diffSelectModal.classList.remove('show'));
 
-// Added: Backwards manual routing nodes for Tutorial interface loops
 backToMenuFromTutorial.addEventListener('click', () => {
   tutorialModal.classList.remove('show');
   mainMenuModal.classList.add('show');
@@ -695,7 +699,17 @@ saveNameButton.addEventListener('click', () => {
     alert("Please enter a username that is at least 2 characters long.");
     return;
   }
-  localStorage.setItem('charity_water_username', processedInput);
+  
+  // 1. Generate an arcade-style random 4-digit numeric discriminator tag to display duplicate names cleanly
+  const discriminator = Math.floor(1000 + Math.random() * 9000);
+  const fullTagName = `${processedInput}#${discriminator}`;
+  
+  // 2. Generate a unique persistent machine profile tracking id string token
+  const uniqueId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2) + Date.now().toString(36);
+
+  localStorage.setItem('charity_water_username', fullTagName);
+  localStorage.setItem('charity_water_user_id', uniqueId);
+  
   nameModal.classList.remove('show');
   loadLevel(0); 
 });
@@ -724,8 +738,20 @@ function triggerConfetti() {
 
 // Global Lifecycle Check Initialization Block
 window.addEventListener('DOMContentLoaded', () => {
-  const userCheck = localStorage.getItem('charity_water_username');
+  let userCheck = localStorage.getItem('charity_water_username');
+  let idCheck = localStorage.getItem('charity_water_user_id');
+  
   if (userCheck) {
+    // Structural migration alignment check for legacy profiles
+    if (!idCheck) {
+      const uniqueId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2) + Date.now().toString(36);
+      localStorage.setItem('charity_water_user_id', uniqueId);
+    }
+    if (!userCheck.includes('#')) {
+      const discriminator = Math.floor(1000 + Math.random() * 9000);
+      userCheck = `${userCheck}#${discriminator}`;
+      localStorage.setItem('charity_water_username', userCheck);
+    }
     nameModal.classList.remove('show');
     loadLevel(0);
   } else {
