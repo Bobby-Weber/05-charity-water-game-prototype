@@ -532,3 +532,56 @@ h1 {
     top: 54px;
   }
 }
+
+.diff-select-button {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 999px;
+  background: #159A48;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(18, 50, 74, 0.16);
+  transition: background 0.2s;
+  z-index: 5;
+}
+
+.diff-select-button:hover {
+  background: #0f7736;
+}
+
+/* Re-stack the menu suite layout underneath difficulty selector */
+.level-select-button {
+  top: 60px;
+}
+
+.restart-button {
+  top: 104px;
+}
+
+/* Clean stacking adjustments for constrained viewports */
+@media (max-width: 700px) {
+  .game-area {
+    padding-top: 160px; /* Expands top safe-zone padding to fit the new button block */
+  }
+}
+
+@media (max-width: 480px) {
+  .diff-select-button,
+  .level-select-button,
+  .restart-button {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+  
+  .level-select-button {
+    top: 54px;
+  }
+  
+  .restart-button {
+    top: 92px;
+  }
+}

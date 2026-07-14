@@ -28,7 +28,7 @@
       <ul>
         <li>Rotate the world with left click</li>
         <li>Place wells with the yellow button</li>
-        <li>Carve reservoirs from water deposits to wells with right click</li>
+        <li>Carve reservoirs from water deposits to wells with left click</li>
       </ul>
 
       <h2>Legend</h2>
@@ -53,6 +53,7 @@
         <div class="well-count" id="wellCount">Wells: 2</div>
         <div class="score-count" id="scoreCount">Score: 0</div>
         
+        <button id="diffSelectButton" class="diff-select-button">Difficulty: Normal</button>
         <button id="levelSelectButton" class="level-select-button">Level Select</button>
         <button id="restartButton" class="restart-button">Restart Level</button>
         
@@ -88,9 +89,22 @@
   <div id="levelSelectModal" class="modal">
     <div class="modal-content">
       <h2>Select a Level</h2>
-      <div id="levelGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 12px; margin: 20px 0;">
-        </div>
+      <div id="levelGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 12px; margin: 20px 0;"></div>
       <button id="closeLevelSelect" style="background: #7a8a99; color: white;">Close</button>
+    </div>
+  </div>
+
+  <div id="diffSelectModal" class="modal">
+    <div class="modal-content">
+      <h2>Select Difficulty</h2>
+      <p style="color: #45657a; font-size: 0.9rem; margin-bottom: 20px;">Adjusts obstacle matrices dynamically across all game maps.</p>
+      <div class="diff-options-stack" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+        <button class="diff-opt-btn" data-diff="easy" style="background: #4FCB53; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Easy (No Rocks)</button>
+        <button class="diff-opt-btn" data-diff="normal" style="background: #2E9DF7; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Normal (Default Map Layout)</button>
+        <button class="diff-opt-btn" data-diff="hard" style="background: #FF902A; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Hard (Double Obstacles)</button>
+        <button class="diff-opt-btn" data-diff="impossible" style="background: #F5402C; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Impossible (Extreme Subterranean Blockade)</button>
+      </div>
+      <button id="closeDiffSelect" style="background: #7a8a99; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Cancel</button>
     </div>
   </div>
 
