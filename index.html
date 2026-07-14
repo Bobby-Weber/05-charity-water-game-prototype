@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Charity Water Game</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -78,11 +79,38 @@
 
   </div>
 
-  <div id="winModal" class="modal">
+  <div id="nameModal" class="modal show">
     <div class="modal-content">
-      <h2 id="modalTitle">🎉 Congratulations!</h2>
-      <p id="modalDescription">You successfully brought water to every village.</p>
-      <button id="modalActionButton">Next Level</button>
+      <h2>👋 Welcome Player!</h2>
+      <p style="color: #45657a; font-size: 0.95rem; margin-bottom: 16px;">Please enter your name to track your scores on the global leaderboards:</p>
+      <input type="text" id="playerNameInput" placeholder="Enter Username..." maxlength="16" style="width: 80%; padding: 12px; border: 2px solid #e4eef7; border-radius: 8px; font-size: 1rem; text-align: center; margin-bottom: 16px; outline: none;">
+      <br>
+      <button id="saveNameButton" style="width: 87%; padding: 12px; background: #FFC907; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Start Campaign</button>
+    </div>
+  </div>
+
+  <div id="winModal" class="modal">
+    <div class="modal-content victory-layout">
+      <h2 id="modalTitle">🎉 Level Complete!</h2>
+      <p id="modalDescription">Loading data...</p>
+      
+      <div class="leaderboard-wrapper">
+        <h3>🏆 Global Top 10 Rankings</h3>
+        <div class="leaderboard-spinner" id="leaderboardSpinner">Loading scores...</div>
+        <table class="leaderboard-table" id="leaderboardTable" style="display: none;">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Player</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboardRows">
+            </tbody>
+        </table>
+      </div>
+
+      <button id="modalActionButton" style="width: 100%;">Next Level</button>
     </div>
   </div>
 
