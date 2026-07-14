@@ -143,6 +143,7 @@ h1 {
   position: relative;
   width: 100%;
   height: 100%;
+  right: 4%;
   border-radius: 50%;
   border: calc(var(--world-size) * 0.0435) solid #d1db42;
   box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.3);
@@ -584,4 +585,183 @@ h1 {
   .restart-button {
     top: 92px;
   }
+}
+
+
+/* ---------- Name Interceptor Modal Custom Styles ---------- */
+#nameModal {
+  z-index: 10000; /* Forces login layer over gameplay elements */
+}
+
+#playerNameInput:focus {
+  border-color: #2E9DF7 !important;
+  box-shadow: 0 0 8px rgba(46, 157, 247, 0.25);
+}
+
+/* ---------- Win Modal Leaderboard Table Styling ---------- */
+.victory-layout {
+  max-width: 480px;
+  width: 90%;
+  padding: 24px;
+}
+
+.leaderboard-wrapper {
+  background: #f7fbff;
+  border: 2px solid #e4eef7;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 16px 0;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.leaderboard-wrapper h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+  color: #12324a;
+}
+
+.leaderboard-spinner {
+  font-style: italic;
+  color: #45657a;
+  padding: 20px 0;
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.leaderboard-table th {
+  color: #45657a;
+  font-weight: bold;
+  border-bottom: 2px solid #e4eef7;
+  padding-bottom: 8px;
+}
+
+.leaderboard-table td {
+  padding: 8px 4px;
+  border-bottom: 1px solid #e4eef7;
+  color: #12324a;
+}
+
+/* Highlight the current player slightly inside listings */
+.leaderboard-row-active {
+  background: rgba(255, 201, 7, 0.15);
+  font-weight: bold;
+}
+
+.leaderboard-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* ---------- Centralized Grid Full Screen Layout Adjustments ---------- */
+.page-layout {
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.game-shell {
+  max-width: 600px;
+  width: 100%;
+}
+
+/* ---------- Streamlined Navigation Controls UI ---------- */
+.main-menu-button {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 999px;
+  background: #2E9DF7;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(18, 50, 74, 0.16);
+  transition: background 0.2s;
+  z-index: 5;
+}
+
+.main-menu-button:hover {
+  background: #1d86dc;
+}
+
+/* Adjust the existing restart layout node beneath main menu */
+.restart-button {
+  position: absolute;
+  top: 60px;
+  left: 16px;
+}
+
+/* ---------- Responsive Padding Overrides ---------- */
+@media (max-width: 700px) {
+  .game-area {
+    padding-top: 120px; /* Safe padding zones tailored for 2 buttons stacked vertically */
+  }
+}
+
+@media (max-width: 480px) {
+  .main-menu-button,
+  .restart-button {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+  
+  .restart-button {
+    top: 54px;
+  }
+}
+
+/* ---------- Interactive Tutorial Manual Popup Window Custom Layout ---------- */
+.tutorial-modal-content {
+  max-width: 520px;
+  width: 90%;
+  text-align: left !important; /* Forces alignment reset from center cards */
+}
+
+.tutorial-modal-content h2 {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.tutorial-scroll-frame {
+  max-height: 320px;
+  overflow-y: auto;
+  background: #f7fbff;
+  border: 2px solid #e4eef7;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-sizing: border-box;
+}
+
+.tutorial-scroll-frame h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: #2E9DF7;
+  font-size: 1.1rem;
+}
+
+.tutorial-scroll-frame h3:not(:first-child) {
+  margin-top: 20px;
+}
+
+.tutorial-scroll-frame p {
+  line-height: 1.5;
+  color: #45657a;
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+}
+
+.tutorial-scroll-frame ul {
+  padding-left: 20px;
+  line-height: 1.6;
+  color: #45657a;
+  font-size: 0.95rem;
+  margin-bottom: 12px;
 }

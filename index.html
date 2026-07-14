@@ -12,35 +12,6 @@
 <body>
   <div class="page-layout">
 
-    <aside class="sidebar">
-      <h2>Goal</h2>
-      <p>
-        Bring water to all towns by placing wells within reach and connecting
-        them to water deposits underground. You have a limited number of wells,
-        so place them wisely. 
-      </p>
-
-      <p>
-        The longer your underground reservoirs are, the more points you gain.
-        <strong>Try to have the LEAST amount of points as you can!</strong>
-      </p>
-
-      <h2>Controls</h2>
-      <ul>
-        <li>Rotate the world with left click</li>
-        <li>Place wells with the yellow button</li>
-        <li>Carve reservoirs from water deposits to wells with left click</li>
-      </ul>
-
-      <h2>Legend</h2>
-      <ul class="legend">
-        <li><span class="legend-icon legend-well"></span> Yellow squares are wells</li>
-        <li><span class="legend-icon legend-town"></span> Orange rectangles are towns</li>
-        <li><span class="legend-icon legend-water"></span> Blue circles are water deposits</li>
-        <li><span class="legend-icon legend-range"></span> The area around wells is the range of their effect</li>
-      </ul>
-    </aside>
-
     <div class="game-shell">
       <div id="title">
         <img src="img/water-can-transparent.png">
@@ -54,8 +25,7 @@
         <div class="well-count" id="wellCount">Wells: 2</div>
         <div class="score-count" id="scoreCount">Score: 0</div>
         
-        <button id="diffSelectButton" class="diff-select-button">Difficulty: Normal</button>
-        <button id="levelSelectButton" class="level-select-button">Level Select</button>
+        <button id="mainMenuButton" class="main-menu-button">Main Menu</button>
         <button id="restartButton" class="restart-button">Restart Level</button>
         
         <button class="well-tool" id="wellTool" type="button" aria-label="Place well"></button>
@@ -79,6 +49,56 @@
 
   </div>
 
+  <div id="mainMenuModal" class="modal">
+    <div class="modal-content">
+      <h2 style="margin-bottom: 6px;">📋 Main Menu</h2>
+      <p style="color: #45657a; font-size: 0.9rem; margin-bottom: 20px;">Manage configuration states and campaign targets.</p>
+      <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
+        <button id="menuLevelSelectBtn" style="background: #2E9DF7; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Select Level</button>
+        <button id="menuDiffSelectBtn" style="background: #159A48; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Difficulty: Normal</button>
+        <button id="menuTutorialBtn" style="background: #FF902A; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">How To Play / Tutorial</button>
+      </div>
+      <button id="closeMainMenu" style="background: #7a8a99; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%;">Resume Game</button>
+    </div>
+  </div>
+
+  <div id="tutorialModal" class="modal">
+    <div class="modal-content tutorial-modal-content">
+      <h2>📖 Game Guide & Rules</h2>
+      <div class="tutorial-scroll-frame">
+        <h3>Goal</h3>
+        <p>
+          Bring water to all towns by placing wells within reach and connecting
+          them to water deposits underground. You have a limited number of wells,
+          so place them wisely. 
+        </p>
+        <p>
+          The longer your underground reservoirs are, the more points you gain.
+          <strong>Try to have the LEAST amount of points as you can!</strong>
+        </p>
+
+        <h3>Controls</h3>
+        <ul>
+          <li>Rotate the world with left click dragging</li>
+          <li>Place wells at the top of the world with the yellow button</li>
+          <li>Carve reservoirs from water deposits to wells with left click dragging</li>
+        </ul>
+
+        <h3>Legend</h3>
+        <ul class="legend" style="padding-left: 0; list-style: none;">
+          <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;"><span class="legend-icon legend-well"></span> Yellow squares are wells</li>
+          <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;"><span class="legend-icon legend-town"></span> Orange rectangles are towns</li>
+          <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;"><span class="legend-icon legend-water"></span> Blue circles are water deposits</li>
+          <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;"><span class="legend-icon legend-range"></span> The dotted line area around wells is their range of effect</li>
+        </ul>
+      </div>
+      <div style="display: flex; gap: 10px; justify-content: center; margin-top: 16px;">
+        <button id="backToMenuFromTutorial" style="background: #2E9DF7; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Main Menu</button>
+        <button id="closeTutorial" style="background: #7a8a99; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Close</button>
+      </div>
+    </div>
+  </div>
+
   <div id="nameModal" class="modal show">
     <div class="modal-content">
       <h2>👋 Welcome Player!</h2>
@@ -96,6 +116,8 @@
       
       <div class="leaderboard-wrapper">
         <h3>🏆 Global Top 10 Rankings</h3>
+        <p id="leaderboardSubtitle" style="margin-top: -8px; margin-bottom: 12px; color: #45657a; font-size: 0.85rem; font-weight: bold; letter-spacing: 0.5px;"></p>
+        
         <div class="leaderboard-spinner" id="leaderboardSpinner">Loading scores...</div>
         <table class="leaderboard-table" id="leaderboardTable" style="display: none;">
           <thead>
@@ -105,8 +127,7 @@
               <th>Score</th>
             </tr>
           </thead>
-          <tbody id="leaderboardRows">
-            </tbody>
+          <tbody id="leaderboardRows"></tbody>
         </table>
       </div>
 
@@ -118,7 +139,10 @@
     <div class="modal-content">
       <h2>Select a Level</h2>
       <div id="levelGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 12px; margin: 20px 0;"></div>
-      <button id="closeLevelSelect" style="background: #7a8a99; color: white;">Close</button>
+      <div style="display: flex; gap: 10px; justify-content: center;">
+        <button id="backToMenuFromLevel" style="background: #2E9DF7; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Main Menu</button>
+        <button id="closeLevelSelect" style="background: #7a8a99; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Close</button>
+      </div>
     </div>
   </div>
 
@@ -132,7 +156,10 @@
         <button class="diff-opt-btn" data-diff="hard" style="background: #FF902A; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Hard (Double Obstacles)</button>
         <button class="diff-opt-btn" data-diff="impossible" style="background: #F5402C; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Impossible (Extreme Subterranean Blockade)</button>
       </div>
-      <button id="closeDiffSelect" style="background: #7a8a99; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Cancel</button>
+      <div style="display: flex; gap: 10px; justify-content: center;">
+        <button id="backToMenuFromDiff" style="background: #2E9DF7; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Main Menu</button>
+        <button id="closeDiffSelect" style="background: #7a8a99; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Cancel</button>
+      </div>
     </div>
   </div>
 
