@@ -1,128 +1,194 @@
-/* Charity: water Brand Colors
+/* ==========================================================================
+   CHARITY: WATER BRAND IDENTIFICATION VARIABLES & BASE STYLES
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
 
-Primary Colors:
-- Yellow:     #FFC907
-- Blue:       #2E9DF7
-
-Secondary Colors:
-- Light Blue: #8BD1CB
-- Green:      #4FCB53
-- Orange:     #FF902A
-- Red:        #F5402C
-- Dark Green: #159A48
-- Pink:       #F16061
-
-*/
+:root {
+  /* Core Brand Colors */
+  --cw-yellow:      #FFC907;   /* Iconic Jerry Can Yellow */
+  --cw-blue:        #2E9DF7;   /* Brand Primary Blue */
+  --cw-dark:        #12324A;   /* Deep Slate Charcoal Text */
+  --cw-muted:       #45657A;   /* Subdued Slate Accent */
+  --cw-bg:          #F7FBFF;   /* Crisp Clean Off-White Background */
+  
+  /* Palette Functional Alerts */
+  --cw-green:       #159A48;   /* Success Green Tracker */
+  --cw-red:         #F5402C;   /* Danger Red Triggers */
+  --cw-teal:        #8BD1CB;   /* Aquifer Secondary Accent */
+  
+  /* Layout Dimensions */
+  --world-size:     460px;
+  --world-scale:    1;
+}
 
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f7fbff;
-  color: #12324a;
+  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: var(--cw-bg);
+  color: var(--cw-dark);
+  -webkit-font-smoothing: antialiased;
 }
 
-:root {
-  --world-size: 460px;
-  --world-scale: 1;
+/* ==========================================================================
+   PAGE STRUCTURAL ARCHITECTURE
+   ========================================================================== */
+.page-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+.game-shell {
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
 }
 
 #title {
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
 }
 
 #title img {
-  width: 3rem;
-  height: 3rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: contain;
 }
 
-footer {
-  background-color: #f7fbff;
-  width: 100vw;
-  height: 4rem;
-}
-
-.game-shell {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 24px;
-}
-
-h1 {
-  margin-bottom: 8px;
-  color: #2E9DF7;
+#title h1 {
+  font-weight: 800;
+  font-size: 2.2rem;
+  margin: 0;
+  color: var(--cw-dark);
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
 }
 
 .instructions {
-  margin-top: 0;
-  margin-bottom: 24px;
-  color: #45657a;
+  margin-top: 8px;
+  margin-bottom: 32px;
+  color: var(--cw-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 400;
 }
 
+/* ==========================================================================
+   GAMEPLAY PLAYSPACE WORKFLOW
+   ========================================================================== */
 .game-area {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
-  padding: 24px;
-  border-radius: 16px;
-  background: white;
-  box-shadow: 0 10px 30px rgba(18, 50, 74, 0.12);
+  gap: 24px;
+  padding: 32px;
+  border-radius: 24px;
+  background: #FFFFFF;
+  box-shadow: 0 15px 35px rgba(18, 50, 74, 0.08);
   touch-action: none;
 }
 
-.well-count {
+/* On-Screen Context Tracking Badges (HUD) */
+.well-count,
+.score-count {
   position: absolute;
-  top: 16px;
-  right: 16px;
-  padding: 8px 12px;
+  padding: 8px 16px;
   border-radius: 999px;
-  background: #2E9DF7;
-  color: white;
-  font-weight: bold;
-  box-shadow: 0 4px 10px rgba(18, 50, 74, 0.16);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(18, 50, 74, 0.1);
   z-index: 5;
 }
 
+.well-count {
+  top: 20px;
+  right: 20px;
+  background: var(--cw-blue);
+  color: #FFFFFF;
+}
+
+.score-count {
+  top: 68px;
+  right: 20px;
+  background: var(--cw-green);
+  color: #FFFFFF;
+}
+
+/* Game Navigation Controls Stacked Left */
+.main-menu-button,
+.restart-button {
+  position: absolute;
+  left: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(18, 50, 74, 0.1);
+  transition: all 0.2s ease-in-out;
+  z-index: 5;
+}
+
+.main-menu-button {
+  top: 20px;
+  background: #FFFFFF;
+  color: var(--cw-dark);
+  border: 2px solid #E4EEF7;
+}
+
+.main-menu-button:hover {
+  background: #F0F6FC;
+  transform: translateY(-1px);
+}
+
+.restart-button {
+  top: 68px;
+  background: var(--cw-red);
+  color: #FFFFFF;
+}
+
+.restart-button:hover {
+  background: #D53220;
+  transform: translateY(-1px);
+}
+
+/* Main Core Placement Tool Pin Selector */
 .well-tool {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   padding: 0;
   border: 0;
-  border-radius: 8px;
-  background: #FFC907;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(18, 50, 74, 0.16);
-  z-index: 4;
-}
-
-.well {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: calc(var(--world-size) * 0.1);
-  height: calc(var(--world-size) * 0.12);
-  z-index: 8;
-  transform: translate(-50%, -50%) rotate(var(--angle)) translate(var(--distance)) rotate(calc(-1 * var(--angle))) rotate(var(--rotation));
-}
-
-.well-range {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: calc(var(--world-size) * 0.5435);
-  height: calc(var(--world-size) * 0.2);
-  border: calc(var(--world-size) * 0.0043) dotted rgba(255, 255, 255, 0.85);
   border-radius: 50%;
-  background: rgba(0, 140, 255, 0.103);
-  transform: translate(-50%, -50%) rotate(var(--angle)) translate(calc(var(--distance) - 20px)) rotate(calc(-1 * var(--angle))) rotate(var(--rotation));
+  background: var(--cw-yellow);
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(255, 201, 7, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
   z-index: 4;
-  pointer-events: none;
-  overflow: hidden;
 }
 
+.well-tool:hover:not(:disabled) {
+  transform: scale(1.08);
+  box-shadow: 0 8px 20px rgba(255, 201, 7, 0.5);
+}
+
+.well-tool:disabled {
+  background: #E4EEF7;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   THE ROTATING WORLD GLOBE ENVIRONMENT
+   ========================================================================== */
 .world-stage {
   width: min(520px, 100%);
   aspect-ratio: 1 / 1;
@@ -145,26 +211,10 @@ h1 {
   height: 100%;
   right: 4%;
   border-radius: 50%;
-  border: calc(var(--world-size) * 0.0435) solid #d1db42;
-  box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.3);
+  border: calc(var(--world-size) * 0.0435) solid #CAD72E; /* Enhanced Stylized Rim Curve */
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.15), 0 10px 30px rgba(18, 50, 74, 0.15);
   overflow: visible;
   aspect-ratio: 1 / 1;
-}
-
-.obstacle {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: calc(var(--world-size) * 0.065);
-  /* Roughly 30px on desktop */
-  height: calc(var(--world-size) * 0.065);
-  border-radius: 35% 65% 55% 45% / 45% 35% 65% 55%;
-  /* Organic jagged rock shape */
-  background: #7a8a99;
-  border: calc(var(--world-size) * 0.0065) solid #4a5764;
-  box-shadow: inset -3px -3px 0px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.3);
-  z-index: 6;
-  transform: translate(-50%, -50%) rotate(var(--angle)) translate(var(--distance)) rotate(calc(-1 * var(--angle)));
 }
 
 .world-contents {
@@ -174,45 +224,77 @@ h1 {
   background-image: url('img/Ground.png');
   background-position: center;
   background-size: cover;
+  border-radius: 50%;
 }
 
+/* ==========================================================================
+   SUBTERRANEAN OBJECT ASSETS (ABS ATTACHMENT PIPELINES)
+   ========================================================================== */
 .village,
-.deposit {
+.deposit,
+.obstacle,
+.well,
+.well-range {
   position: absolute;
   left: 50%;
   top: 50%;
+}
+
+/* Tactical Obstacle Blockers */
+.obstacle {
+  width: calc(var(--world-size) * 0.065);
+  height: calc(var(--world-size) * 0.065);
+  border-radius: 35% 65% 55% 45% / 45% 35% 65% 55%;
+  background: #7A8A99;
+  border: calc(var(--world-size) * 0.0065) solid #4A5764;
+  box-shadow: inset -3px -3px 0px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.25);
+  z-index: 6;
   transform: translate(-50%, -50%) rotate(var(--angle)) translate(var(--distance)) rotate(calc(-1 * var(--angle)));
 }
 
-.village {
-  width: calc(var(--world-size) * 0.0913);
-  height: calc(var(--world-size) * 0.0913);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: bold;
-}
-
-.village-outside {
-  width: calc(var(--world-size) * 0.2);
-  height: calc(var(--world-size) * 0.1);
-  border-radius: 10px;
-  font-size: 0.9rem;
-  z-index: 5;
+/* Aquatic Well Points */
+.well {
+  width: calc(var(--world-size) * 0.1);
+  height: calc(var(--world-size) * 0.12);
+  z-index: 8;
   transform: translate(-50%, -50%) rotate(var(--angle)) translate(var(--distance)) rotate(calc(-1 * var(--angle))) rotate(var(--rotation));
 }
 
+/* Radius Range Coverage Zones */
+.well-range {
+  width: calc(var(--world-size) * 0.5435);
+  height: calc(var(--world-size) * 0.2);
+  border: calc(var(--world-size) * 0.005) dotted rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  background: rgba(46, 157, 247, 0.15);
+  transform: translate(-50%, -50%) rotate(var(--angle)) translate(calc(var(--distance) - 20px)) rotate(calc(-1 * var(--angle))) rotate(var(--rotation));
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* Water Reservoirs */
 .deposit {
   width: calc(var(--world-size) * 0.0522);
   height: calc(var(--world-size) * 0.0522);
   border-radius: 50%;
-  background: #8BD1CB;
-  border: calc(var(--world-size) * 0.0065) solid #2E9DF7;
-  box-shadow: 0 0 10px rgba(0, 4, 255, 0.842);
+  background: var(--cw-teal);
+  border: calc(var(--world-size) * 0.0065) solid var(--cw-blue);
+  box-shadow: 0 0 12px rgba(46, 157, 247, 0.6);
   z-index: 6;
+  transform: translate(-50%, -50%) rotate(var(--angle)) translate(var(--distance)) rotate(calc(-1 * var(--angle)));
 }
 
+/* Outer Communities */
+.village-outside {
+  width: calc(var(--world-size) * 0.2);
+  height: calc(var(--world-size) * 0.1);
+  z-index: 5;
+  transform: translate(-50%, -50%) rotate(var(--angle)) translate(var(--distance)) rotate(calc(-1 * var(--angle))) rotate(var(--rotation));
+}
+
+/* ==========================================================================
+   SVG CARVING VECTOR MAP MATRIX
+   ========================================================================== */
 .carving-layer {
   position: absolute;
   inset: calc(var(--world-size) * -0.015);
@@ -225,19 +307,23 @@ h1 {
 
 .carving-path {
   fill: none;
-  stroke: #2E9DF7;
+  stroke: var(--cw-blue);
   stroke-width: calc(var(--world-size) * 0.013);
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
+/* ==========================================================================
+   MODAL PLATFORM INTERFACES (WINDOWS & OVERLAYS)
+   ========================================================================== */
 .modal {
   position: fixed;
   inset: 0;
   display: none;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, .55);
+  background: rgba(18, 50, 74, 0.65);
+  backdrop-filter: blur(4px);
   z-index: 9999;
 }
 
@@ -246,386 +332,103 @@ h1 {
 }
 
 .modal-content {
-  background: white;
-  padding: 32px;
-  border-radius: 16px;
+  background: #FFFFFF;
+  padding: 40px;
+  border-radius: 24px;
   text-align: center;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, .3);
-  max-width: 420px;
+  box-shadow: 0 20px 50px rgba(12, 34, 52, 0.25);
+  max-width: 440px;
+  width: 90%;
+  box-sizing: border-box;
 }
 
 .modal-content h2 {
-  color: #2E9DF7;
+  font-weight: 800;
+  font-size: 1.8rem;
+  color: var(--cw-dark);
   margin-top: 0;
+  margin-bottom: 8px;
 }
 
-.modal-content button {
-  margin-top: 20px;
-  padding: 10px 24px;
+/* Standard Modal Interactive Navigation Options */
+.modal-content button,
+.diff-options-stack button {
+  padding: 14px 28px;
   border: none;
-  border-radius: 8px;
-  background: #FFC907;
-  font-weight: bold;
+  border-radius: 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
+  transition: background 0.15s ease-in-out, transform 0.15s;
 }
 
-.restart-button {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 999px;
-  background: #F5402C;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(18, 50, 74, 0.16);
-  transition: background 0.2s;
-  z-index: 5;
+/* Primary Level Progression Commitment Targets */
+.modal-content button:not([style*="background"]) {
+  background: var(--cw-yellow);
+  color: var(--cw-dark);
+  box-shadow: 0 4px 14px rgba(255, 201, 7, 0.3);
 }
 
-.restart-button:hover {
-  background: #d73322;
+.modal-content button:not([style*="background"]):hover {
+  background: #E5B400;
+  transform: translateY(-1px);
 }
 
-.score-count {
-  position: absolute;
-  top: 60px;
-  right: 16px;
-  padding: 8px 12px;
-  border-radius: 999px;
-  background: #159A48;
-  color: white;
-  font-weight: bold;
-  box-shadow: 0 4px 10px rgba(18, 50, 74, 0.16);
-  z-index: 5;
-}
-
-.page-layout {
-  display: flex;
-  min-height: 100vh;
-}
-
-.sidebar {
-  width: 300px;
-  flex-shrink: 0;
-  background: white;
-  border-right: 2px solid #e4eef7;
-  padding: 28px;
+/* Profile Identity Input Elements */
+#playerNameInput {
+  width: 100%;
   box-sizing: border-box;
-  overflow-y: auto;
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  box-shadow: 4px 0 18px rgba(0, 0, 0, .05);
-}
-
-.game-shell {
-  flex: 1;
-}
-
-
-/* ---------- Sidebar ---------- */
-
-.sidebar h2 {
-  margin-top: 0;
-  color: #2E9DF7;
-}
-
-.sidebar h2:not(:first-child) {
-  margin-top: 28px;
-}
-
-.sidebar p {
-  line-height: 1.6;
-  color: #45657a;
-}
-
-.sidebar ul {
-  padding-left: 20px;
-  line-height: 1.7;
-  color: #45657a;
-}
-
-.legend {
-  list-style: none;
-  padding: 0;
-}
-
-.legend li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.legend-icon {
-  flex-shrink: 0;
-}
-
-.legend-well {
-  width: 18px;
-  height: 18px;
-  background: #FFC907;
-  border: 2px solid #b78900;
-}
-
-.legend-town {
-  width: 26px;
-  height: 14px;
-  border-radius: 4px;
-  background: #FF902A;
-  border: 2px solid #e07a00;
-}
-
-.legend-water {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #8BD1CB;
-  border: 2px solid #2E9DF7;
-}
-
-.legend-range {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 2px dashed #2E9DF7;
-  background: rgba(46, 157, 247, .12);
-}
-
-/* ---------- Mobile ---------- */
-
-@media (max-width: 900px) {
-  .page-layout {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    position: static;
-    width: auto;
-    height: auto;
-    border-right: none;
-    border-bottom: 2px solid #e4eef7;
-  }
-}
-
-@media (max-width: 700px) {
-  :root {
-    --world-scale: min(1, calc((100vw - 40px) / 400px));
-  }
-
-  .game-shell {
-    padding: 16px;
-  }
-
-  .game-area {
-    padding: 16px;
-  }
-
-  .world-stage {
-    width: 100%;
-    max-width: 460px;
-  }
-}
-
-/* ---------- Mobile & Responsive Adjustments ---------- */
-
-@media (max-width: 900px) {
-  .page-layout {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    position: static;
-    width: auto;
-    height: auto;
-    border-right: none;
-    border-bottom: 2px solid #e4eef7;
-    padding: 20px;
-  }
-}
-
-@media (max-width: 700px) {
-
-  /* Fluidly scale down the core world size variable based on viewport width */
-  :root {
-    --world-size: min(460px, 85vw);
-  }
-
-  .game-shell {
-    padding: 12px;
-  }
-
-  /* Convert HUD items to a flexible row above the world to prevent absolute overlap */
-  .game-area {
-    padding: 16px;
-    padding-top: 80px;
-    /* Leave breathing room for top-pinned items */
-    gap: 16px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  /* Keep the interactive game tool accessible underneath the map */
-  .well-tool {
-    width: 44px;
-    height: 44px;
-  }
-
-  .world-stage {
-    width: 100%;
-    max-width: var(--world-size);
-  }
-}
-
-@media (max-width: 480px) {
-
-  /* Scale adjustments for small mobile viewports */
-  .restart-button,
-  .well-count,
-  .score-count {
-    padding: 6px 12px;
-    font-size: 0.85rem;
-  }
-
-  .score-count {
-    top: 16px;
-    right: 120px;
-    /* Align horizontally with well-count to preserve vertical space */
-  }
-}
-
-.level-select-button {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 999px;
-  background: #2E9DF7;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(18, 50, 74, 0.16);
-  transition: background 0.2s;
-  z-index: 5;
-}
-
-.level-select-button:hover {
-  background: #1d86dc;
-}
-
-/* Push the existing restart button down so it stacks cleanly beneath Level Select */
-.restart-button {
-  top: 60px; 
-}
-
-/* Adjust the green Score tracker over slightly on mobile environments if space gets crowded */
-@media (max-width: 480px) {
-  .level-select-button,
-  .restart-button {
-    padding: 6px 12px;
-    font-size: 0.85rem;
-  }
-  .restart-button {
-    top: 54px;
-  }
-}
-
-.diff-select-button {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 999px;
-  background: #159A48;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(18, 50, 74, 0.16);
-  transition: background 0.2s;
-  z-index: 5;
-}
-
-.diff-select-button:hover {
-  background: #0f7736;
-}
-
-/* Re-stack the menu suite layout underneath difficulty selector */
-.level-select-button {
-  top: 60px;
-}
-
-.restart-button {
-  top: 104px;
-}
-
-/* Clean stacking adjustments for constrained viewports */
-@media (max-width: 700px) {
-  .game-area {
-    padding-top: 160px; /* Expands top safe-zone padding to fit the new button block */
-  }
-}
-
-@media (max-width: 480px) {
-  .diff-select-button,
-  .level-select-button,
-  .restart-button {
-    padding: 6px 12px;
-    font-size: 0.85rem;
-  }
-  
-  .level-select-button {
-    top: 54px;
-  }
-  
-  .restart-button {
-    top: 92px;
-  }
-}
-
-
-/* ---------- Name Interceptor Modal Custom Styles ---------- */
-#nameModal {
-  z-index: 10000; /* Forces login layer over gameplay elements */
+  padding: 14px;
+  border: 2px solid #E4EEF7;
+  border-radius: 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--cw-dark);
+  font-weight: 600;
+  outline: none;
+  transition: border-color 0.2s;
 }
 
 #playerNameInput:focus {
-  border-color: #2E9DF7 !important;
-  box-shadow: 0 0 8px rgba(46, 157, 247, 0.25);
+  border-color: var(--cw-blue);
+  box-shadow: 0 0 0 4px rgba(46, 157, 247, 0.15);
 }
 
-/* ---------- Win Modal Leaderboard Table Styling ---------- */
+/* ==========================================================================
+   HIGH SCORE LEADERBOARD SYSTEM COMPONENT
+   ========================================================================== */
 .victory-layout {
   max-width: 480px;
-  width: 90%;
-  padding: 24px;
 }
 
 .leaderboard-wrapper {
-  background: #f7fbff;
-  border: 2px solid #e4eef7;
-  border-radius: 12px;
-  padding: 16px;
-  margin: 16px 0;
-  max-height: 260px;
+  background: var(--cw-bg);
+  border: 2px solid #E4EEF7;
+  border-radius: 16px;
+  padding: 20px;
+  margin: 24px 0;
+  max-height: 280px;
   overflow-y: auto;
 }
 
 .leaderboard-wrapper h3 {
   margin-top: 0;
-  margin-bottom: 12px;
+  margin-bottom: 4px;
   font-size: 1.1rem;
-  color: #12324a;
+  font-weight: 800;
+  color: var(--cw-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .leaderboard-spinner {
   font-style: italic;
-  color: #45657a;
-  padding: 20px 0;
+  color: var(--cw-muted);
+  font-size: 0.95rem;
+  padding: 24px 0;
 }
 
 .leaderboard-table {
@@ -636,132 +439,127 @@ h1 {
 }
 
 .leaderboard-table th {
-  color: #45657a;
-  font-weight: bold;
-  border-bottom: 2px solid #e4eef7;
+  color: var(--cw-muted);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #E4EEF7;
   padding-bottom: 8px;
 }
 
 .leaderboard-table td {
-  padding: 8px 4px;
-  border-bottom: 1px solid #e4eef7;
-  color: #12324a;
+  padding: 10px 6px;
+  border-bottom: 1px solid #E4EEF7;
+  color: var(--cw-dark);
+  font-weight: 500;
 }
 
-/* Highlight the current player slightly inside listings */
+/* Highlighting Active Profile Metrics Row */
 .leaderboard-row-active {
-  background: rgba(255, 201, 7, 0.15);
-  font-weight: bold;
+  background: rgba(255, 201, 7, 0.18);
+  font-weight: 600;
+}
+
+.leaderboard-row-active td {
+  color: #8A6400;
 }
 
 .leaderboard-table tr:last-child td {
   border-bottom: none;
 }
 
-/* ---------- Centralized Grid Full Screen Layout Adjustments ---------- */
-.page-layout {
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-.game-shell {
-  max-width: 600px;
-  width: 100%;
-}
-
-/* ---------- Streamlined Navigation Controls UI ---------- */
-.main-menu-button {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 999px;
-  background: #2E9DF7;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(18, 50, 74, 0.16);
-  transition: background 0.2s;
-  z-index: 5;
-}
-
-.main-menu-button:hover {
-  background: #1d86dc;
-}
-
-/* Adjust the existing restart layout node beneath main menu */
-.restart-button {
-  position: absolute;
-  top: 60px;
-  left: 16px;
-}
-
-/* ---------- Responsive Padding Overrides ---------- */
-@media (max-width: 700px) {
-  .game-area {
-    padding-top: 120px; /* Safe padding zones tailored for 2 buttons stacked vertically */
-  }
-}
-
-@media (max-width: 480px) {
-  .main-menu-button,
-  .restart-button {
-    padding: 6px 12px;
-    font-size: 0.85rem;
-  }
-  
-  .restart-button {
-    top: 54px;
-  }
-}
-
-/* ---------- Interactive Tutorial Manual Popup Window Custom Layout ---------- */
+/* ==========================================================================
+   INTERACTIVE TUTORIAL MANUAL MODULE
+   ========================================================================== */
 .tutorial-modal-content {
   max-width: 520px;
-  width: 90%;
-  text-align: left !important; /* Forces alignment reset from center cards */
-}
-
-.tutorial-modal-content h2 {
-  text-align: center;
-  margin-bottom: 12px;
+  text-align: left !important;
 }
 
 .tutorial-scroll-frame {
   max-height: 320px;
   overflow-y: auto;
-  background: #f7fbff;
-  border: 2px solid #e4eef7;
-  border-radius: 12px;
-  padding: 16px 20px;
+  background: var(--cw-bg);
+  border: 2px solid #E4EEF7;
+  border-radius: 16px;
+  padding: 20px;
   box-sizing: border-box;
 }
 
 .tutorial-scroll-frame h3 {
   margin-top: 0;
   margin-bottom: 8px;
-  color: #2E9DF7;
+  color: var(--cw-blue);
   font-size: 1.1rem;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
 .tutorial-scroll-frame h3:not(:first-child) {
-  margin-top: 20px;
+  margin-top: 24px;
 }
 
-.tutorial-scroll-frame p {
-  line-height: 1.5;
-  color: #45657a;
+.tutorial-scroll-frame p,
+.tutorial-scroll-frame ul {
+  line-height: 1.6;
+  color: var(--cw-muted);
   font-size: 0.95rem;
   margin-bottom: 12px;
 }
 
 .tutorial-scroll-frame ul {
   padding-left: 20px;
-  line-height: 1.6;
-  color: #45657a;
-  font-size: 0.95rem;
-  margin-bottom: 12px;
+}
+
+/* ==========================================================================
+   RESPONSIVE VIEWPORT ENGINE SCALING CONFIGURATIONS
+   ========================================================================== */
+@media (max-width: 700px) {
+  :root {
+    --world-size: min(460px, 82vw);
+  }
+
+  .instructions {
+    margin-bottom: 24px;
+  }
+
+  .game-area {
+    padding: 20px;
+    padding-top: 132px; /* Smooth Safe Margin Top Padding to fit control stacked elements */
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  #title h1 {
+    font-size: 1.6rem;
+  }
+  
+  #title img {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .main-menu-button,
+  .restart-button,
+  .well-count,
+  .score-count {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+  }
+  
+  .restart-button {
+    top: 56px;
+  }
+
+  .score-count {
+    top: 56px;
+  }
+}
+
+footer {
+  width: 100vw;
+  height: 4rem;
+  background-color: transparent;
 }
