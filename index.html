@@ -24,10 +24,10 @@
       <div class="game-area" id="gameArea">
         <div class="well-count" id="wellCount">Wells: 2</div>
         <div class="score-count" id="scoreCount">Score: 0</div>
-        
+
         <button id="mainMenuButton" class="main-menu-button">Main Menu</button>
         <button id="restartButton" class="restart-button">Restart Level</button>
-        
+
         <button class="well-tool" id="wellTool" type="button" aria-label="Place well"></button>
 
         <div class="world-stage">
@@ -52,13 +52,22 @@
   <div id="mainMenuModal" class="modal">
     <div class="modal-content">
       <h2 style="margin-bottom: 6px;">📋 Main Menu</h2>
-      <p style="color: #45657a; font-size: 0.9rem; margin-bottom: 20px;">Manage configuration states and campaign targets.</p>
+      <p style="color: #45657a; font-size: 0.9rem; margin-bottom: 20px;">Manage configuration states and campaign
+        targets.</p>
       <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
-        <button id="menuLevelSelectBtn" style="background: #2E9DF7; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Select Level</button>
-        <button id="menuDiffSelectBtn" style="background: #159A48; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Difficulty: Normal</button>
-        <button id="menuTutorialBtn" style="background: #FF902A; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">How To Play / Tutorial</button>
+        <button id="menuLevelSelectBtn"
+          style="background: #2E9DF7; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Select
+          Level</button>
+        <button id="menuDiffSelectBtn"
+          style="background: #159A48; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Difficulty:
+          Normal</button>
+        <button id="menuTutorialBtn"
+          style="background: #FF902A; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">How
+          To Play / Tutorial</button>
       </div>
-      <button id="closeMainMenu" style="background: #7a8a99; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%;">Resume Game</button>
+      <button id="closeMainMenu"
+        style="background: #7a8a99; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%;">Resume
+        Game</button>
     </div>
   </div>
 
@@ -70,7 +79,7 @@
         <p>
           Bring water to all towns by placing wells within reach and connecting
           them to water deposits underground. You have a limited number of wells,
-          so place them wisely. 
+          so place them wisely.
         </p>
         <p>
           The longer your underground reservoirs are, the more points you gain.
@@ -86,15 +95,22 @@
 
         <h3>Legend</h3>
         <ul class="legend" style="padding-left: 0; list-style: none;">
-          <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;"><span class="legend-icon legend-well"></span> Yellow squares are wells</li>
-          <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;"><span class="legend-icon legend-town"></span> Orange rectangles are towns</li>
-          <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;"><span class="legend-icon legend-water"></span> Blue circles are water deposits</li>
-          <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;"><span class="legend-icon legend-range"></span> The dotted line area around wells is their range of effect</li>
+          <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;"><span
+              class="legend-icon legend-well"></span> Yellow squares are wells</li>
+          <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;"><span
+              class="legend-icon legend-town"></span> Orange rectangles are towns</li>
+          <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;"><span
+              class="legend-icon legend-water"></span> Blue circles are water deposits</li>
+          <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;"><span
+              class="legend-icon legend-range"></span> The dotted line area around wells is their range of effect</li>
         </ul>
       </div>
       <div style="display: flex; gap: 10px; justify-content: center; margin-top: 16px;">
-        <button id="backToMenuFromTutorial" style="background: #2E9DF7; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Main Menu</button>
-        <button id="closeTutorial" style="background: #7a8a99; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Close</button>
+        <button id="backToMenuFromTutorial"
+          style="background: #2E9DF7; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Main
+          Menu</button>
+        <button id="closeTutorial"
+          style="background: #7a8a99; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Close</button>
       </div>
     </div>
   </div>
@@ -102,10 +118,14 @@
   <div id="nameModal" class="modal show">
     <div class="modal-content">
       <h2>👋 Welcome Player!</h2>
-      <p style="color: #45657a; font-size: 0.95rem; margin-bottom: 16px;">Please enter your name to track your scores on the global leaderboards:</p>
-      <input type="text" id="playerNameInput" placeholder="Enter Username..." maxlength="16" style="width: 80%; padding: 12px; border: 2px solid #e4eef7; border-radius: 8px; font-size: 1rem; text-align: center; margin-bottom: 16px; outline: none;">
+      <p style="color: #45657a; font-size: 0.95rem; margin-bottom: 16px;">Please enter your name to track your scores on
+        the global leaderboards:</p>
+      <input type="text" id="playerNameInput" placeholder="Enter Username..." maxlength="16"
+        style="width: 80%; padding: 12px; border: 2px solid #e4eef7; border-radius: 8px; font-size: 1rem; text-align: center; margin-bottom: 16px; outline: none;">
       <br>
-      <button id="saveNameButton" style="width: 87%; padding: 12px; background: #FFC907; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Start Campaign</button>
+      <button id="saveNameButton"
+        style="width: 87%; padding: 12px; background: #FFC907; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Start
+        Campaign</button>
     </div>
   </div>
 
@@ -113,11 +133,13 @@
     <div class="modal-content victory-layout">
       <h2 id="modalTitle">🎉 Level Complete!</h2>
       <p id="modalDescription">Loading data...</p>
-      
+
       <div class="leaderboard-wrapper">
         <h3>🏆 Global Top 10 Rankings</h3>
-        <p id="leaderboardSubtitle" style="margin-top: -8px; margin-bottom: 12px; color: #45657a; font-size: 0.85rem; font-weight: bold; letter-spacing: 0.5px;"></p>
-        
+        <p id="leaderboardSubtitle"
+          style="margin-top: -8px; margin-bottom: 12px; color: #45657a; font-size: 0.85rem; font-weight: bold; letter-spacing: 0.5px;">
+        </p>
+
         <div class="leaderboard-spinner" id="leaderboardSpinner">Loading scores...</div>
         <table class="leaderboard-table" id="leaderboardTable" style="display: none;">
           <thead>
@@ -138,10 +160,15 @@
   <div id="levelSelectModal" class="modal">
     <div class="modal-content">
       <h2>Select a Level</h2>
-      <div id="levelGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 12px; margin: 20px 0;"></div>
+      <div id="levelGrid"
+        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 12px; margin: 20px 0;">
+      </div>
       <div style="display: flex; gap: 10px; justify-content: center;">
-        <button id="backToMenuFromLevel" style="background: #2E9DF7; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Main Menu</button>
-        <button id="closeLevelSelect" style="background: #7a8a99; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Close</button>
+        <button id="backToMenuFromLevel"
+          style="background: #2E9DF7; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Main
+          Menu</button>
+        <button id="closeLevelSelect"
+          style="background: #7a8a99; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Close</button>
       </div>
     </div>
   </div>
@@ -149,22 +176,69 @@
   <div id="diffSelectModal" class="modal">
     <div class="modal-content">
       <h2>Select Difficulty</h2>
-      <p style="color: #45657a; font-size: 0.9rem; margin-bottom: 20px;">Adjusts obstacle matrices dynamically across all game maps.</p>
+      <p style="color: #45657a; font-size: 0.9rem; margin-bottom: 20px;">Adjusts obstacle matrices dynamically across
+        all game maps.</p>
       <div class="diff-options-stack" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
-        <button class="diff-opt-btn" data-diff="easy" style="background: #4FCB53; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Easy (No Rocks)</button>
-        <button class="diff-opt-btn" data-diff="normal" style="background: #2E9DF7; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Normal (Default Map Layout)</button>
-        <button class="diff-opt-btn" data-diff="hard" style="background: #FF902A; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Hard (Double Obstacles)</button>
-        <button class="diff-opt-btn" data-diff="impossible" style="background: #F5402C; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Impossible (Extreme Subterranean Blockade)</button>
+        <button class="diff-opt-btn" data-diff="easy"
+          style="background: #4FCB53; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Easy
+          (No Rocks)</button>
+        <button class="diff-opt-btn" data-diff="normal"
+          style="background: #2E9DF7; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Normal
+          (Default Map Layout)</button>
+        <button class="diff-opt-btn" data-diff="hard"
+          style="background: #FF902A; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Hard
+          (Double Obstacles)</button>
+        <button class="diff-opt-btn" data-diff="impossible"
+          style="background: #F5402C; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Impossible
+          (Extreme Subterranean Blockade)</button>
       </div>
       <div style="display: flex; gap: 10px; justify-content: center;">
-        <button id="backToMenuFromDiff" style="background: #2E9DF7; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Main Menu</button>
-        <button id="closeDiffSelect" style="background: #7a8a99; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Cancel</button>
+        <button id="backToMenuFromDiff"
+          style="background: #2E9DF7; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Main
+          Menu</button>
+        <button id="closeDiffSelect"
+          style="background: #7a8a99; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Cancel</button>
       </div>
     </div>
   </div>
 
   <script src="script.js"></script>
-  <footer>.</footer>
+  <footer class="site-footer">
+    <div class="footer-container">
+
+      <div class="footer-brand">
+        <img src="img/water-can-transparent.png" alt="charity: water jerry can logo" class="footer-logo">
+        <p>This is an educational game prototype inspired by the clean water mission of charity: water. 100%
+          of public donations to charity: water go straight to funding sustainable water projects.</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Learn More</h4>
+        <ul>
+          <li><a href="https://www.charitywater.org" target="_blank" rel="noopener">Official Website</a></li>
+          <li><a href="https://www.charitywater.org/global-water-crisis" target="_blank" rel="noopener">The Water Crisis</a></li>
+          <li><a href="https://www.charitywater.org/our-work" target="_blank" rel="noopener">Our Work & Impact</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-cta">
+        <h4>Make a Difference</h4>
+        <p>Help bring clean water to communities around the globe.</p>
+        <a href="https://www.charitywater.org/donate" target="_blank" rel="noopener" class="footer-donate-btn">Donate to
+          charity: water</a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; <span id="currentYear"></span> Bobby Weber. All rights reserved.</p>
+      <p class="partnership-disclaimer">
+        Developed as an official educational project for the Global Career Accelerator, 
+        organized in partnership with charity: water.
+      </p>
+    </div>
+  </footer>
 </body>
 
 </html>

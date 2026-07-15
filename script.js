@@ -5,6 +5,23 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 // Initialize Supabase Client
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+// --- AUDIO CONFIGURATION ENGINE ---
+const sfxClick = new Audio('audio/click.mp3');
+const sfxHover = new Audio('audio/hover.mp3');
+const sfxConnection = new Audio('audio/connection.mp3');
+const sfxPlace = new Audio('audio/place.mp3');
+const sfxSplash = new Audio('audio/splash.mp3');
+const sfxSuccess = new Audio('audio/success.mp3');
+
+// Helper to handle instant sound playback overlap safely
+function playSFX(audioElement) {
+  audioElement.currentTime = 0; // Rewind to start to allow rapid re-triggering
+  audioElement.play().catch(err => {
+    // Browsers block autoplay audio until a user interaction (like a click) happens on screen
+    console.log("Audio play deferred until user gesture: ", err);
+  });
+}
+
 // --- LEVEL CONFIGURATION DATA ---
 const LEVELS = [
   {
@@ -331,7 +348,6 @@ async function processAndSyncLeaderboard(finalScore) {
     if (data && data.length > 0) {
       data.forEach((row, idx) => {
         const tr = document.createElement('tr');
-        // Highlight active profile device rows seamlessly using unique tracking ID values
         if (row.user_id === localId) {
           tr.className = 'leaderboard-row-active';
         }
@@ -452,7 +468,6 @@ function rotatePoint(point, angleDegrees) {
   };
 }
 
-// Map screen coordinate space elements into raw local canvas positions
 function toWorldLocalPoint(point) { return rotatePoint(point, -rotation); }
 function buildPathData(points) {
   if (points.length === 0) return '';
@@ -498,6 +513,7 @@ function updateCarving(event) {
   if (hitObstacle) {
     isCarving = false; activeCarvingPointerId = null; carvingPoints = [];
     carvingPreview.setAttribute('d', '');
+    playSFX(sfxSplash); // TRIGGER: Splash Sound on rock hit
     event.preventDefault();
     return;
   }
@@ -543,6 +559,7 @@ function checkForWin() {
   }
 
   triggerConfetti();
+  playSFX(sfxSuccess); // TRIGGER: Level Complete Fanfare Success Sound
   
   if (currentLevelIndex < LEVELS.length - 1) {
     modalTitle.textContent = "🎉 Level Complete!";
@@ -588,6 +605,7 @@ function finishCarving(event) {
       matchingRange.classList.add('range-connected');
     }
 
+    playSFX(sfxConnection); // TRIGGER: Reservoir Connected to Well Sound
     checkForWin();
   }
 
@@ -623,6 +641,8 @@ function placeWell() {
   wellCount -= 1;
   updateWellCountDisplay(); updateScoreDisplay();
   wellTool.disabled = wellCount <= 0;
+  
+  playSFX(sfxPlace); // TRIGGER: Well placed sound
   checkForWin();
 }
 
@@ -644,6 +664,21 @@ document.addEventListener('keydown', (event) => {
 });
 
 restartButton.addEventListener('click', () => loadLevel(currentLevelIndex));
+
+// --- GLOBAL DELEGATED BUTTON INTERACTIONS CONTROLLER ---
+// Intercepts click events on all current and future injected HTML buttons to fire click sound effects
+document.addEventListener('click', (event) => {
+  if (event.target.closest('button')) {
+    playSFX(sfxClick);
+  }
+});
+
+// Intercepts hover events on all current and future injected HTML buttons to fire hover sound effects
+document.addEventListener('pointerover', (event) => {
+  if (event.target.closest('button')) {
+    playSFX(sfxHover);
+  }
+});
 
 // --- MODAL NAVIGATION MANAGER ---
 mainMenuButton.addEventListener('click', () => mainMenuModal.classList.add('show'));
@@ -700,11 +735,8 @@ saveNameButton.addEventListener('click', () => {
     return;
   }
   
-  // 1. Generate an arcade-style random 4-digit numeric discriminator tag to display duplicate names cleanly
   const discriminator = Math.floor(1000 + Math.random() * 9000);
   const fullTagName = `${processedInput}#${discriminator}`;
-  
-  // 2. Generate a unique persistent machine profile tracking id string token
   const uniqueId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2) + Date.now().toString(36);
 
   localStorage.setItem('charity_water_username', fullTagName);
@@ -738,11 +770,15 @@ function triggerConfetti() {
 
 // Global Lifecycle Check Initialization Block
 window.addEventListener('DOMContentLoaded', () => {
+  const yearElement = document.getElementById('currentYear');
+  if (yearElement) {
+    yearElement.textContent = new Date().getFullYear();
+  }
+
   let userCheck = localStorage.getItem('charity_water_username');
   let idCheck = localStorage.getItem('charity_water_user_id');
   
   if (userCheck) {
-    // Structural migration alignment check for legacy profiles
     if (!idCheck) {
       const uniqueId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2) + Date.now().toString(36);
       localStorage.setItem('charity_water_user_id', uniqueId);
