@@ -90,7 +90,7 @@ const LEVELS = [
       { angle: '170deg', distance: '0.554', rotation: '260deg', className: 'village-outside-left' },
       { angle: '190deg', distance: '0.554', rotation: '280deg', className: 'village-outside-center' },
       { angle: '350deg', distance: '0.554', rotation: '80deg', className: 'village-outside-right' },
-      { angle: '10deg',  distance: '0.554', rotation: '100deg', className: 'village-outside-center' }
+      { angle: '10deg', distance: '0.554', rotation: '100deg', className: 'village-outside-center' }
     ],
     deposits: [
       { angle: '90deg', distance: '0.25', className: 'deposit-one' },
@@ -104,7 +104,7 @@ const LEVELS = [
         { angle: '145deg', distance: '0.22' }, { angle: '155deg', distance: '0.38' },
         { angle: '215deg', distance: '0.25' }, { angle: '225deg', distance: '0.40' },
         { angle: '325deg', distance: '0.20' }, { angle: '335deg', distance: '0.38' },
-        { angle: '35deg',  distance: '0.22' }, { angle: '45deg',  distance: '0.40' }
+        { angle: '35deg', distance: '0.22' }, { angle: '45deg', distance: '0.40' }
       ],
       hard: [], impossible: []
     }
@@ -113,26 +113,22 @@ const LEVELS = [
     name: "Level 5: The Labyrinth Spiral",
     wellCount: 2,
     villages: [
-      { angle: '0deg', distance: '0.554', rotation: '90deg', className: 'village-outside-right' },
-      { angle: '90deg', distance: '0.554', rotation: '180deg', className: 'village-outside-left' },
-      { angle: '180deg', distance: '0.554', rotation: '270deg', className: 'village-outside-center' },
-      { angle: '270deg', distance: '0.554', rotation: '0deg', className: 'village-outside-center' }
+      { angle: '211deg', distance: '0.554', rotation: '301deg', className: 'village-outside-center' },
+      { angle: '335deg', distance: '0.554', rotation: '65deg', className: 'village-outside-center' }
     ],
     deposits: [
-      { angle: '135deg', distance: '0.18', className: 'deposit-one' },
-      { angle: '315deg', distance: '0.18', className: 'deposit-two' }
+      { angle: '90deg', distance: '0.418', className: 'deposit-one' }
     ],
     obstacles: {
       easy: [],
       normal: [
-        { angle: '45deg', distance: '0.15' }, { angle: '135deg', distance: '0.32' },
-        { angle: '225deg', distance: '0.15' }, { angle: '315deg', distance: '0.32' },
-        { angle: '0deg', distance: '0.28' }, { angle: '90deg', distance: '0.28' },
-        { angle: '180deg', distance: '0.28' }, { angle: '270deg', distance: '0.28' },
-        { angle: '20deg', distance: '0.38' }, { angle: '110deg', distance: '0.38' },
-        { angle: '200deg', distance: '0.38' }, { angle: '290deg', distance: '0.38' },
-        { angle: '70deg', distance: '0.42' }, { angle: '160deg', distance: '0.42' },
-        { angle: '250deg', distance: '0.42' }, { angle: '340deg', distance: '0.42' }
+        { angle: '211deg', distance: '0.423' }, { angle: '211deg', distance: '0.324' }, { angle: '211deg', distance: '0.241' },
+        { angle: '210deg', distance: '0.162' }, { angle: '207deg', distance: '0.074' }, { angle: '329deg', distance: '0.433' },
+        { angle: '330deg', distance: '0.329' }, { angle: '333deg', distance: '0.242' }, { angle: '336deg', distance: '0.158' },
+        { angle: '345deg', distance: '0.081' }, { angle: '199deg', distance: '0.439' }, { angle: '186deg', distance: '0.444' },
+        { angle: '174deg', distance: '0.446' }, { angle: '341deg', distance: '0.442' }, { angle: '354deg', distance: '0.438' },
+        { angle: '6deg', distance: '0.441' }, { angle: '18deg', distance: '0.439' }, { angle: '161deg', distance: '0.442' },
+        { angle: '32deg', distance: '0.455' }, { angle: '149deg', distance: '0.439' }
       ],
       hard: [], impossible: []
     }
@@ -142,46 +138,193 @@ const LEVELS = [
     wellCount: 2,
     villages: [
       { angle: '250deg', distance: '0.554', rotation: '340deg', className: 'village-outside-left' },
-      { angle: '290deg', distance: '0.554', rotation: '20deg',  className: 'village-outside-right' },
+      { angle: '290deg', distance: '0.554', rotation: '20deg', className: 'village-outside-right' },
       { angle: '110deg', distance: '0.554', rotation: '200deg', className: 'village-outside-left' },
-      { angle: '70deg',  distance: '0.554', rotation: '160deg', className: 'village-outside-right' }
+      { angle: '70deg', distance: '0.554', rotation: '160deg', className: 'village-outside-right' }
     ],
-    deposits: [ { angle: '0deg', distance: '0', className: 'deposit-one' } ],
+    deposits: [{ angle: '0deg', distance: '0', className: 'deposit-one' }],
     obstacles: {
       easy: [],
       normal: [
         { angle: '270deg', distance: '0.22' }, { angle: '250deg', distance: '0.32' },
         { angle: '290deg', distance: '0.32' }, { angle: '245deg', distance: '0.44' },
         { angle: '270deg', distance: '0.44' }, { angle: '295deg', distance: '0.44' },
-        { angle: '90deg',  distance: '0.22' }, { angle: '110deg', distance: '0.32' },
-        { angle: '70deg',  distance: '0.32' }, { angle: '115deg', distance: '0.44' },
-        { angle: '90deg',  distance: '0.44' }, { angle: '65deg',  distance: '0.44' },
-        { angle: '180deg', distance: '0.25' }, { angle: '0deg',   distance: '0.25' },
+        { angle: '90deg', distance: '0.22' }, { angle: '110deg', distance: '0.32' },
+        { angle: '70deg', distance: '0.32' }, { angle: '115deg', distance: '0.44' },
+        { angle: '90deg', distance: '0.44' }, { angle: '65deg', distance: '0.44' },
+        { angle: '180deg', distance: '0.25' }, { angle: '0deg', distance: '0.25' },
         { angle: '215deg', distance: '0.25' }, { angle: '145deg', distance: '0.25' },
-        { angle: '325deg', distance: '0.25' }, { angle: '35deg',  distance: '0.25' }
+        { angle: '325deg', distance: '0.25' }, { angle: '35deg', distance: '0.25' }
       ],
       hard: [
         { angle: '270deg', distance: '0.44' }, { angle: '252deg', distance: '0.44' }, { angle: '288deg', distance: '0.44' },
         { angle: '244deg', distance: '0.34' }, { angle: '296deg', distance: '0.34' },
         { angle: '270deg', distance: '0.26' }, { angle: '232deg', distance: '0.28' }, { angle: '308deg', distance: '0.28' },
         { angle: '270deg', distance: '0.14' }, { angle: '212deg', distance: '0.22' }, { angle: '328deg', distance: '0.22' },
-        { angle: '180deg', distance: '0.25' }, { angle: '0deg',   distance: '0.25' },
-        { angle: '90deg',  distance: '0.14' }, { angle: '148deg', distance: '0.22' }, { angle: '32deg',  distance: '0.22' },
-        { angle: '90deg',  distance: '0.26' }, { angle: '128deg', distance: '0.28' }, { angle: '52deg',  distance: '0.28' },
-        { angle: '116deg', distance: '0.34' }, { angle: '64deg',  distance: '0.34' },
-        { angle: '90deg',  distance: '0.44' }, { angle: '108deg', distance: '0.44' }, { angle: '72deg',  distance: '0.44' }
+        { angle: '180deg', distance: '0.25' }, { angle: '0deg', distance: '0.25' },
+        { angle: '90deg', distance: '0.14' }, { angle: '148deg', distance: '0.22' }, { angle: '32deg', distance: '0.22' },
+        { angle: '90deg', distance: '0.26' }, { angle: '128deg', distance: '0.28' }, { angle: '52deg', distance: '0.28' },
+        { angle: '116deg', distance: '0.34' }, { angle: '64deg', distance: '0.34' },
+        { angle: '90deg', distance: '0.44' }, { angle: '108deg', distance: '0.44' }, { angle: '72deg', distance: '0.44' }
       ],
       impossible: [
         { angle: '270deg', distance: '0.44' }, { angle: '252deg', distance: '0.44' }, { angle: '288deg', distance: '0.44' },
         { angle: '244deg', distance: '0.34' }, { angle: '296deg', distance: '0.34' },
         { angle: '270deg', distance: '0.26' }, { angle: '232deg', distance: '0.28' }, { angle: '308deg', distance: '0.28' },
         { angle: '270deg', distance: '0.14' }, { angle: '212deg', distance: '0.22' }, { angle: '328deg', distance: '0.22' },
-        { angle: '180deg', distance: '0.25' }, { angle: '0deg',   distance: '0.25' },
-        { angle: '90deg',  distance: '0.14' }, { angle: '148deg', distance: '0.22' }, { angle: '32deg',  distance: '0.22' },
-        { angle: '90deg',  distance: '0.26' }, { angle: '128deg', distance: '0.28' }, { angle: '52deg',  distance: '0.28' },
-        { angle: '116deg', distance: '0.34' }, { angle: '64deg',  distance: '0.34' },
-        { angle: '90deg',  distance: '0.44' }, { angle: '108deg', distance: '0.44' }, { angle: '72deg',  distance: '0.44' }
+        { angle: '180deg', distance: '0.25' }, { angle: '0deg', distance: '0.25' },
+        { angle: '90deg', distance: '0.14' }, { angle: '148deg', distance: '0.22' }, { angle: '32deg', distance: '0.22' },
+        { angle: '90deg', distance: '0.26' }, { angle: '128deg', distance: '0.28' }, { angle: '52deg', distance: '0.28' },
+        { angle: '116deg', distance: '0.34' }, { angle: '64deg', distance: '0.34' },
+        { angle: '90deg', distance: '0.44' }, { angle: '108deg', distance: '0.44' }, { angle: '72deg', distance: '0.44' }
       ]
+    }
+  },
+  {
+    name: "Level 7: The Labyrinth Spiral",
+    wellCount: 4,
+    villages: [
+      { angle: '4deg', distance: '0.554', rotation: '94deg', className: 'village-outside-center' },
+      { angle: '271deg', distance: '0.554', rotation: '1deg', className: 'village-outside-center' },
+      { angle: '182deg', distance: '0.554', rotation: '272deg', className: 'village-outside-center' },
+      { angle: '92deg', distance: '0.554', rotation: '182deg', className: 'village-outside-center' }
+    ],
+    deposits: [
+      { angle: '270deg', distance: '0.203', className: 'deposit-one' },
+      { angle: '97deg', distance: '0.148', className: 'deposit-two' }
+    ],
+    obstacles: {
+      easy: [
+        { angle: '271deg', distance: '0.367' }, { angle: '94deg', distance: '0.336' }, { angle: '141deg', distance: '0.228' },
+        { angle: '45deg', distance: '0.234' }, { angle: '311deg', distance: '0.266' }, { angle: '233deg', distance: '0.266' },
+        { angle: '264deg', distance: '0.037' }, { angle: '289deg', distance: '0.306' }, { angle: '254deg', distance: '0.312' },
+        { angle: '229deg', distance: '0.139' }, { angle: '30deg', distance: '0.097' }, { angle: '71deg', distance: '0.261' },
+        { angle: '115deg', distance: '0.269' }
+      ],
+      normal: [
+        { angle: '271deg', distance: '0.367' }, { angle: '94deg', distance: '0.336' }, { angle: '141deg', distance: '0.228' },
+        { angle: '45deg', distance: '0.234' }, { angle: '311deg', distance: '0.266' }, { angle: '233deg', distance: '0.266' },
+        { angle: '264deg', distance: '0.037' }, { angle: '289deg', distance: '0.306' }, { angle: '254deg', distance: '0.312' },
+        { angle: '229deg', distance: '0.139' }, { angle: '30deg', distance: '0.097' }, { angle: '71deg', distance: '0.261' },
+        { angle: '115deg', distance: '0.269' }, { angle: '358deg', distance: '0.311' }, { angle: '186deg', distance: '0.296' }
+      ],
+      hard: [
+        { angle: '271deg', distance: '0.367' }, { angle: '94deg', distance: '0.336' }, { angle: '141deg', distance: '0.228' },
+        { angle: '45deg', distance: '0.234' }, { angle: '311deg', distance: '0.266' }, { angle: '233deg', distance: '0.266' },
+        { angle: '264deg', distance: '0.037' }, { angle: '289deg', distance: '0.306' }, { angle: '254deg', distance: '0.312' },
+        { angle: '229deg', distance: '0.139' }, { angle: '30deg', distance: '0.097' }, { angle: '71deg', distance: '0.261' },
+        { angle: '115deg', distance: '0.269' }, { angle: '358deg', distance: '0.311' }, { angle: '186deg', distance: '0.296' },
+        { angle: '341deg', distance: '0.256' }, { angle: '168deg', distance: '0.240' }, { angle: '14deg', distance: '0.358' },
+        { angle: '26deg', distance: '0.431' }, { angle: '199deg', distance: '0.353' }, { angle: '210deg', distance: '0.434' }
+      ], impossible: []
+    }
+  },
+  {
+    name: "Level 8: The Labyrinth Spiral",
+    wellCount: 3,
+    villages: [
+      { angle: '359deg', distance: '0.554', rotation: '89deg', className: 'village-outside-center' },
+      { angle: '179deg', distance: '0.554', rotation: '269deg', className: 'village-outside-center' },
+      { angle: '90deg', distance: '0.554', rotation: '180deg', className: 'village-outside-center' },
+      { angle: '110deg', distance: '0.554', rotation: '200deg', className: 'village-outside-center' },
+      { angle: '70deg', distance: '0.554', rotation: '160deg', className: 'village-outside-center' }
+    ],
+    deposits: [
+      { angle: '267deg', distance: '0.443', className: 'deposit-one' }
+    ],
+    obstacles: {
+      easy: [
+        { angle: '224deg', distance: '0.434' }, { angle: '224deg', distance: '0.359' }, { angle: '314deg', distance: '0.441' },
+        { angle: '315deg', distance: '0.375' }, { angle: '315deg', distance: '0.304' }, { angle: '223deg', distance: '0.286' },
+        { angle: '223deg', distance: '0.218' }, { angle: '317deg', distance: '0.231' }, { angle: '317deg', distance: '0.160' },
+        { angle: '225deg', distance: '0.144' }, { angle: '45deg', distance: '0.456' }, { angle: '46deg', distance: '0.391' },
+        { angle: '47deg', distance: '0.323' }, { angle: '49deg', distance: '0.258' }, { angle: '51deg', distance: '0.189' },
+        { angle: '131deg', distance: '0.452' }, { angle: '131deg', distance: '0.388' }, { angle: '130deg', distance: '0.323' },
+        { angle: '130deg', distance: '0.260' }, { angle: '130deg', distance: '0.194' }
+
+      ],
+      normal: [
+        { angle: '224deg', distance: '0.434' }, { angle: '224deg', distance: '0.359' }, { angle: '314deg', distance: '0.441' },
+        { angle: '315deg', distance: '0.375' }, { angle: '315deg', distance: '0.304' }, { angle: '223deg', distance: '0.286' },
+        { angle: '223deg', distance: '0.218' }, { angle: '317deg', distance: '0.231' }, { angle: '317deg', distance: '0.160' },
+        { angle: '225deg', distance: '0.144' }, { angle: '45deg', distance: '0.456' }, { angle: '46deg', distance: '0.391' },
+        { angle: '47deg', distance: '0.323' }, { angle: '49deg', distance: '0.258' }, { angle: '51deg', distance: '0.189' },
+        { angle: '131deg', distance: '0.452' }, { angle: '131deg', distance: '0.388' }, { angle: '130deg', distance: '0.323' },
+        { angle: '130deg', distance: '0.260' }, { angle: '130deg', distance: '0.194' }, { angle: '69deg', distance: '0.017' },
+        { angle: '272deg', distance: '0.208' }, { angle: '5deg', distance: '0.205' }, { angle: '90deg', distance: '0.232' },
+        { angle: '174deg', distance: '0.189' }
+
+      ],
+      hard: [
+        { angle: '224deg', distance: '0.434' }, { angle: '224deg', distance: '0.359' }, { angle: '314deg', distance: '0.441' },
+        { angle: '315deg', distance: '0.375' }, { angle: '315deg', distance: '0.304' }, { angle: '223deg', distance: '0.286' },
+        { angle: '223deg', distance: '0.218' }, { angle: '317deg', distance: '0.231' }, { angle: '317deg', distance: '0.160' },
+        { angle: '225deg', distance: '0.144' }, { angle: '45deg', distance: '0.456' }, { angle: '46deg', distance: '0.391' },
+        { angle: '47deg', distance: '0.323' }, { angle: '49deg', distance: '0.258' }, { angle: '51deg', distance: '0.189' },
+        { angle: '131deg', distance: '0.452' }, { angle: '131deg', distance: '0.388' }, { angle: '130deg', distance: '0.323' },
+        { angle: '130deg', distance: '0.260' }, { angle: '130deg', distance: '0.194' }, { angle: '69deg', distance: '0.017' },
+        { angle: '272deg', distance: '0.208' }, { angle: '5deg', distance: '0.205' }, { angle: '90deg', distance: '0.232' },
+        { angle: '174deg', distance: '0.189' }, { angle: '250deg', distance: '0.317' }, { angle: '293deg', distance: '0.320' },
+        { angle: '339deg', distance: '0.321' }, { angle: '25deg', distance: '0.329' }, { angle: '70deg', distance: '0.334' },
+        { angle: '110deg', distance: '0.339' }, { angle: '152deg', distance: '0.302' }, { angle: '199deg', distance: '0.302' }
+
+      ], impossible: []
+    }
+  },
+  {
+    name: "Level 9: The Labyrinth Spiral",
+    wellCount: 2,
+    villages: [
+      { angle: '219deg', distance: '0.554', rotation: '309deg', className: 'village-outside-center' },
+      { angle: '322deg', distance: '0.554', rotation: '52deg', className: 'village-outside-center' }
+
+    ],
+    deposits: [
+      { angle: '90deg', distance: '0.424', className: 'deposit-one' },
+      { angle: '127deg', distance: '0.416', className: 'deposit-two' },
+      { angle: '51deg', distance: '0.418', className: 'deposit-one' }
+
+    ],
+    obstacles: {
+      easy: [
+        { angle: '206deg', distance: '0.445' }, { angle: '334deg', distance: '0.447' }, { angle: '337deg', distance: '0.378' },
+        { angle: '204deg', distance: '0.376' }, { angle: '201deg', distance: '0.311' }, { angle: '341deg', distance: '0.315' },
+        { angle: '186deg', distance: '0.134' }, { angle: '162deg', distance: '0.082' }, { angle: '357deg', distance: '0.164' },
+        { angle: '17deg', distance: '0.111' }, { angle: '196deg', distance: '0.454' }, { angle: '187deg', distance: '0.459' },
+        { angle: '178deg', distance: '0.460' },
+        { angle: '343deg', distance: '0.460' }, { angle: '352deg', distance: '0.453' }, { angle: '2deg', distance: '0.454' },
+        { angle: '11deg', distance: '0.452' }, { angle: '169deg', distance: '0.454' }, { angle: '159deg', distance: '0.450' },
+        { angle: '20deg', distance: '0.451' }
+
+      ],
+      normal: [
+        { angle: '206deg', distance: '0.445' }, { angle: '334deg', distance: '0.447' }, { angle: '337deg', distance: '0.378' },
+        { angle: '204deg', distance: '0.376' }, { angle: '201deg', distance: '0.311' }, { angle: '341deg', distance: '0.315' },
+        { angle: '186deg', distance: '0.134' }, { angle: '162deg', distance: '0.082' }, { angle: '357deg', distance: '0.164' },
+        { angle: '17deg', distance: '0.111' }, { angle: '197deg', distance: '0.253' }, { angle: '191deg', distance: '0.199' },
+        { angle: '349deg', distance: '0.217' }, { angle: '344deg', distance: '0.262' }, { angle: '286deg', distance: '0.075' },
+        { angle: '85deg', distance: '0.144' },
+        { angle: '196deg', distance: '0.454' }, { angle: '187deg', distance: '0.459' }, { angle: '178deg', distance: '0.460' },
+        { angle: '343deg', distance: '0.460' }, { angle: '352deg', distance: '0.453' }, { angle: '2deg', distance: '0.454' },
+        { angle: '11deg', distance: '0.452' }, { angle: '169deg', distance: '0.454' }, { angle: '159deg', distance: '0.450' },
+        { angle: '20deg', distance: '0.451' }
+
+      ],
+      hard: [
+        { angle: '206deg', distance: '0.445' }, { angle: '334deg', distance: '0.447' }, { angle: '337deg', distance: '0.378' },
+        { angle: '204deg', distance: '0.376' }, { angle: '201deg', distance: '0.311' }, { angle: '341deg', distance: '0.315' },
+        { angle: '186deg', distance: '0.134' }, { angle: '162deg', distance: '0.082' }, { angle: '357deg', distance: '0.164' },
+        { angle: '17deg', distance: '0.111' }, { angle: '197deg', distance: '0.253' }, { angle: '191deg', distance: '0.199' },
+        { angle: '349deg', distance: '0.217' }, { angle: '344deg', distance: '0.262' }, { angle: '286deg', distance: '0.075' },
+        { angle: '85deg', distance: '0.144' }, { angle: '232deg', distance: '0.234' }, { angle: '251deg', distance: '0.242' },
+        { angle: '301deg', distance: '0.267' }, { angle: '316deg', distance: '0.266' }, { angle: '324deg', distance: '0.458' },
+        { angle: '314deg', distance: '0.457' }, { angle: '215deg', distance: '0.455' }, { angle: '224deg', distance: '0.458' },
+        { angle: '196deg', distance: '0.454' }, { angle: '187deg', distance: '0.459' }, { angle: '178deg', distance: '0.460' },
+        { angle: '343deg', distance: '0.460' }, { angle: '352deg', distance: '0.453' }, { angle: '2deg', distance: '0.454' },
+        { angle: '11deg', distance: '0.452' }, { angle: '169deg', distance: '0.454' }, { angle: '159deg', distance: '0.450' },
+        { angle: '20deg', distance: '0.451' }
+
+      ], impossible: []
     }
   }
 ];
@@ -265,23 +408,23 @@ function generateDynamicObstacles(levelObstacles) {
 function loadLevel(levelIndex) {
   currentLevelIndex = levelIndex;
   const level = LEVELS[levelIndex];
-  
+
   wellCount = level.wellCount;
   score = 0;
   rotation = 0;
   isDragging = false;
   isCarving = false;
   carvingPoints = [];
-  
+
   worldContents.innerHTML = '';
   carvingWorldGroup.innerHTML = '';
   carvingPreview.setAttribute('d', '');
-  
+
   worldContents.style.transform = `rotate(0deg)`;
   carvingWorldGroup.removeAttribute('transform');
-  
+
   levelTitle.textContent = level.name;
-  
+
   level.villages.forEach(v => {
     const img = document.createElement('img');
     img.src = "img/Town1.png";
@@ -315,9 +458,9 @@ async function processAndSyncLeaderboard(finalScore) {
   const localName = localStorage.getItem('charity_water_username') || "Anonymous";
   const localId = localStorage.getItem('charity_water_user_id') || "legacy-user";
   const standardScore = Math.round(finalScore);
-  
+
   leaderboardSubtitle.textContent = `LEVEL ${currentLevelIndex + 1} • ${currentDifficulty.toUpperCase()}`;
-  
+
   leaderboardTable.style.display = 'none';
   leaderboardSpinner.style.display = 'block';
   leaderboardSpinner.textContent = 'Syncing high score with server...';
@@ -351,7 +494,7 @@ async function processAndSyncLeaderboard(finalScore) {
         if (row.user_id === localId) {
           tr.className = 'leaderboard-row-active';
         }
-        
+
         tr.innerHTML = `
           <td>#${idx + 1}</td>
           <td>${escapeHtml(row.player_name)}</td>
@@ -359,7 +502,7 @@ async function processAndSyncLeaderboard(finalScore) {
         `;
         leaderboardRows.appendChild(tr);
       });
-      
+
       leaderboardSpinner.style.display = 'none';
       leaderboardTable.style.display = 'table';
     } else {
@@ -377,7 +520,7 @@ function escapeHtml(str) {
 
 // --- STANDARD GAME LOGIC INTERRUPTS ---
 function buildLevelSelectMenu() {
-  levelGrid.innerHTML = ''; 
+  levelGrid.innerHTML = '';
   LEVELS.forEach((level, index) => {
     const btn = document.createElement('button');
     btn.textContent = `Level ${index + 1}`;
@@ -489,7 +632,7 @@ function beginCarving(event) {
 function getObstacleLocalPos(element) {
   const angleStr = element.style.getPropertyValue('--angle') || '0deg';
   const angleRadians = parseFloat(angleStr) * Math.PI / 180;
-  let distance = 460 * 0.22; 
+  let distance = 460 * 0.22;
   const match = (element.style.getPropertyValue('--distance') || '').match(/0\.\d+/);
   if (match) distance = 460 * parseFloat(match[0]);
   return { x: 230 + distance * Math.cos(angleRadians), y: 230 + distance * Math.sin(angleRadians) };
@@ -501,7 +644,7 @@ function updateCarving(event) {
   const lastPoint = carvingPoints[carvingPoints.length - 1];
   const localPoint = toWorldLocalPoint(point);
   const obstacles = document.querySelectorAll('.obstacle');
-  
+
   let hitObstacle = false;
   for (const obs of obstacles) {
     if (Math.hypot(localPoint.x - getObstacleLocalPos(obs).x, localPoint.y - getObstacleLocalPos(obs).y) < 22) {
@@ -560,7 +703,7 @@ function checkForWin() {
 
   triggerConfetti();
   playSFX(sfxSuccess); // TRIGGER: Level Complete Fanfare Success Sound
-  
+
   if (currentLevelIndex < LEVELS.length - 1) {
     modalTitle.textContent = "🎉 Level Complete!";
     modalActionButton.textContent = "Next Level";
@@ -568,14 +711,14 @@ function checkForWin() {
   } else {
     modalTitle.textContent = "🏆 Campaign Victory!";
     modalActionButton.textContent = "Open Main Menu";
-    modalActionButton.onclick = () => { 
-      winModal.classList.remove("show"); 
-      mainMenuModal.classList.add("show"); 
+    modalActionButton.onclick = () => {
+      winModal.classList.remove("show");
+      mainMenuModal.classList.add("show");
     };
   }
-  
+
   winModal.classList.add("show");
-  processAndSyncLeaderboard(score); 
+  processAndSyncLeaderboard(score);
 }
 
 function finishCarving(event) {
@@ -599,7 +742,7 @@ function finishCarving(event) {
     finishedPath.dataset.connectedWellId = endWell.dataset.id;
     finishedPath.setAttribute('d', buildPathData(finishedPoints.map(toWorldLocalPoint)));
     carvingWorldGroup.appendChild(finishedPath);
-    
+
     const matchingRange = document.querySelector(`.well-range[data-well-id="${endWell.dataset.id}"]`);
     if (matchingRange) {
       matchingRange.classList.add('range-connected');
@@ -621,7 +764,7 @@ function placeWell() {
   const pointAngle = normalizeAngle(-90 - rotation);
   const worldSize = parseFloat(getComputedStyle(world).width) || 460;
   const wellId = `well-${wellIdCounter++}`;
-  
+
   const well = document.createElement('img');
   well.src = "img/Well.png"; well.className = 'well';
   well.dataset.id = wellId;
@@ -631,7 +774,7 @@ function placeWell() {
 
   const range = document.createElement('div');
   range.className = 'well-range';
-  range.dataset.wellId = wellId; 
+  range.dataset.wellId = wellId;
   range.style.setProperty('--angle', `${pointAngle}deg`);
   range.style.setProperty('--distance', `${worldSize * 0.48}px`);
   range.style.setProperty('--rotation', `${normalizeAngle(pointAngle + 90)}deg`);
@@ -641,7 +784,7 @@ function placeWell() {
   wellCount -= 1;
   updateWellCountDisplay(); updateScoreDisplay();
   wellTool.disabled = wellCount <= 0;
-  
+
   playSFX(sfxPlace); // TRIGGER: Well placed sound
   checkForWin();
 }
@@ -734,16 +877,16 @@ saveNameButton.addEventListener('click', () => {
     alert("Please enter a username that is at least 2 characters long.");
     return;
   }
-  
+
   const discriminator = Math.floor(1000 + Math.random() * 9000);
   const fullTagName = `${processedInput}#${discriminator}`;
   const uniqueId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2) + Date.now().toString(36);
 
   localStorage.setItem('charity_water_username', fullTagName);
   localStorage.setItem('charity_water_user_id', uniqueId);
-  
+
   nameModal.classList.remove('show');
-  loadLevel(0); 
+  loadLevel(0);
 });
 
 function triggerConfetti() {
@@ -777,7 +920,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   let userCheck = localStorage.getItem('charity_water_username');
   let idCheck = localStorage.getItem('charity_water_user_id');
-  
+
   if (userCheck) {
     if (!idCheck) {
       const uniqueId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2) + Date.now().toString(36);

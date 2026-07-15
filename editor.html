@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Charity Water — Level Layout Builder</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap">
+
+  <style>
+    /* Custom Styling Overrides specific to the Level Editor Environment */
+    .editor-layout {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .editor-controls-panel {
+      background: #FFFFFF;
+      padding: 24px;
+      border-radius: 24px;
+      box-shadow: 0 15px 35px rgba(18, 50, 74, 0.08);
+      flex: 1 1 300px;
+      max-width: 440px;
+      text-align: left;
+    }
+
+    .toolbar-title {
+      font-weight: 800;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      color: var(--cw-dark);
+      margin: 0 0 16px 0;
+      letter-spacing: 0.5px;
+      border-bottom: 2px solid #E4EEF7;
+      padding-bottom: 8px;
+    }
+
+    .tool-btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .tool-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      border: 2px solid #E4EEF7;
+      border-radius: 12px;
+      background: #FFFFFF;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--cw-dark);
+      cursor: pointer;
+      transition: all 0.15s ease-in-out;
+    }
+
+    .tool-btn:hover {
+      background: #F7FBFF;
+      border-color: var(--cw-blue);
+    }
+
+    .tool-btn.active {
+      background: rgba(46, 157, 247, 0.1);
+      border-color: var(--cw-blue);
+      color: var(--cw-blue);
+    }
+
+    /* Icon Swatches inside buttons */
+    .indicator-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+    }
+    .dot-village { background: #FF902A; border-radius: 4px; width: 20px; height: 10px; }
+    .dot-deposit { background: var(--cw-teal); border: 2px solid var(--cw-blue); }
+    .dot-rock    { background: #7A8A99; border: 1px solid #4A5764; border-radius: 4px; }
+
+    /* Textarea Code block display panel */
+    .output-frame {
+      position: relative;
+      margin-top: 20px;
+    }
+
+    #codeOutput {
+      width: 100%;
+      height: 280px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.85rem;
+      background: var(--cw-bg);
+      border: 2px solid #E4EEF7;
+      border-radius: 12px;
+      padding: 12px;
+      box-sizing: border-box;
+      resize: none;
+      color: #1E3A52;
+      font-weight: 600;
+    }
+
+    .action-btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.15s;
+      margin-bottom: 8px;
+    }
+
+    .btn-copy { background: var(--cw-yellow); color: var(--cw-dark); }
+    .btn-copy:hover { background: #E5B400; }
+    .btn-undo { background: #E4EEF7; color: var(--cw-muted); }
+    .btn-undo:hover { background: #D0E1F0; }
+    .btn-clear { background: var(--cw-red); color: #FFFFFF; }
+    .btn-clear:hover { background: #D53220; }
+
+    .world.edit-mode-active {
+      cursor: crosshair;
+    }
+
+    /* Target utility classes handling ghost transparency states */
+    .placement-ghost-preview {
+      opacity: 0.45 !important;
+      pointer-events: none !important;
+      z-index: 999 !important;
+      filter: drop-shadow(0 0 4px rgba(46, 157, 247, 0.4));
+    }
+  </style>
+</head>
+<body>
+
+  <div id="title" style="margin-top: 30px;">
+    <img src="img/water-can-transparent.png" alt="Jerry can">
+    <h1>Level Layout Builder</h1>
+    <img src="img/water-can-transparent.png" alt="Jerry can">
+  </div>
+  <p class="instructions">Select an item tool, drag to spin the world to an angle, and hover to see a placement preview.</p>
+
+  <div class="editor-layout">
+
+    <div class="game-area" id="gameArea" style="box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+      <div class="world-stage">
+        <div class="world-shell" id="worldShell">
+          <div class="world edit-mode-active" id="world">
+            <div class="world-contents" id="worldContents">
+
+              <img id="ghostVillage" src="img/Town1.png" class="village village-outside village-outside-center placement-ghost-preview" style="display: none;">
+              <div id="ghostDeposit" class="deposit deposit-one placement-ghost-preview" style="display: none;"></div>
+              <div id="ghostRock" class="obstacle placement-ghost-preview" style="display: none;"></div>
+
+            </div>
+            <svg class="carving-layer" id="carvingLayer" viewBox="0 0 460 460" preserveAspectRatio="xMidYMid meet">
+              <g id="carvingWorldGroup"></g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="editor-controls-panel">
+      <h3 class="toolbar-title">1. Select Asset Element</h3>
+      <div class="tool-btn-group">
+        <button class="tool-btn active" data-mode="village">
+          <span class="indicator-dot dot-village"></span> Village (Auto-snaps to Outer Rim)
+        </button>
+        <button class="tool-btn" data-mode="deposit">
+          <span class="indicator-dot dot-deposit"></span> Water Deposit (Underground)
+        </button>
+        <button class="tool-btn" data-mode="rock">
+          <span class="indicator-dot dot-rock"></span> Subterranean Rock / Obstacle
+        </button>
+      </div>
+
+      <h3 class="toolbar-title">2. Matrix Utilities</h3>
+      <button class="action-btn btn-undo" id="undoBtn">↩️ Undo Last Placement</button>
+      <button class="action-btn btn-clear" id="clearBtn">🗑️ Wipe Layout Clean</button>
+      <button class="action-btn btn-copy" id="copyBtn">📋 Copy Generated Code</button>
+
+      <h3 class="toolbar-title" style="margin-top: 20px;">3. Exported Configurations Object</h3>
+      <div class="output-frame">
+        <textarea id="codeOutput" readonly></textarea>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // --- LAYOUT DATA MODEL STATE HOOKS ---
+    const layout = {
+      villages: [],
+      deposits: [],
+      obstacles: []
+    };
+
+    let activeMode = 'village';
+    let rotation = 0;
+    let isDragging = false;
+    let lastAngle = 0;
+    let activePointerId = null;
+
+    // Node pointers
+    const world = document.getElementById('world');
+    const worldContents = document.getElementById('worldContents');
+    const toolButtons = document.querySelectorAll('.tool-btn');
+    const codeOutput = document.getElementById('codeOutput');
+    const undoBtn = document.getElementById('undoBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const copyBtn = document.getElementById('copyBtn');
+
+    // Ghost Handles
+    const ghostVillage = document.getElementById('ghostVillage');
+    const ghostDeposit = document.getElementById('ghostDeposit');
+    const ghostRock = document.getElementById('ghostRock');
+
+    // --- TOOL SWITCHER CONTROLLER INTERFACES ---
+    toolButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        toolButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeMode = btn.getAttribute('data-mode');
+        hideAllGhosts();
+      });
+    });
+
+    function hideAllGhosts() {
+      ghostVillage.style.display = 'none';
+      ghostDeposit.style.display = 'none';
+      ghostRock.style.display = 'none';
+    }
+
+    // --- MATHEMATICAL MAP COORDINATE MATRIX TRANSFORMS ---
+    function normalizeAngle(angle) { return ((angle % 360) + 360) % 360; }
+    function rotateBy(amount) {
+      rotation = normalizeAngle(rotation + amount);
+      worldContents.style.transform = `rotate(${rotation}deg)`;
+    }
+
+    function getAngle(event) {
+      const rect = world.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      return Math.atan2(event.clientY - centerY, event.clientX - centerX) * 180 / Math.PI;
+    }
+
+    function startDragging(event) {
+      if (event.button !== 0 || event.target.closest('.village') || event.target.closest('.deposit') || event.target.closest('.obstacle')) return;
+      isDragging = true;
+      activePointerId = event.pointerId;
+      lastAngle = getAngle(event);
+      hideAllGhosts();
+      event.preventDefault();
+    }
+
+    function handleDragging(event) {
+      if (!isDragging || event.pointerId !== activePointerId) return;
+      const currentAngle = getAngle(event);
+      const deltaAngle = ((currentAngle - lastAngle + 540) % 360) - 180;
+      lastAngle = currentAngle;
+      rotateBy(deltaAngle);
+      event.preventDefault();
+    }
+
+    function stopDragging(event) {
+      if (!isDragging || (activePointerId !== null && event.pointerId !== activePointerId)) return;
+      isDragging = false;
+      activePointerId = null;
+    }
+
+    // --- LIVE GHOST MOUSE TRACKING PREVIEW MATRIX ---
+    world.addEventListener('pointermove', (event) => {
+      // Suppress preview rendering frame logs if planet rotation vector manipulation is active
+      if (isDragging) {
+        hideAllGhosts();
+        return;
+      }
+
+      const rect = world.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = event.clientX - cx;
+      const dy = event.clientY - cy;
+      const distancePixels = Math.hypot(dx, dy);
+
+      const distanceFraction = (distancePixels / rect.width).toFixed(3);
+      const screenAngle = Math.atan2(dy, dx) * 180 / Math.PI;
+      const localAngle = normalizeAngle(screenAngle - rotation);
+      const calculatedAngleStr = Math.round(localAngle) + 'deg';
+
+      hideAllGhosts();
+
+      if (activeMode === 'village') {
+        ghostVillage.style.setProperty('--angle', calculatedAngleStr);
+        ghostVillage.style.setProperty('--distance', `calc(var(--world-size) * 0.554)`);
+        ghostVillage.style.setProperty('--rotation', Math.round(normalizeAngle(localAngle + 90)) + 'deg');
+        ghostVillage.style.display = 'block';
+      } else if (activeMode === 'deposit') {
+        ghostDeposit.style.setProperty('--angle', calculatedAngleStr);
+        ghostDeposit.style.setProperty('--distance', `calc(var(--world-size) * ${distanceFraction})`);
+        ghostDeposit.style.display = 'block';
+      } else if (activeMode === 'rock') {
+        ghostRock.style.setProperty('--angle', calculatedAngleStr);
+        ghostRock.style.setProperty('--distance', `calc(var(--world-size) * ${distanceFraction})`);
+        ghostRock.style.display = 'block';
+      }
+    });
+
+    world.addEventListener('pointerleave', hideAllGhosts);
+
+    // --- ITEM PLACEMENT LOGIC MATRIX CONTROLLERS ---
+    world.addEventListener('click', (event) => {
+      if (Math.abs(lastAngle - getAngle(event)) > 1 && isDragging) return;
+
+      const rect = world.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = event.clientX - cx;
+      const dy = event.clientY - cy;
+      const distancePixels = Math.hypot(dx, dy);
+
+      const distanceFraction = (distancePixels / rect.width).toFixed(3);
+      const screenAngle = Math.atan2(dy, dx) * 180 / Math.PI;
+      const localAngle = normalizeAngle(screenAngle - rotation);
+      const calculatedAngleStr = Math.round(localAngle) + 'deg';
+
+      if (activeMode === 'village') {
+        layout.villages.push({
+          angle: calculatedAngleStr,
+          distance: '0.554',
+          rotation: Math.round(normalizeAngle(localAngle + 90)) + 'deg',
+          className: 'village-outside-center'
+        });
+      } else if (activeMode === 'deposit') {
+        const depositClass = layout.deposits.length % 2 === 0 ? 'deposit-one' : 'deposit-two';
+        layout.deposits.push({
+          angle: calculatedAngleStr,
+          distance: distanceFraction,
+          className: depositClass
+        });
+      } else if (activeMode === 'rock') {
+        layout.obstacles.push({
+          angle: calculatedAngleStr,
+          distance: distanceFraction
+        });
+      }
+
+      renderLayoutVisuals();
+      compileConfigOutputBlock();
+    });
+
+    // --- REALTIME RENDER PIPELINE VIEWS ---
+    function renderLayoutVisuals() {
+      // Retain ghosts while purging placed assets safely
+      const elementsToClear = worldContents.querySelectorAll('.village:not(#ghostVillage), .deposit:not(#ghostDeposit), .obstacle:not(#ghostRock)');
+      elementsToClear.forEach(el => el.remove());
+
+      // Draw Villages
+      layout.villages.forEach(v => {
+        const img = document.createElement('img');
+        img.src = "img/Town1.png";
+        img.className = 'village village-outside village-outside-center';
+        img.style.cssText = `--angle: ${v.angle}; --distance: calc(var(--world-size) * ${v.distance}); --rotation: ${v.rotation};`;
+        worldContents.appendChild(img);
+      });
+
+      // Draw Deposits
+      layout.deposits.forEach(d => {
+        const div = document.createElement('div');
+        div.className = `deposit ${d.className}`;
+        div.style.cssText = `--angle: ${d.angle}; --distance: calc(var(--world-size) * ${d.distance});`;
+        worldContents.appendChild(div);
+      });
+
+      // Draw Obstacles
+      layout.obstacles.forEach(o => {
+        const div = document.createElement('div');
+        div.className = 'obstacle';
+        div.style.cssText = `--angle: ${o.angle}; --distance: calc(var(--world-size) * ${o.distance});`;
+        worldContents.appendChild(div);
+      });
+    }
+
+    // --- JSON OBJECT FORMAT GENERATOR LOGIC ---
+    function compileConfigOutputBlock() {
+      let exportString = `    villages: [\n`;
+      exportString += layout.villages.map(v => `      { angle: '${v.angle}', distance: '${v.distance}', rotation: '${v.rotation}', className: '${v.className}' }`).join(',\n');
+
+      exportString += `\n    ],\n    deposits: [\n`;
+      exportString += layout.deposits.map(d => `      { angle: '${d.angle}', distance: '${d.distance}', className: '${d.className}' }`).join(',\n');
+
+      exportString += `\n    ],\n    obstacles: {\n      easy: [],\n      normal: [\n`;
+
+      const rockStrings = layout.obstacles.map(o => `{ angle: '${o.angle}', distance: '${o.distance}' }`);
+
+      let rockLinesArray = [];
+      for (let i = 0; i < rockStrings.length; i += 3) {
+        rockLinesArray.push(`        ` + rockStrings.slice(i, i + 3).join(', '));
+      }
+      exportString += rockLinesArray.join(',\n');
+
+      exportString += `\n      ],\n      hard: [], impossible: []\n    }`;
+
+      codeOutput.value = exportString;
+    }
+
+    // --- ACTIONS CONFIGURATOR HOOKS ---
+    undoBtn.addEventListener('click', () => {
+      if (activeMode === 'village') layout.villages.pop();
+      else if (activeMode === 'deposit') layout.deposits.pop();
+      else if (activeMode === 'rock') layout.obstacles.pop();
+      renderLayoutVisuals();
+      compileConfigOutputBlock();
+    });
+
+    clearBtn.addEventListener('click', () => {
+      if (confirm("Are you sure you want to completely wipe this design layout clean?")) {
+        layout.villages = [];
+        layout.deposits = [];
+        layout.obstacles = [];
+        renderLayoutVisuals();
+        compileConfigOutputBlock();
+      }
+    });
+
+    copyBtn.addEventListener('click', () => {
+      codeOutput.select();
+      document.execCommand('copy');
+      const originalText = copyBtn.textContent;
+      copyBtn.textContent = '✅ Copied to Clipboard!';
+      copyBtn.style.background = '#159A48';
+      copyBtn.style.color = '#FFFFFF';
+      setTimeout(() => {
+        copyBtn.textContent = originalText;
+        copyBtn.style.background = 'var(--cw-yellow)';
+        copyBtn.style.color = 'var(--cw-dark)';
+      }, 1800);
+    });
+
+    document.getElementById('gameArea').addEventListener('pointerdown', startDragging);
+    window.addEventListener('pointermove', handleDragging);
+    window.addEventListener('pointerup', stopDragging);
+    window.addEventListener('pointercancel', stopDragging);
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight') { rotateBy(4); event.preventDefault(); }
+      if (event.key === 'ArrowLeft') { rotateBy(-4); event.preventDefault(); }
+    });
+
+    compileConfigOutputBlock();
+  </script>
+</body>
+</html>
