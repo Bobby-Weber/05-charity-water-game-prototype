@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Charity Water Game</title>
+  <title>Turning the Tide</title>
   <link rel="stylesheet" href="styles.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -15,11 +15,9 @@
     <div class="game-shell">
       <div id="title">
         <img src="img/water-can-transparent.png">
-        <h1 id="levelTitle">Charity Water Game Prototype</h1>
+        <h1 id="levelTitle">Turning the Tide</h1>
         <img src="img/water-can-transparent.png">
       </div>
-      <p class="instructions">Drag the world or use the arrow keys to rotate it. Click the yellow square to place a well
-        at the current top of the world.</p>
 
       <div class="game-area" id="gameArea">
         <div class="well-count" id="wellCount">Wells: 2</div>
@@ -51,19 +49,16 @@
 
   <div id="mainMenuModal" class="modal">
     <div class="modal-content">
-      <h2 style="margin-bottom: 6px;">📋 Main Menu</h2>
-      <p style="color: #45657a; font-size: 0.9rem; margin-bottom: 20px;">Manage configuration states and campaign
-        targets.</p>
+      <h2 style="margin-bottom: 6px;">Main Menu</h2>
       <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
         <button id="menuLevelSelectBtn"
-          style="background: #2E9DF7; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Select
-          Level</button>
+          style="background: #2E9DF7; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Levels</button>
         <button id="menuDiffSelectBtn"
           style="background: #159A48; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Difficulty:
           Normal</button>
         <button id="menuTutorialBtn"
           style="background: #FF902A; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">How
-          To Play / Tutorial</button>
+          to Play</button>
       </div>
       <button id="closeMainMenu"
         style="background: #7a8a99; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%;">Resume
@@ -73,7 +68,7 @@
 
   <div id="tutorialModal" class="modal">
     <div class="modal-content tutorial-modal-content">
-      <h2>📖 Game Guide & Rules</h2>
+      <h2>How to Play</h2>
       <div class="tutorial-scroll-frame">
         <h3>Goal</h3>
         <p>
@@ -92,18 +87,6 @@
           <li>Place wells at the top of the world with the yellow button</li>
           <li>Carve reservoirs from water deposits to wells with left click dragging</li>
         </ul>
-
-        <h3>Legend</h3>
-        <ul class="legend" style="padding-left: 0; list-style: none;">
-          <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;"><span
-              class="legend-icon legend-well"></span> Yellow squares are wells</li>
-          <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;"><span
-              class="legend-icon legend-town"></span> Orange rectangles are towns</li>
-          <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;"><span
-              class="legend-icon legend-water"></span> Blue circles are water deposits</li>
-          <li style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;"><span
-              class="legend-icon legend-range"></span> The dotted line area around wells is their range of effect</li>
-        </ul>
       </div>
       <div style="display: flex; gap: 10px; justify-content: center; margin-top: 16px;">
         <button id="backToMenuFromTutorial"
@@ -117,7 +100,7 @@
 
   <div id="nameModal" class="modal show">
     <div class="modal-content">
-      <h2>👋 Welcome Player!</h2>
+      <h2>Welcome Player!</h2>
       <p style="color: #45657a; font-size: 0.95rem; margin-bottom: 16px;">Please enter your name to track your scores on
         the global leaderboards:</p>
       <input type="text" id="playerNameInput" placeholder="Enter Username..." maxlength="16"
@@ -131,9 +114,7 @@
 
   <div id="winModal" class="modal">
     <div class="modal-content victory-layout">
-      <h2 id="modalTitle">🎉 Level Complete!</h2>
-      <p id="modalDescription">Loading data...</p>
-
+      <h2 id="modalTitle">Level Complete!</h2>
       <div class="leaderboard-wrapper">
         <h3>🏆 Global Top 10 Rankings</h3>
         <p id="leaderboardSubtitle"
@@ -154,6 +135,7 @@
       </div>
 
       <button id="modalActionButton" style="width: 100%;">Next Level</button>
+      <button id="modalChangeDiffButton" style="width: 100%; margin-top: 12px; background: #2E9DF7; color: white;">Try Another Difficulty</button>
     </div>
   </div>
 
@@ -176,33 +158,23 @@
   <div id="diffSelectModal" class="modal">
     <div class="modal-content">
       <h2>Select Difficulty</h2>
-      <p style="color: #45657a; font-size: 0.9rem; margin-bottom: 20px;">Adjusts obstacle matrices dynamically across
-        all game maps.</p>
       <div class="diff-options-stack" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
         <button class="diff-opt-btn" data-diff="easy"
-          style="background: #4FCB53; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Easy
-          (No Rocks)</button>
+          style="background: #4FCB53; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Easy</button>
         <button class="diff-opt-btn" data-diff="normal"
-          style="background: #2E9DF7; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Normal
-          (Default Map Layout)</button>
+          style="background: #2E9DF7; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Normal</button>
         <button class="diff-opt-btn" data-diff="hard"
-          style="background: #FF902A; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Hard
-          (Double Obstacles)</button>
-        <button class="diff-opt-btn" data-diff="impossible"
-          style="background: #F5402C; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Impossible
-          (Extreme Subterranean Blockade)</button>
+          style="background: #FF902A; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Hard</button>
       </div>
       <div style="display: flex; gap: 10px; justify-content: center;">
         <button id="backToMenuFromDiff"
           style="background: #2E9DF7; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Main
           Menu</button>
         <button id="closeDiffSelect"
-          style="background: #7a8a99; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Cancel</button>
+          style="background: #7a8a99; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Close</button>
       </div>
     </div>
   </div>
-
-  <script src="script.js"></script>
   <footer class="site-footer">
     <div class="footer-container">
 
@@ -217,8 +189,7 @@
         <ul>
           <li><a href="https://www.charitywater.org" target="_blank" rel="noopener">Official Website</a></li>
           <li><a href="https://www.charitywater.org/global-water-crisis" target="_blank" rel="noopener">The Water Crisis</a></li>
-          <li><a href="https://www.charitywater.org/our-work" target="_blank" rel="noopener">Our Work & Impact</a>
-          </li>
+          <li><a href="https://www.charitywater.org/our-work" target="_blank" rel="noopener">Our Work & Impact</a></li>
         </ul>
       </div>
 
@@ -234,11 +205,14 @@
     <div class="footer-bottom">
       <p>&copy; <span id="currentYear"></span> Bobby Weber. All rights reserved.</p>
       <p class="partnership-disclaimer">
-        Developed as an official educational project for the Global Career Accelerator, 
+        Developed as an official educational project for the Global Career Accelerator,
         organized in partnership with charity: water.
       </p>
     </div>
   </footer>
+
+  <script src="levels.js"></script>
+  <script src="script.js"></script>
 </body>
 
 </html>
