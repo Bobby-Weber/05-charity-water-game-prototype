@@ -10,12 +10,12 @@
   --cw-dark:        #12324A;   /* Deep Slate Charcoal Text */
   --cw-muted:       #45657A;   /* Subdued Slate Accent */
   --cw-bg:          #F7FBFF;   /* Crisp Clean Off-White Background */
-  
+
   /* Palette Functional Alerts */
   --cw-green:       #159A48;   /* Success Green Tracker */
   --cw-red:         #F5402C;   /* Danger Red Triggers */
   --cw-teal:        #8BD1CB;   /* Aquifer Secondary Accent */
-  
+
   /* Layout Dimensions */
   --world-size:     460px;
   --world-scale:    1;
@@ -23,8 +23,9 @@
 
 body {
   margin: 0;
-  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background: var(--cw-bg);
+  font-family: "Proxima Nova", "Avenir", "Montserrat", 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* Brand Immersive Accent: Floods the viewport frame with deep, vibrant water blue */
+  background: #F8EED3;
   color: var(--cw-dark);
   -webkit-font-smoothing: antialiased;
 }
@@ -59,6 +60,7 @@ body {
   width: 3.5rem;
   height: 3.5rem;
   object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(18, 50, 74, 0.15));
 }
 
 #title h1 {
@@ -68,15 +70,16 @@ body {
   color: var(--cw-dark);
   letter-spacing: -0.5px;
   text-transform: uppercase;
+  text-shadow: 0 2px 4px rgba(18, 50, 74, 0.15);
 }
 
 .instructions {
   margin-top: 8px;
   margin-bottom: 32px;
-  color: var(--cw-muted);
+  color: rgba(255, 255, 255, 0.85);
   font-size: 1rem;
   line-height: 1.5;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 /* ==========================================================================
@@ -91,11 +94,10 @@ body {
   padding: 32px;
   border-radius: 24px;
   background: #FFFFFF;
-  box-shadow: 0 15px 35px rgba(18, 50, 74, 0.08);
+  box-shadow: 0 20px 50px rgba(12, 34, 50, 0.2);
   touch-action: none;
 }
 
-/* On-Screen Context Tracking Badges (HUD) */
 .well-count,
 .score-count {
   position: absolute;
@@ -104,25 +106,25 @@ body {
   font-weight: 600;
   font-size: 0.9rem;
   letter-spacing: 0.5px;
-  box-shadow: 0 4px 12px rgba(18, 50, 74, 0.1);
+  box-shadow: 0 4px 12px rgba(18, 50, 74, 0.05);
   z-index: 5;
+  will-change: transform; /* Boosts browser layers to prevent animation stuttering */
 }
 
 .well-count {
   top: 20px;
   right: 20px;
-  background: var(--cw-blue);
-  color: #FFFFFF;
+  background: var(--cw-yellow);
+  color: var(--cw-dark);
 }
 
 .score-count {
   top: 68px;
   right: 20px;
-  background: var(--cw-green);
+  background: var(--cw-dark);
   color: #FFFFFF;
 }
 
-/* Game Navigation Controls Stacked Left */
 .main-menu-button,
 .restart-button {
   position: absolute;
@@ -133,35 +135,26 @@ body {
   font-weight: 600;
   font-size: 0.85rem;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(18, 50, 74, 0.1);
-  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 12px rgba(18, 50, 74, 0.05);
+  transition: all 0.15s ease-in-out; /* Standardized for smooth micro-interactions */
   z-index: 5;
-}
-
-.main-menu-button {
-  top: 20px;
   background: #FFFFFF;
   color: var(--cw-dark);
   border: 2px solid #E4EEF7;
 }
 
-.main-menu-button:hover {
-  background: #F0F6FC;
-  transform: translateY(-1px);
+.main-menu-button {
+  top: 20px;
 }
 
 .restart-button {
   top: 68px;
-  background: var(--cw-red);
-  color: #FFFFFF;
 }
 
 .restart-button:hover {
-  background: #D53220;
-  transform: translateY(-1px);
+  color: var(--cw-red);
 }
 
-/* Main Core Placement Tool Pin Selector */
 .well-tool {
   width: 56px;
   height: 56px;
@@ -170,14 +163,14 @@ body {
   border-radius: 50%;
   background: var(--cw-yellow);
   cursor: pointer;
-  box-shadow: 0 6px 16px rgba(255, 201, 7, 0.4);
+  box-shadow: 0 6px 16px rgba(255, 201, 7, 0.25);
   transition: transform 0.2s, box-shadow 0.2s;
   z-index: 4;
 }
 
 .well-tool:hover:not(:disabled) {
   transform: scale(1.08);
-  box-shadow: 0 8px 20px rgba(255, 201, 7, 0.5);
+  box-shadow: 0 8px 20px rgba(255, 201, 7, 0.35);
 }
 
 .well-tool:disabled {
@@ -211,8 +204,8 @@ body {
   height: 100%;
   right: 4%;
   border-radius: 50%;
-  border: calc(var(--world-size) * 0.0435) solid #CAD72E; /* Stylized Grassy Yellow-Green Rim Curve */
-  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.15), 0 10px 30px rgba(18, 50, 74, 0.15);
+  border: calc(var(--world-size) * 0.0435) solid #CAD72E;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.1), 0 10px 30px rgba(18, 50, 74, 0.1);
   overflow: visible;
   aspect-ratio: 1 / 1;
 }
@@ -228,7 +221,7 @@ body {
 }
 
 /* ==========================================================================
-   SUBTERRANEAN OBJECT ASSETS (ABS ATTACHMENT PIPELINES)
+   SUBTERRANEAN OBJECT ASSETS
    ========================================================================== */
 .village,
 .deposit,
@@ -240,19 +233,17 @@ body {
   top: 50%;
 }
 
-/* Tactical Obstacle Blockers */
 .obstacle {
   width: calc(var(--world-size) * 0.065);
   height: calc(var(--world-size) * 0.065);
   border-radius: 35% 65% 55% 45% / 45% 35% 65% 55%;
   background: #7A8A99;
   border: calc(var(--world-size) * 0.0065) solid #4A5764;
-  box-shadow: inset -3px -3px 0px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.25);
+  box-shadow: inset -3px -3px 0px rgba(0, 0, 0, 0.15), 0 4px 6px rgba(0, 0, 0, 0.15);
   z-index: 6;
   transform: translate(-50%, -50%) rotate(var(--angle)) translate(var(--distance)) rotate(calc(-1 * var(--angle)));
 }
 
-/* Aquatic Well Points */
 .well {
   width: calc(var(--world-size) * 0.1);
   height: calc(var(--world-size) * 0.12);
@@ -260,40 +251,34 @@ body {
   transform: translate(-50%, -50%) rotate(var(--angle)) translate(var(--distance)) rotate(calc(-1 * var(--angle))) rotate(var(--rotation));
 }
 
-/* Radius Range Coverage Zones */
 .well-range {
   width: calc(var(--world-size) * 0.5435);
   height: calc(var(--world-size) * 0.2);
   border: calc(var(--world-size) * 0.005) dotted rgba(255, 255, 255, 0.9);
   border-radius: 50%;
-  background: rgba(46, 157, 247, 0.15);
+  background: rgba(46, 157, 247, 0.12);
   transform: translate(-50%, -50%) rotate(var(--angle)) translate(calc(var(--distance) - 20px)) rotate(calc(-1 * var(--angle))) rotate(var(--rotation));
   z-index: 4;
   pointer-events: none;
   transition: background 0.4s ease, border-color 0.4s ease;
 }
 
-/* --- DYNAMIC GREENING SUCCESS MODIFIER --- */
-/* Floods only the well-range geometry footprint with water-connected success green, */
-/* automatically greening the underlying terrain map and the overlapping rim border edge. */
 .well-range.range-connected {
-  background: rgba(43, 114, 45, 0.35); /* Translucent bright success green overlay */
-  border-color: #4FCB53;                 /* Vibrant green bounding tracker dots */
+  background: rgba(43, 114, 45, 0.3);
+  border-color: #4FCB53;
 }
 
-/* Water Reservoirs */
 .deposit {
   width: calc(var(--world-size) * 0.0522);
   height: calc(var(--world-size) * 0.0522);
   border-radius: 50%;
   background: var(--cw-teal);
   border: calc(var(--world-size) * 0.0065) solid var(--cw-blue);
-  box-shadow: 0 0 12px rgba(46, 157, 247, 0.6);
+  box-shadow: 0 0 12px rgba(46, 157, 247, 0.4);
   z-index: 6;
   transform: translate(-50%, -50%) rotate(var(--angle)) translate(var(--distance)) rotate(calc(-1 * var(--angle)));
 }
 
-/* Outer Communities */
 .village-outside {
   width: calc(var(--world-size) * 0.2);
   height: calc(var(--world-size) * 0.1);
@@ -323,7 +308,7 @@ body {
 }
 
 /* ==========================================================================
-   MODAL PLATFORM INTERFACES (WINDOWS & OVERLAYS)
+   MODAL PLATFORM INTERFACES — BRANDED JERRY CAN YELLOW MATRICES
    ========================================================================== */
 .modal {
   position: fixed;
@@ -331,8 +316,8 @@ body {
   display: none;
   align-items: center;
   justify-content: center;
-  background: rgba(18, 50, 74, 0.65);
-  backdrop-filter: blur(4px);
+  background: rgba(18, 50, 74, 0.75);
+  backdrop-filter: blur(5px);
   z-index: 9999;
 }
 
@@ -341,66 +326,200 @@ body {
 }
 
 .modal-content {
-  background: #FFFFFF;
-  padding: 40px;
-  border-radius: 24px;
+  background: var(--cw-yellow);
+  padding: 44px 40px;
+  border-radius: 20px;
   text-align: center;
-  box-shadow: 0 20px 50px rgba(12, 34, 52, 0.25);
-  max-width: 440px;
+  box-shadow: 0 30px 60px rgba(12, 34, 50, 0.35);
+  max-width: 450px;
   width: 90%;
   box-sizing: border-box;
+  border: 3px solid var(--cw-dark);
 }
 
 .modal-content h2 {
+  font-family: "Proxima Nova", "Avenir", "Montserrat", sans-serif;
   font-weight: 800;
-  font-size: 1.8rem;
+  font-size: 2rem;
   color: var(--cw-dark);
   margin-top: 0;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+}
+
+.modal-content p {
+  font-family: "Georgia", serif;
+  font-size: 1.08rem;
+  line-height: 1.55;
+  color: var(--cw-dark);
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+/* --- BRANDED NAVIGATION MATRIX (NO !IMPORTANT REQUIRED) --- */
+.menu-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+  width: 100%;
+  align-items: center;
 }
 
 .modal-content button,
-.diff-options-stack button {
+.diff-options-stack button,
+#levelGrid button {
+  display: inline-block;
+  width: 100%;
+  max-width: 320px;
   padding: 14px 28px;
+  margin: 6px auto;
   border: none;
-  border-radius: 12px;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  font-size: 1rem;
+  border-radius: 8px;
+  font-family: "Proxima Nova", "Avenir", "Montserrat", sans-serif;
+  font-weight: 800;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
   cursor: pointer;
-  transition: background 0.15s ease-in-out, transform 0.15s;
+  box-sizing: border-box;
+  transition: all 0.15s ease-in-out; /* Ensured transitions remain globally uniform */
 }
 
-.modal-content button:not([style*="background"]) {
-  background: var(--cw-yellow);
+#menuLevelSelectBtn {
+  background: var(--cw-dark);
+  color: #FFFFFF;
+}
+
+#menuDiffSelectBtn,
+#menuTutorialBtn {
+  background: var(--cw-dark);
+  color: #FFFFFF;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Primary Form Triggers */
+#saveNameButton,
+#modalActionButton,
+.modal-content button.primary-action {
+  background: var(--cw-dark);
+  color: #FFFFFF;
+}
+
+/* Secondary Supportive Overlays */
+#modalChangeDiffButton,
+.modal-content button.secondary-action {
+  background: #FFFFFF;
   color: var(--cw-dark);
-  box-shadow: 0 4px 14px rgba(255, 201, 7, 0.3);
 }
 
-.modal-content button:not([style*="background"]):hover {
-  background: #E5B400;
-  transform: translateY(-1px);
+/* Sub-Menu Difficulty Selection Panels */
+.diff-options-stack button:nth-child(1) {
+  background: #FFFFFF;
+  color: var(--cw-dark);
 }
 
+.diff-options-stack button:nth-child(2) {
+  background: var(--cw-blue);
+  color: #FFFFFF;
+}
+
+.diff-options-stack button:nth-child(3) {
+  background: var(--cw-dark);
+  color: #FFFFFF;
+}
+
+/* Outlined Dismissal Framework */
+#closeMainMenu,
+#backToMenuFromTutorial,
+#backToMenuFromLevel,
+#backToMenuFromDiff,
+#closeTutorial,
+#closeLevelSelect,
+#closeDiffSelect {
+  background: transparent;
+  color: var(--cw-dark);
+  border: 2px solid var(--cw-dark);
+  margin-top: 6px;
+}
+
+/* ==========================================================================
+   GLOBAL TRANSITION HOVER ENGINE INTERCEPT MATRIX
+   ========================================================================== */
+/* FEATURE ADDITION: Universally applies a smooth translation micro-shift on hover to ALL buttons across the app */
+.main-menu-button:hover,
+.restart-button:hover,
+.modal-content button:hover,
+.diff-options-stack button:hover,
+#levelGrid button:hover,
+#menuLevelSelectBtn:hover,
+#menuDiffSelectBtn:hover,
+#menuTutorialBtn:hover,
+#closeMainMenu:hover,
+#backToMenuFromTutorial:hover,
+#backToMenuFromLevel:hover,
+#backToMenuFromDiff:hover,
+#closeTutorial:hover,
+#closeLevelSelect:hover,
+#closeDiffSelect:hover {
+  transform: translateY(-1px); /* Restored the unified translation vector shift */
+}
+
+/* Contextual color updates on hover */
+#menuLevelSelectBtn:hover,
+#menuDiffSelectBtn:hover,
+#menuTutorialBtn:hover,
+#saveNameButton:hover,
+#modalActionButton:hover,
+.modal-content button.primary-action:hover,
+.diff-options-stack button:nth-child(3):hover {
+  background: var(--cw-muted);
+  color: #FFFFFF;
+}
+
+#modalChangeDiffButton:hover,
+.modal-content button.secondary-action:hover,
+.diff-options-stack button:nth-child(1):hover {
+  background: #F8EED3;
+}
+
+.diff-options-stack button:nth-child(2):hover {
+  background: #1B85D6;
+}
+
+#closeMainMenu:hover,
+#backToMenuFromTutorial:hover,
+#backToMenuFromLevel:hover,
+#backToMenuFromDiff:hover,
+#closeTutorial:hover,
+#closeLevelSelect:hover,
+#closeDiffSelect:hover {
+  background: rgba(18, 50, 74, 0.08);
+}
+
+/* Form inputs alignment */
 #playerNameInput {
   width: 100%;
+  max-width: 320px;
   box-sizing: border-box;
   padding: 14px;
-  border: 2px solid #E4EEF7;
-  border-radius: 12px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
+  border: 2px solid var(--cw-dark);
+  border-radius: 8px;
+  font-family: "Proxima Nova", "Avenir", "Montserrat", sans-serif;
+  font-size: 1.05rem;
   text-align: center;
-  margin-bottom: 20px;
+  margin: 0 auto 20px auto;
   color: var(--cw-dark);
-  font-weight: 600;
+  font-weight: 700;
+  background: #FFFFFF;
   outline: none;
-  transition: border-color 0.2s;
 }
 
 #playerNameInput:focus {
-  border-color: var(--cw-blue);
-  box-shadow: 0 0 0 4px rgba(46, 157, 247, 0.15);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(18, 50, 74, 0.2);
 }
 
 /* ==========================================================================
@@ -411,67 +530,57 @@ body {
 }
 
 .leaderboard-wrapper {
-  background: var(--cw-bg);
-  border: 2px solid #E4EEF7;
-  border-radius: 16px;
+  background: #FFFFFF;
+  border: 2px solid var(--cw-dark);
+  border-radius: 12px;
   padding: 20px;
   margin: 24px 0;
-  max-height: 280px;
+  max-height: 250px;
   overflow-y: auto;
 }
 
 .leaderboard-wrapper h3 {
+  font-family: "Proxima Nova", "Avenir", "Montserrat", sans-serif;
   margin-top: 0;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
   font-size: 1.1rem;
   font-weight: 800;
   color: var(--cw-dark);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
 }
 
 .leaderboard-spinner {
+  font-family: "Georgia", serif;
   font-style: italic;
   color: var(--cw-muted);
   font-size: 0.95rem;
-  padding: 24px 0;
 }
 
 .leaderboard-table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  font-size: 0.95rem;
 }
 
 .leaderboard-table th {
+  font-family: "Proxima Nova", "Avenir", "Montserrat", sans-serif;
   color: var(--cw-muted);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
   border-bottom: 2px solid #E4EEF7;
-  padding-bottom: 8px;
+  padding-bottom: 10px;
 }
 
 .leaderboard-table td {
   padding: 10px 6px;
   border-bottom: 1px solid #E4EEF7;
   color: var(--cw-dark);
-  font-weight: 500;
-}
-
-.leaderboard-row-active {
-  background: rgba(255, 201, 7, 0.18);
   font-weight: 600;
 }
 
-.leaderboard-row-active td {
-  color: #8A6400;
-}
-
-.leaderboard-table tr:last-child td {
-  border-bottom: none;
+.leaderboard-row-active {
+  background: rgba(255, 201, 7, 0.25) !important;
 }
 
 /* ==========================================================================
@@ -483,16 +592,16 @@ body {
 }
 
 .tutorial-scroll-frame {
-  max-height: 320px;
+  max-height: 300px;
   overflow-y: auto;
-  background: var(--cw-bg);
-  border: 2px solid #E4EEF7;
-  border-radius: 16px;
-  padding: 20px;
-  box-sizing: border-box;
+  background: #FFFFFF;
+  border: 2px solid var(--cw-dark);
+  border-radius: 12px;
+  padding: 24px;
 }
 
 .tutorial-scroll-frame h3 {
+  font-family: "Proxima Nova", "Avenir", "Montserrat", sans-serif;
   margin-top: 0;
   margin-bottom: 8px;
   color: var(--cw-blue);
@@ -507,14 +616,29 @@ body {
 
 .tutorial-scroll-frame p,
 .tutorial-scroll-frame ul {
+  font-family: "Georgia", serif;
   line-height: 1.6;
-  color: var(--cw-muted);
+  color: var(--cw-dark);
   font-size: 0.95rem;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .tutorial-scroll-frame ul {
   padding-left: 20px;
+}
+
+.leaderboard-wrapper::-webkit-scrollbar,
+.tutorial-scroll-frame::-webkit-scrollbar {
+  width: 6px;
+}
+.leaderboard-wrapper::-webkit-scrollbar-track,
+.tutorial-scroll-frame::-webkit-scrollbar-track {
+  background: transparent;
+}
+.leaderboard-wrapper::-webkit-scrollbar-thumb,
+.tutorial-scroll-frame::-webkit-scrollbar-thumb {
+  background: #CAD72E;
+  border-radius: 99px;
 }
 
 /* ==========================================================================
@@ -523,10 +647,6 @@ body {
 @media (max-width: 700px) {
   :root {
     --world-size: min(460px, 82vw);
-  }
-
-  .instructions {
-    margin-bottom: 24px;
   }
 
   .game-area {
@@ -540,7 +660,7 @@ body {
   #title h1 {
     font-size: 1.6rem;
   }
-  
+
   #title img {
     width: 2.5rem;
     height: 2.5rem;
@@ -553,24 +673,16 @@ body {
     padding: 6px 14px;
     font-size: 0.8rem;
   }
-  
-  .restart-button {
-    top: 56px;
-  }
-
-  .score-count {
-    top: 56px;
-  }
 }
 
 /* ==========================================================================
-   CHARITY: WATER BRANDED SITE FOOTER ARCHITECTURE
+   CHARITY: WATER SITE FOOTER ARCHITECTURE
    ========================================================================== */
 .site-footer {
   background-color: var(--cw-dark);
   color: #FFFFFF;
   padding: 60px 20px 30px 20px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Proxima Nova", "Avenir", "Montserrat", sans-serif;
   width: 100%;
   box-sizing: border-box;
   border-top: 5px solid var(--cw-yellow);
@@ -600,6 +712,7 @@ body {
 }
 
 .footer-brand p {
+  font-family: "Georgia", serif;
   font-size: 0.9rem;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.7);
@@ -612,7 +725,7 @@ body {
   text-align: left;
 }
 
-.footer-links h4, 
+.footer-links h4,
 .footer-cta h4 {
   font-size: 0.9rem;
   font-weight: 800;
@@ -654,6 +767,7 @@ body {
 }
 
 .footer-cta p {
+  font-family: "Georgia", serif;
   font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.7);
   margin-top: 0;
@@ -677,7 +791,6 @@ body {
 .footer-donate-btn:hover {
   background: #E5B400;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 201, 7, 0.4);
 }
 
 .footer-bottom {
@@ -686,31 +799,17 @@ body {
   text-align: center;
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.4);
-  font-weight: 500;
 }
 
 .footer-bottom p {
   margin: 0;
 }
 
-/* ---------- Responsive Breakpoints ---------- */
 @media (max-width: 768px) {
   .footer-container {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 32px;
-  }
-  
-  .footer-brand, 
-  .footer-links, 
-  .footer-cta {
-    text-align: center;
-    align-items: center;
-  }
-  
-  .footer-brand p {
-    margin: 0 auto;
   }
 }
 
@@ -719,6 +818,4 @@ body {
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.45);
   font-weight: 500;
-  letter-spacing: 0.3px;
-  line-height: 1.4;
 }

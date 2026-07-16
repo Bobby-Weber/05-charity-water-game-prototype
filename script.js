@@ -75,7 +75,7 @@ const winModal = document.getElementById("winModal");
 const levelTitle = document.getElementById("levelTitle");
 const modalTitle = document.getElementById("modalTitle");
 const modalActionButton = document.getElementById("modalActionButton");
-const modalChangeDiffButton = document.getElementById("modalChangeDiffButton"); // Added DOM handle node pointer
+const modalChangeDiffButton = document.getElementById("modalChangeDiffButton");
 
 // Track the current rotation and drag state.
 let rotation = 0;
@@ -230,8 +230,10 @@ function normalizeAngle(angle) { return ((angle % 360) + 360) % 360; }
 function updateRotation(newRotation) {
   rotation = normalizeAngle(newRotation);
   worldContents.style.transform = `rotate(${rotation}deg)`;
-  const centerX = world.clientWidth / 2;
-  const centerY = world.clientHeight / 2;
+
+  // Constant SVG viewBox coordinates center point lock to eliminate small screen layout drift
+  const centerX = 230;
+  const centerY = 230;
   carvingWorldGroup.setAttribute('transform', `rotate(${rotation} ${centerX} ${centerY})`);
 }
 
@@ -278,7 +280,6 @@ function clampPoint(point) {
   return point;
 }
 
-// Coordinate converter mapping systems
 function getSvgPointFromClient(clientX, clientY) {
   const svgPoint = carvingLayer.createSVGPoint();
   svgPoint.x = clientX; svgPoint.y = clientY;
@@ -295,7 +296,9 @@ function getElementCenterPoint(element) {
 }
 
 function rotatePoint(point, angleDegrees) {
-  const centerX = world.clientWidth / 2, centerY = world.clientHeight / 2;
+  // Constant calculations center point matching viewBox boundaries exactly
+  const centerX = 230;
+  const centerY = 230;
   const radians = angleDegrees * Math.PI / 180;
   const dx = point.x - centerX, dy = point.y - centerY;
   return {
@@ -304,7 +307,6 @@ function rotatePoint(point, angleDegrees) {
   };
 }
 
-// Surface placement mapping tracking matrices
 function toWorldLocalPoint(point) { return rotatePoint(point, -rotation); }
 function buildPathData(points) {
   if (points.length === 0) return '';
@@ -343,6 +345,7 @@ function updateCarving(event) {
   let collidedObs = null;
 
   for (const obs of obstacles) {
+    // Generous rock hitbox evaluation threshold metric pinned to 14 pixels
     if (Math.hypot(localPoint.x - getObstacleLocalPos(obs).x, localPoint.y - getObstacleLocalPos(obs).y) < 14) {
       hitObstacle = true;
       collidedObs = obs;
@@ -451,6 +454,16 @@ function finishCarving(event) {
     const finishedPoints = [...carvingPoints, getElementCenterPoint(endWell)];
     score += calculatePathLength(finishedPoints);
     updateScoreDisplay();
+
+    // FEATURE ADDITION: Elastic quick scale pulse animation on the score badge
+    if (scoreDisplay) {
+      scoreDisplay.animate([
+        { transform: 'scale(1)' },
+        { transform: 'scale(1.2)' },
+        { transform: 'scale(1)' }
+      ], { duration: 200, easing: 'ease-out' });
+    }
+
     const finishedPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     finishedPath.setAttribute('class', 'carving-path');
     finishedPath.dataset.connectedWellId = endWell.dataset.id;
@@ -499,11 +512,20 @@ function placeWell() {
   updateWellCountDisplay(); updateScoreDisplay();
   wellTool.disabled = wellCount <= 0;
 
+  // FEATURE ADDITION: Elastic quick scale pulse animation on the well counter element
+  if (wellCountDisplay) {
+    wellCountDisplay.animate([
+      { transform: 'scale(1)' },
+      { transform: 'scale(1.2)' },
+      { transform: 'scale(1)' }
+    ], { duration: 200, easing: 'ease-out' });
+  }
+
   playSFX(sfxPlace);
   checkForWin();
 }
 
-// Bind Canvas Event Loops
+// Bind Canvas Event Loops (Re-allowed default global contextmenu handling)
 gameArea.addEventListener('pointerdown', startDragging);
 world.addEventListener('pointerdown', beginCarving);
 window.addEventListener('pointermove', handleDragging);
@@ -512,7 +534,6 @@ window.addEventListener('pointerup', stopDragging);
 window.addEventListener('pointerup', finishCarving);
 window.addEventListener('pointercancel', stopDragging);
 window.addEventListener('pointercancel', finishCarving);
-document.addEventListener('contextmenu', event => event.preventDefault());
 wellTool.addEventListener('click', event => { event.preventDefault(); placeWell(); });
 
 document.addEventListener('keydown', (event) => {
@@ -582,7 +603,6 @@ diffOptions.forEach(btn => {
   });
 });
 
-// SUCCESS OVERLAY DIFFERENTIAL INTERCEPT BUTTON
 if (modalChangeDiffButton) {
   modalChangeDiffButton.addEventListener('click', () => {
     winModal.classList.remove('show');

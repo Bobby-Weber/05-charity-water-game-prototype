@@ -14,9 +14,9 @@
 
     <div class="game-shell">
       <div id="title">
-        <img src="img/water-can-transparent.png">
+        <div style="background: var(--cw-dark); border-radius: 50%;"><img src="img/water-can-transparent.png"></div>
         <h1 id="levelTitle">Turning the Tide</h1>
-        <img src="img/water-can-transparent.png">
+        <div style="background: var(--cw-dark); border-radius: 50%;"><img src="img/water-can-transparent.png"></div>
       </div>
 
       <div class="game-area" id="gameArea">
@@ -50,19 +50,12 @@
   <div id="mainMenuModal" class="modal">
     <div class="modal-content">
       <h2 style="margin-bottom: 6px;">Main Menu</h2>
-      <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
-        <button id="menuLevelSelectBtn"
-          style="background: #2E9DF7; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Levels</button>
-        <button id="menuDiffSelectBtn"
-          style="background: #159A48; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Difficulty:
-          Normal</button>
-        <button id="menuTutorialBtn"
-          style="background: #FF902A; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">How
-          to Play</button>
+      <div class="menu-stack">
+        <button id="menuLevelSelectBtn">Levels</button>
+        <button id="menuDiffSelectBtn">Difficulty: Normal</button>
+        <button id="menuTutorialBtn">How to Play</button>
       </div>
-      <button id="closeMainMenu"
-        style="background: #7a8a99; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%;">Resume
-        Game</button>
+      <button id="closeMainMenu">Resume Game</button>
     </div>
   </div>
 
@@ -89,11 +82,8 @@
         </ul>
       </div>
       <div style="display: flex; gap: 10px; justify-content: center; margin-top: 16px;">
-        <button id="backToMenuFromTutorial"
-          style="background: #2E9DF7; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Main
-          Menu</button>
-        <button id="closeTutorial"
-          style="background: #7a8a99; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Close</button>
+        <button id="backToMenuFromTutorial">Main Menu</button>
+        <button id="closeTutorial">Close</button>
       </div>
     </div>
   </div>
@@ -103,12 +93,9 @@
       <h2>Welcome Player!</h2>
       <p style="color: #45657a; font-size: 0.95rem; margin-bottom: 16px;">Please enter your name to track your scores on
         the global leaderboards:</p>
-      <input type="text" id="playerNameInput" placeholder="Enter Username..." maxlength="16"
-        style="width: 80%; padding: 12px; border: 2px solid #e4eef7; border-radius: 8px; font-size: 1rem; text-align: center; margin-bottom: 16px; outline: none;">
+      <input type="text" id="playerNameInput" placeholder="Enter Username..." maxlength="16" style="outline: none;">
       <br>
-      <button id="saveNameButton"
-        style="width: 87%; padding: 12px; background: #FFC907; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Start
-        Campaign</button>
+      <button id="saveNameButton" class="primary-action">Start Campaign</button>
     </div>
   </div>
 
@@ -117,8 +104,7 @@
       <h2 id="modalTitle">Level Complete!</h2>
       <div class="leaderboard-wrapper">
         <h3>🏆 Global Top 10 Rankings</h3>
-        <p id="leaderboardSubtitle"
-          style="margin-top: -8px; margin-bottom: 12px; color: #45657a; font-size: 0.85rem; font-weight: bold; letter-spacing: 0.5px;">
+        <p id="leaderboardSubtitle" style="margin-top: -8px; margin-bottom: 12px; color: #45657a; font-size: 0.85rem; font-weight: bold; letter-spacing: 0.5px;">
         </p>
 
         <div class="leaderboard-spinner" id="leaderboardSpinner">Loading scores...</div>
@@ -134,23 +120,19 @@
         </table>
       </div>
 
-      <button id="modalActionButton" style="width: 100%;">Next Level</button>
-      <button id="modalChangeDiffButton" style="width: 100%; margin-top: 12px; background: #2E9DF7; color: white;">Try Another Difficulty</button>
+      <button id="modalActionButton" class="primary-action">Next Level</button>
+      <button id="modalChangeDiffButton" class="secondary-action">Try Another Difficulty</button>
     </div>
   </div>
 
   <div id="levelSelectModal" class="modal">
     <div class="modal-content">
       <h2>Select a Level</h2>
-      <div id="levelGrid"
-        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 12px; margin: 20px 0;">
+      <div id="levelGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 12px; margin: 20px 0;">
       </div>
       <div style="display: flex; gap: 10px; justify-content: center;">
-        <button id="backToMenuFromLevel"
-          style="background: #2E9DF7; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Main
-          Menu</button>
-        <button id="closeLevelSelect"
-          style="background: #7a8a99; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Close</button>
+        <button id="backToMenuFromLevel">Main Menu</button>
+        <button id="closeLevelSelect">Close</button>
       </div>
     </div>
   </div>
@@ -158,26 +140,20 @@
   <div id="diffSelectModal" class="modal">
     <div class="modal-content">
       <h2>Select Difficulty</h2>
-      <div class="diff-options-stack" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
-        <button class="diff-opt-btn" data-diff="easy"
-          style="background: #4FCB53; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Easy</button>
-        <button class="diff-opt-btn" data-diff="normal"
-          style="background: #2E9DF7; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Normal</button>
-        <button class="diff-opt-btn" data-diff="hard"
-          style="background: #FF902A; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Hard</button>
+      <div class="diff-options-stack">
+        <button class="diff-opt-btn" data-diff="easy">Easy</button>
+        <button class="diff-opt-btn" data-diff="normal">Normal</button>
+        <button class="diff-opt-btn" data-diff="hard">Hard</button>
       </div>
-      <div style="display: flex; gap: 10px; justify-content: center;">
-        <button id="backToMenuFromDiff"
-          style="background: #2E9DF7; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Main
-          Menu</button>
-        <button id="closeDiffSelect"
-          style="background: #7a8a99; color: white; padding: 8px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Close</button>
+      <div style="display: flex; gap: 10px; justify-content: center; margin-top: 12px;">
+        <button id="backToMenuFromDiff">Main Menu</button>
+        <button id="closeDiffSelect">Close</button>
       </div>
     </div>
   </div>
+
   <footer class="site-footer">
     <div class="footer-container">
-
       <div class="footer-brand">
         <img src="img/water-can-transparent.png" alt="charity: water jerry can logo" class="footer-logo">
         <p>This is an educational game prototype inspired by the clean water mission of charity: water. 100%
@@ -196,10 +172,8 @@
       <div class="footer-cta">
         <h4>Make a Difference</h4>
         <p>Help bring clean water to communities around the globe.</p>
-        <a href="https://www.charitywater.org/donate" target="_blank" rel="noopener" class="footer-donate-btn">Donate to
-          charity: water</a>
+        <a href="https://www.charitywater.org/donate" target="_blank" rel="noopener" class="footer-donate-btn">Donate to charity: water</a>
       </div>
-
     </div>
 
     <div class="footer-bottom">
