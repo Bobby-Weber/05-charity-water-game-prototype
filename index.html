@@ -29,7 +29,8 @@
         <button id="mainMenuButton" class="main-menu-button">Main Menu</button>
         <button id="restartButton" class="restart-button">Restart Level</button>
 
-        <button class="well-tool" id="wellTool" type="button" aria-label="Place well"></button>
+        <button class="well-tool" id="wellTool" type="button" aria-label="Place well"><img style="width: 60%;"
+            src="img/Well1.png"></button>
 
         <div class="world-stage">
           <div class="world-shell" id="worldShell">
@@ -67,15 +68,18 @@
       <h2>How to Play</h2>
       <div class="tutorial-scroll-frame">
         <h3>Goal</h3>
-        <p>
-          Bring water to all towns by placing wells within reach and connecting
-          them to water deposits underground. You have a limited number of wells,
-          so place them wisely.
-        </p>
-        <p>
-          The longer your underground reservoirs are, the more points you gain.
-          <strong>Try to have the LEAST amount of points as you can!</strong>
-        </p>
+        <p>Bring water to all towns!</p>
+        <ul>
+          <li>Place wells within reach of towns</li>
+          <li>Connect underground water deposits to the wells</li>
+        </ul>
+        <p>But watch out!</p>
+        <ul>
+          <li>You have a limited number of wells, so place them wisely</li>
+          <li>Rocks will block your path</li>
+        </ul>
+        <p><strong>Try to have the LEAST amount of points as you can!</strong></p>
+
 
         <h3>Controls</h3>
         <ul>
@@ -107,7 +111,8 @@
       <h2 id="modalTitle">Level Complete!</h2>
       <div class="leaderboard-wrapper">
         <h3>🏆 Global Top 10 Rankings</h3>
-        <p id="leaderboardSubtitle" style="margin-top: -8px; margin-bottom: 12px; color: #45657a; font-size: 0.85rem; font-weight: bold; letter-spacing: 0.5px;">
+        <p id="leaderboardSubtitle"
+          style="margin-top: -8px; margin-bottom: 12px; color: #45657a; font-size: 0.85rem; font-weight: bold; letter-spacing: 0.5px;">
         </p>
 
         <div class="leaderboard-spinner" id="leaderboardSpinner">Loading scores...</div>
@@ -131,8 +136,8 @@
   <div id="levelSelectModal" class="modal">
     <div class="modal-content">
       <h2>Select a Level</h2>
-      <div id="levelGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 12px; margin: 20px 0;">
-      </div>
+      <div id="levelGrid" style="display: grid; grid-template-columns: repeat(3, minmax(80px, 1fr)); justify-content: center; gap: 12px; margin: 20px 0;">
+</div>
       <div style="display: flex; gap: 10px; justify-content: center;">
         <button id="backToMenuFromLevel">Main Menu</button>
         <button id="closeLevelSelect">Close</button>
@@ -158,8 +163,9 @@
   <footer class="site-footer">
     <div class="footer-container">
       <div class="footer-brand">
-        <a href="https://www.charitywater.org" target="_blank" rel="noopener"><img src="img/cw_logo_horizontal_white.png" alt="charity: water logo" class="footer-logo"></a>
-        <p>This is an educational game prototype inspired by the clean water mission of charity: water. 100%
+        <a href="https://www.charitywater.org" target="_blank" rel="noopener"><img
+            src="img/cw_logo_horizontal_white.png" alt="charity: water logo" class="footer-logo"></a>
+        <p><strong>Turning the Tide</strong> is a game inspired by the clean water mission of charity: water. 100%
           of public donations to charity: water go straight to funding sustainable water projects.</p>
       </div>
 
@@ -167,7 +173,8 @@
         <h4>Learn More</h4>
         <ul>
           <li><a href="https://www.charitywater.org" target="_blank" rel="noopener">Official Website</a></li>
-          <li><a href="https://www.charitywater.org/global-water-crisis" target="_blank" rel="noopener">The Water Crisis</a></li>
+          <li><a href="https://www.charitywater.org/global-water-crisis" target="_blank" rel="noopener">The Water
+              Crisis</a></li>
           <li><a href="https://www.charitywater.org/our-work" target="_blank" rel="noopener">Our Work & Impact</a></li>
         </ul>
       </div>
@@ -175,7 +182,8 @@
       <div class="footer-cta">
         <h4>Make a Difference</h4>
         <p>Help bring clean water to communities around the globe.</p>
-        <a href="https://www.charitywater.org/donate" target="_blank" rel="noopener" class="footer-donate-btn">Donate to charity: water</a>
+        <a href="https://www.charitywater.org/donate" target="_blank" rel="noopener" class="footer-donate-btn">Donate to
+          charity: water</a>
       </div>
     </div>
 

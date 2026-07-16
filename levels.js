@@ -120,7 +120,7 @@ const LEVELS = [
     }
   },
   {
-    name: "Level 4: The Labyrinth Spiral",
+    name: "Level 4: The Snake",
     wellCount: 4,
     villages: [
       { angle: '4deg', distance: '0.554', rotation: '94deg', className: 'village-outside-center' },
@@ -316,28 +316,6 @@ const LEVELS = [
         { angle: '170deg', distance: '0.315' }, { angle: '182deg', distance: '0.240' }, { angle: '11deg', distance: '0.319' },
         { angle: '358deg', distance: '0.246' }, { angle: '88deg', distance: '0.258' }
       ]
-    }
-  },
-  {
-    name: "Level 8",
-    wellCount: 3,
-    villages: [
-      { angle: '45deg', distance: '0.554', rotation: '135deg', className: 'village-outside-left' },
-      { angle: '180deg', distance: '0.554', rotation: '270deg', className: 'village-outside-center' },
-      { angle: '270deg', distance: '0.554', rotation: '0deg', className: 'village-outside-right' }
-    ],
-    deposits: [
-      { angle: '90deg', distance: '0.25', className: 'deposit-one' },
-      { angle: '0deg', distance: '0.30', className: 'deposit-two' }
-    ],
-    obstacles: {
-      easy: [
-
-      ],
-      normal: [
-
-      ],
-      hard: []
     }
   }
 ];

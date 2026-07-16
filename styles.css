@@ -405,6 +405,10 @@ header {
   transition: all 0.15s ease-in-out;
 }
 
+#levelGrid button:last-child:nth-child(3n - 2) {
+  grid-column: 2;
+}
+
 #menuLevelSelectBtn {
   background: var(--cw-dark);
   color: #FFFFFF;
@@ -771,9 +775,8 @@ header {
 }
 
 .footer-logo {
-  max-width: 180px;
-  width: 100% !important;
-  height: auto !important;
+  width: 80%;
+  height: auto;
   margin-bottom: 16px;
   object-fit: contain;
 }
