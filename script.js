@@ -455,7 +455,7 @@ function finishCarving(event) {
     score += calculatePathLength(finishedPoints);
     updateScoreDisplay();
 
-    // FEATURE ADDITION: Elastic quick scale pulse animation on the score badge
+    // Elastic quick scale pulse animation on the score badge
     if (scoreDisplay) {
       scoreDisplay.animate([
         { transform: 'scale(1)' },
@@ -512,7 +512,7 @@ function placeWell() {
   updateWellCountDisplay(); updateScoreDisplay();
   wellTool.disabled = wellCount <= 0;
 
-  // FEATURE ADDITION: Elastic quick scale pulse animation on the well counter element
+  // Elastic quick scale pulse animation on the well counter element
   if (wellCountDisplay) {
     wellCountDisplay.animate([
       { transform: 'scale(1)' },
@@ -525,8 +525,8 @@ function placeWell() {
   checkForWin();
 }
 
-// Bind Canvas Event Loops (Re-allowed default global contextmenu handling)
-gameArea.addEventListener('pointerdown', startDragging);
+// Bind Canvas Event Loops — CHANGED: Bind to world node instead of gameArea container to isolate drag input zone
+world.addEventListener('pointerdown', startDragging);
 world.addEventListener('pointerdown', beginCarving);
 window.addEventListener('pointermove', handleDragging);
 window.addEventListener('pointermove', updateCarving);

@@ -287,7 +287,7 @@ body {
 }
 
 /* ==========================================================================
-   SVG CARVING VECTOR MAP MATRIX
+   SVG CARVING VECTOR MAP MATRIX — WITH IPAD SAFARI REPAINT FIXES
    ========================================================================== */
 .carving-layer {
   position: absolute;
@@ -297,6 +297,11 @@ body {
   pointer-events: none;
   z-index: 1;
   clip-path: circle(50% at 50% 50%);
+
+  /* WEBKIT PULSE REPAINT INTERCEPT: Forces iPad viewports to isolate vector maps on a separate GPU context layer */
+  transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
 }
 
 .carving-path {
@@ -305,6 +310,10 @@ body {
   stroke-width: calc(var(--world-size) * 0.013);
   stroke-linecap: round;
   stroke-linejoin: round;
+
+  /* Force frame-by-frame dirty rectangle coordinate updates to prevent flickering vector dropouts */
+  transform: translate3d(0, 0, 0);
+  will-change: d;
 }
 
 /* ==========================================================================
@@ -448,7 +457,7 @@ body {
 /* ==========================================================================
    GLOBAL TRANSITION HOVER ENGINE INTERCEPT MATRIX
    ========================================================================== */
-/* FEATURE ADDITION: Universally applies a smooth translation micro-shift on hover to ALL buttons across the app */
+/* Universally applies a smooth translation micro-shift on hover to ALL buttons across the app */
 .main-menu-button:hover,
 .restart-button:hover,
 .modal-content button:hover,
