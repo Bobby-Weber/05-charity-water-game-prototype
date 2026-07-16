@@ -95,7 +95,7 @@ body {
   border-radius: 24px;
   background: #FFFFFF;
   box-shadow: 0 20px 50px rgba(12, 34, 50, 0.2);
-  touch-action: none;
+  /* FIXED: Removed touch-action: none from here to allow page scrolling on whitespace background */
 }
 
 .well-count,
@@ -208,6 +208,9 @@ body {
   box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.1), 0 10px 30px rgba(18, 50, 74, 0.1);
   overflow: visible;
   aspect-ratio: 1 / 1;
+
+  /* FIXED: Isolated touch locking specifically to the world canvas element */
+  touch-action: none;
 }
 
 .world-contents {
@@ -287,7 +290,7 @@ body {
 }
 
 /* ==========================================================================
-   SVG CARVING VECTOR MAP MATRIX — FIXED FOR WEBKIT REPAINT ISSUES
+   SVG CARVING VECTOR MAP MATRIX — WITH IPAD SAFARI REPAINT FIXES
    ========================================================================== */
 .carving-layer {
   position: absolute;
@@ -296,8 +299,9 @@ body {
   height: auto;
   pointer-events: none;
   z-index: 1;
-  /* FIXED: Removed the buggy CSS clip-path entirely. The script's clampPoint algorithm */
-  /* already natively constraints drawing coordinates inside the perfect circle bounds. */
+
+  /* FIXED: Removed the redundant CSS mask clip-path entirely. The script's clampPoint */
+  /* algorithm natively constraints drawing coordinates inside perfect circle bounds. */
 
   /* Hardware acceleration keeps layout redraw updates buttery smooth on mobile devices */
   transform: translate3d(0, 0, 0);
@@ -654,7 +658,7 @@ body {
 /* ==========================================================================
    RESPONSIVE VIEWPORT ENGINE SCALING CONFIGURATIONS
    ========================================================================== */
-/* Tablet & Medium Portrait Screens (specifically target layout structures on iPads) */
+/* Tablet & Medium Portrait Screens (specifically targets layout structures on iPads) */
 @media (min-width: 701px) and (max-width: 1024px) {
   :root {
     --world-size: 540px; /* Scaled up from 460px to fill canvas area comfortably */
