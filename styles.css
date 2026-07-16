@@ -287,7 +287,7 @@ body {
 }
 
 /* ==========================================================================
-   SVG CARVING VECTOR MAP MATRIX — WITH IPAD SAFARI REPAINT FIXES
+   SVG CARVING VECTOR MAP MATRIX — FIXED FOR WEBKIT REPAINT ISSUES
    ========================================================================== */
 .carving-layer {
   position: absolute;
@@ -296,9 +296,10 @@ body {
   height: auto;
   pointer-events: none;
   z-index: 1;
-  clip-path: circle(50% at 50% 50%);
+  /* FIXED: Removed the buggy CSS clip-path entirely. The script's clampPoint algorithm */
+  /* already natively constraints drawing coordinates inside the perfect circle bounds. */
 
-  /* WEBKIT PULSE REPAINT INTERCEPT: Forces iPad viewports to isolate vector maps on a separate GPU context layer */
+  /* Hardware acceleration keeps layout redraw updates buttery smooth on mobile devices */
   transform: translate3d(0, 0, 0);
   -webkit-backface-visibility: hidden;
   will-change: transform;
@@ -311,7 +312,7 @@ body {
   stroke-linecap: round;
   stroke-linejoin: round;
 
-  /* Force frame-by-frame dirty rectangle coordinate updates to prevent flickering vector dropouts */
+  /* Force frame-by-frame coordinate updates to prevent flickering vector dropouts */
   transform: translate3d(0, 0, 0);
   will-change: d;
 }
@@ -653,6 +654,57 @@ body {
 /* ==========================================================================
    RESPONSIVE VIEWPORT ENGINE SCALING CONFIGURATIONS
    ========================================================================== */
+/* Tablet & Medium Portrait Screens (specifically target layout structures on iPads) */
+@media (min-width: 701px) and (max-width: 1024px) {
+  :root {
+    --world-size: 540px; /* Scaled up from 460px to fill canvas area comfortably */
+  }
+
+  .game-shell {
+    max-width: 720px; /* Increases container width to provide layout breathing room */
+  }
+
+  .game-area {
+    padding: 40px;
+    gap: 28px;
+  }
+
+  #title h1 {
+    font-size: 2.6rem;
+  }
+
+  .well-count,
+  .score-count {
+    font-size: 1.05rem;
+    padding: 10px 20px;
+  }
+
+  .well-count {
+    top: 24px;
+    right: 24px;
+  }
+
+  .score-count {
+    top: 78px;
+    right: 24px;
+  }
+
+  .main-menu-button,
+  .restart-button {
+    font-size: 0.95rem;
+    padding: 12px 24px;
+    left: 24px;
+  }
+
+  .main-menu-button {
+    top: 24px;
+  }
+
+  .restart-button {
+    top: 78px;
+  }
+}
+
 @media (max-width: 700px) {
   :root {
     --world-size: min(460px, 82vw);
