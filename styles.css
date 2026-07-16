@@ -30,6 +30,13 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+header {
+  display: flex;
+  justify-content: center;
+  height: 40px;
+  margin-top: 10px;
+}
+
 /* ==========================================================================
    PAGE STRUCTURAL ARCHITECTURE
    ========================================================================== */
@@ -38,7 +45,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 40px 20px;
+  padding: 0 20px 40px 20px;
   box-sizing: border-box;
 }
 
@@ -95,7 +102,6 @@ body {
   border-radius: 24px;
   background: #FFFFFF;
   box-shadow: 0 20px 50px rgba(12, 34, 50, 0.2);
-  /* FIXED: Removed touch-action: none from here to allow page scrolling on whitespace background */
 }
 
 .well-count,
@@ -209,7 +215,7 @@ body {
   overflow: visible;
   aspect-ratio: 1 / 1;
 
-  /* FIXED: Isolated touch locking specifically to the world canvas element */
+  /* Isolated touch locking specifically to the world canvas element */
   touch-action: none;
 }
 
@@ -300,9 +306,6 @@ body {
   pointer-events: none;
   z-index: 1;
 
-  /* FIXED: Removed the redundant CSS mask clip-path entirely. The script's clampPoint */
-  /* algorithm natively constraints drawing coordinates inside perfect circle bounds. */
-
   /* Hardware acceleration keeps layout redraw updates buttery smooth on mobile devices */
   transform: translate3d(0, 0, 0);
   -webkit-backface-visibility: hidden;
@@ -372,7 +375,7 @@ body {
   margin-bottom: 24px;
 }
 
-/* --- BRANDED NAVIGATION MATRIX (NO !IMPORTANT REQUIRED) --- */
+/* --- BRANDED NAVIGATION MATRIX --- */
 .menu-stack {
   display: flex;
   flex-direction: column;
@@ -399,7 +402,7 @@ body {
   letter-spacing: 0.8px;
   cursor: pointer;
   box-sizing: border-box;
-  transition: all 0.15s ease-in-out; /* Ensured transitions remain globally uniform */
+  transition: all 0.15s ease-in-out;
 }
 
 #menuLevelSelectBtn {
@@ -462,7 +465,6 @@ body {
 /* ==========================================================================
    GLOBAL TRANSITION HOVER ENGINE INTERCEPT MATRIX
    ========================================================================== */
-/* Universally applies a smooth translation micro-shift on hover to ALL buttons across the app */
 .main-menu-button:hover,
 .restart-button:hover,
 .modal-content button:hover,
@@ -478,7 +480,7 @@ body {
 #closeTutorial:hover,
 #closeLevelSelect:hover,
 #closeDiffSelect:hover {
-  transform: translateY(-1px); /* Restored the unified translation vector shift */
+  transform: translateY(-1px);
 }
 
 /* Contextual color updates on hover */
@@ -658,14 +660,13 @@ body {
 /* ==========================================================================
    RESPONSIVE VIEWPORT ENGINE SCALING CONFIGURATIONS
    ========================================================================== */
-/* Tablet & Medium Portrait Screens (specifically targets layout structures on iPads) */
 @media (min-width: 701px) and (max-width: 1024px) {
   :root {
-    --world-size: 540px; /* Scaled up from 460px to fill canvas area comfortably */
+    --world-size: 540px;
   }
 
   .game-shell {
-    max-width: 720px; /* Increases container width to provide layout breathing room */
+    max-width: 720px;
   }
 
   .game-area {
@@ -770,8 +771,9 @@ body {
 }
 
 .footer-logo {
-  width: 2.8rem;
-  height: 2.8rem;
+  max-width: 180px;
+  width: 100% !important;
+  height: auto !important;
   margin-bottom: 16px;
   object-fit: contain;
 }
@@ -870,17 +872,147 @@ body {
   margin: 0;
 }
 
-@media (max-width: 768px) {
-  .footer-container {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-}
-
 .partnership-disclaimer {
   margin-top: 8px !important;
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.45);
   font-weight: 500;
+}
+
+/* ==========================================================================
+   UPGRADED MOBILE RESPONSIVE FOOTER STRUCTURES
+   ========================================================================== */
+@media (max-width: 768px) {
+  .footer-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    padding-bottom: 30px;
+    text-align: left;
+  }
+
+  .footer-brand {
+    grid-column: span 2;
+    text-align: left;
+  }
+
+  .footer-brand p {
+    max-width: 100%;
+  }
+
+  .site-footer .footer-logo {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .footer-links {
+    grid-column: span 1;
+    text-align: left;
+  }
+
+  .footer-cta {
+    grid-column: span 1;
+    text-align: left;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 520px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    text-align: center;
+  }
+
+  .footer-brand,
+  .footer-links,
+  .footer-cta {
+    grid-column: span 1;
+    text-align: center;
+    align-items: center;
+  }
+
+  .footer-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .site-footer .footer-logo {
+    margin: 0 auto 16px auto;
+  }
+}
+
+/* ==========================================================================
+   DYNAMIC MILESTONE TOAST NOTIFICATION STYLES
+   ========================================================================== */
+.cw-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--cw-dark);
+  color: #FFFFFF;
+  padding: 16px 24px;
+  border-radius: 12px;
+  border-left: 6px solid var(--cw-yellow);
+  box-shadow: 0 10px 30px rgba(18, 50, 74, 0.3);
+  z-index: 100000;
+  transform: translateX(120%);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  max-width: 320px;
+  font-family: "Proxima Nova", "Avenir", "Montserrat", sans-serif;
+  text-align: left;
+}
+
+.cw-toast.show {
+  transform: translateX(0);
+}
+
+.cw-toast-title {
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--cw-yellow);
+  margin-bottom: 2px;
+}
+
+.cw-toast-short {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.cw-toast-long {
+  font-family: "Georgia", serif;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   FEATURE ADDITION: SMOOTH RIGHT-TO-LEFT SCREEN SWIPE TIMELINE KEYFRAMES
+   ========================================================================== */
+.swipe-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--cw-dark);
+  transform: translateX(100%);
+  z-index: 2000000; /* Layers on top of gameplay layouts and modal stacks completely */
+  pointer-events: none;
+}
+
+@keyframes screenSwipe {
+  0% { transform: translateX(100%); }
+  40% { transform: translateX(0%); }   /* Fully covers viewport layout here */
+  60% { transform: translateX(0%); }   /* Brief midpoint hold pause gap parameter */
+  100% { transform: translateX(-100%); }
+}
+
+.swipe-overlay.animate-swipe {
+  animation: screenSwipe 1.25s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+  pointer-events: auto; /* Traps button mis-clicks while overlay transitions across screen */
 }

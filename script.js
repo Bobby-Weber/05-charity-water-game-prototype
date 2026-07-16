@@ -35,6 +35,7 @@ const carvingPreview = document.getElementById('carvingPreview');
 const carvingWorldGroup = document.getElementById('carvingWorldGroup');
 const wellCountDisplay = document.getElementById('wellCount');
 const scoreDisplay = document.getElementById('scoreCount');
+const swipeOverlay = document.getElementById('screenSwipeOverlay'); // Swipe element DOM node handler
 
 // System Control Navigators
 const restartButton = document.getElementById('restartButton');
@@ -88,6 +89,29 @@ let carvingPoints = [];
 let wellCount = 2;
 let score = 0;
 let wellIdCounter = 0;
+
+// --- CENTRAL SWIPE TIMELINE DISPATCHER ---
+function triggerScreenTransition(loadActionCallback) {
+  if (!swipeOverlay) {
+    loadActionCallback();
+    return;
+  }
+
+  // Cycle classes to instantly re-fire CSS Keyframe parameters
+  swipeOverlay.classList.remove('animate-swipe');
+  void swipeOverlay.offsetWidth;
+  swipeOverlay.classList.add('animate-swipe');
+
+  // At exactly 500ms, the screen is covered completely. Swap level data behind the shield.
+  setTimeout(() => {
+    if (loadActionCallback) loadActionCallback();
+  }, 500);
+
+  // Clear layout properties safely when animation concludes
+  setTimeout(() => {
+    swipeOverlay.classList.remove('animate-swipe');
+  }, 1250);
+}
 
 // --- DYNAMIC OBSTACLE RESOLVER ---
 function generateDynamicObstacles(levelObstacles) {
@@ -219,7 +243,7 @@ function buildLevelSelectMenu() {
     btn.style.cssText = `padding: 12px; border: none; border-radius: 8px; background: #2E9DF7; color: white; font-weight: bold; cursor: pointer;`;
     btn.addEventListener('click', () => {
       levelSelectModal.classList.remove('show');
-      loadLevel(index);
+      triggerScreenTransition(() => loadLevel(index));
     });
     levelGrid.appendChild(btn);
   });
@@ -263,6 +287,27 @@ function handleDragging(event) {
   event.preventDefault();
 }
 
+// --- MILESTONE TOAST NOTIFICATION RENDERER ---
+function showMilestoneToast() {
+  const toast = document.createElement('div');
+  toast.className = 'cw-toast';
+  toast.innerHTML = `
+    <div class="cw-toast-title">Milestone</div>
+    <div class="cw-toast-short">Halfway There!</div>
+    <div class="cw-toast-long">Complete half of all levels.</div>
+  `;
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.classList.add('show');
+  }, 100);
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 400);
+  }, 4500);
+}
+
 function stopDragging(event) {
   if (!isDragging || (activePointerId !== null && event.pointerId !== activePointerId)) return;
   isDragging = false;
@@ -290,13 +335,14 @@ function getSvgPointFromClient(clientX, clientY) {
 }
 
 function getPointFromEvent(event) { return getSvgPointFromClient(event.clientX, event.clientY); }
+
+/* FIXED: Re-inserted rect.top instead of the accidentally missing global property text clipping */
 function getElementCenterPoint(element) {
   const rect = element.getBoundingClientRect();
   return getSvgPointFromClient(rect.left + rect.width / 2, rect.top + rect.height / 2);
 }
 
 function rotatePoint(point, angleDegrees) {
-  // Constant calculations center point matching viewBox boundaries exactly
   const centerX = 230;
   const centerY = 230;
   const radians = angleDegrees * Math.PI / 180;
@@ -345,7 +391,6 @@ function updateCarving(event) {
   let collidedObs = null;
 
   for (const obs of obstacles) {
-    // Generous rock hitbox evaluation threshold metric pinned to 14 pixels
     if (Math.hypot(localPoint.x - getObstacleLocalPos(obs).x, localPoint.y - getObstacleLocalPos(obs).y) < 14) {
       hitObstacle = true;
       collidedObs = obs;
@@ -421,10 +466,31 @@ function checkForWin() {
   triggerConfetti();
   playSFX(sfxSuccess);
 
+  // --- LOCAL COMPLETED LEVEL TRACKER DISPATCH ENGINE ---
+  let completedLevels = [];
+  try {
+    completedLevels = JSON.parse(localStorage.getItem('cw_completed_levels') || '[]');
+  } catch(e) { completedLevels = []; }
+
+  if (!completedLevels.includes(currentLevelIndex)) {
+    completedLevels.push(currentLevelIndex);
+    localStorage.setItem('cw_completed_levels', JSON.stringify(completedLevels));
+    localStorage.setItem('cw_completed_levels_count', completedLevels.length);
+  }
+
+  const targetThreshold = Math.floor(LEVELS.length / 2);
+  if (completedLevels.length === targetThreshold && !localStorage.getItem('cw_milestone_triggered')) {
+    localStorage.setItem('cw_milestone_triggered', 'true');
+    showMilestoneToast();
+  }
+
   if (currentLevelIndex < LEVELS.length - 1) {
     modalTitle.textContent = "🎉 Level Complete!";
     modalActionButton.textContent = "Next Level";
-    modalActionButton.onclick = () => { winModal.classList.remove("show"); loadLevel(currentLevelIndex + 1); };
+    modalActionButton.onclick = () => {
+      winModal.classList.remove("show");
+      triggerScreenTransition(() => loadLevel(currentLevelIndex + 1));
+    };
   } else {
     modalTitle.textContent = "🏆 Campaign Victory!";
     modalActionButton.textContent = "Open Main Menu";
@@ -455,7 +521,6 @@ function finishCarving(event) {
     score += calculatePathLength(finishedPoints);
     updateScoreDisplay();
 
-    // Elastic quick scale pulse animation on the score badge
     if (scoreDisplay) {
       scoreDisplay.animate([
         { transform: 'scale(1)' },
@@ -512,7 +577,6 @@ function placeWell() {
   updateWellCountDisplay(); updateScoreDisplay();
   wellTool.disabled = wellCount <= 0;
 
-  // Elastic quick scale pulse animation on the well counter element
   if (wellCountDisplay) {
     wellCountDisplay.animate([
       { transform: 'scale(1)' },
@@ -525,7 +589,7 @@ function placeWell() {
   checkForWin();
 }
 
-// Bind Canvas Event Loops — CHANGED: Bind to world node instead of gameArea container to isolate drag input zone
+// Bind Canvas Event Loops (Isolate touch locking inputs specifically onto world viewport layer)
 world.addEventListener('pointerdown', startDragging);
 world.addEventListener('pointerdown', beginCarving);
 window.addEventListener('pointermove', handleDragging);
@@ -541,7 +605,9 @@ document.addEventListener('keydown', (event) => {
   if (event.key === 'ArrowLeft') { rotateBy(-8); event.preventDefault(); }
 });
 
-restartButton.addEventListener('click', () => loadLevel(currentLevelIndex));
+restartButton.addEventListener('click', () => {
+  triggerScreenTransition(() => loadLevel(currentLevelIndex));
+});
 
 // --- GLOBAL DELEGATED BUTTON INTERACTIONS CONTROLLER ---
 document.addEventListener('click', (event) => {
@@ -599,7 +665,7 @@ diffOptions.forEach(btn => {
     currentDifficulty = btn.getAttribute('data-diff');
     menuDiffSelectBtn.textContent = `Difficulty: ${btn.textContent.split(' ')[0]}`;
     diffSelectModal.classList.remove('show');
-    loadLevel(currentLevelIndex);
+    triggerScreenTransition(() => loadLevel(currentLevelIndex));
   });
 });
 
